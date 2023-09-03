@@ -63,7 +63,11 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public void update(User user) {
+		String sql = "UPDATE users " +
+			"SET name = :name, birth = :birth, password = :password, phoneNum = :phoneNum, accountNum = :accountNum " +
+			"WHERE user_id = :userId";
 
+		jdbcTemplate.update(sql, mapUserToSqlParam(user));
 	}
 
 	private MapSqlParameterSource mapUserToSqlParam(User user) {
