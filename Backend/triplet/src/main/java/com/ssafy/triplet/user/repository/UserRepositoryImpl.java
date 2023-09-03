@@ -33,17 +33,8 @@ public class UserRepositoryImpl implements UserRepository {
 		String sql = "INSERT INTO users (name, birth, email, password, phoneNum, accountNum) " +
 			"VALUES (:name, :birth, :email, :password, :phoneNum, :accountNum)";
 
-		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-		paramMap
-			.addValue("email", user.getEmail())
-			.addValue("name", user.getName())
-			.addValue("birth", user.getBirth())
-			.addValue("password", user.getPassword())
-			.addValue("phoneNum", user.getPhoneNum())
-			.addValue("accountNum", user.getAccountNum());
-
 		if (!isExistUserByUserId(user.getUserId())) {
-			jdbcTemplate.update(sql, paramMap);
+			jdbcTemplate.update(sql, mapUserToSqlParam(user));
 			return Optional.of(user);
 		}
 		throw new BaseException(ErrorCode.EMAIL_DUPLICATED_ERROR);
@@ -73,5 +64,17 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public void update(User user) {
 
+	}
+
+	private MapSqlParameterSource mapUserToSqlParam(User user) {
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap
+			.addValue("email", user.getEmail())
+			.addValue("name", user.getName())
+			.addValue("birth", user.getBirth())
+			.addValue("password", user.getPassword())
+			.addValue("phoneNum", user.getPhoneNum())
+			.addValue("accountNum", user.getAccountNum());
+		return paramMap;
 	}
 }
