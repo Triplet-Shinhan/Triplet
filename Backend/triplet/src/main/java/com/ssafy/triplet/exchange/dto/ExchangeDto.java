@@ -1,6 +1,15 @@
 package com.ssafy.triplet.exchange.dto;
 
-import lombok.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -8,13 +17,29 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExchangeDto {
-    private long currency;
 
-    private float rate;
+    private int resultCode;
+    private DataBody dataBody;
 
-    private Long unit;
+    @Data
+    public static class DataBody {
+        private int ListNum;
+        private List<String> currencyList;
+        private List<ExchangeData> exchangeData;
+    }
 
-    private String benefitRate;
+    @Data
+    private static class ExchangeData {
+        @JsonAlias("통화코드")
+        private long currencyCode;
 
+        @JsonAlias("환율")
+        private float exchangeRate;
 
+        @JsonAlias("환전신청단위")
+        private long exchangeUnit;
+
+        @JsonAlias("우대율")
+        private String preferentialRate;
+    }
 }
