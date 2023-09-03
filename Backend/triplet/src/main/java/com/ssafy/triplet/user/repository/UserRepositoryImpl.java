@@ -58,7 +58,13 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public Optional<User> findByUserId(Long userId) {
+		String sql = "SELECT * FROM users WHERE user_id = :user_id";
 
+		MapSqlParameterSource paramMap = new MapSqlParameterSource()
+			.addValue("user_id", userId);
+
+		List<User> users = jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(User.class));
+		return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
 	}
 
 	@Override
