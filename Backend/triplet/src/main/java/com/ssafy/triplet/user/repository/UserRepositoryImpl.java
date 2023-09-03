@@ -30,7 +30,23 @@ public class UserRepositoryImpl implements UserRepository {
 	@Transactional
 	@Override
 	public Optional<User> save(final User user) {
+		String sql = "INSERT INTO users (name, birth, email, password, phoneNum, accountNum) " +
+			"VALUES (:name, :birth, :email, :password, :phoneNum, :accountNum)";
 
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap
+			.addValue("email", user.getEmail())
+			.addValue("name", user.getName())
+			.addValue("birth", user.getBirth())
+			.addValue("password", user.getPassword())
+			.addValue("phoneNum", user.getPhoneNum())
+			.addValue("accountNum", user.getAccountNum());
+
+		if (!isExistUserByUserId(user.getUserId())) {
+			jdbcTemplate.update(sql, paramMap);
+			return Optional.of(user);
+		}
+		throw new BaseException(ErrorCode.EMAIL_DUPLICATED_ERROR);
 	}
 
 	private boolean isExistUserByUserId(final Long userId) {
