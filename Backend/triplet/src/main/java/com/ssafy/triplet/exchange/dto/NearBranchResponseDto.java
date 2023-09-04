@@ -17,7 +17,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NearBranchDto {
+public class NearBranchResponseDto {
 
     private int resultCode;
     private int listNum;
@@ -25,22 +25,17 @@ public class NearBranchDto {
 
     @Data
     private static class BranchInfo {
-        @JsonAlias("지역명")
-        private String areaName;
 
-        @JsonAlias("지역코드")
+        private String branchName;
+
         private String areaCode;
 
-        @JsonAlias("지점주소")
         private String address;
 
-        @JsonAlias("지점대표전화번호")
         private String telNumber;
 
-        @JsonAlias("지점위도")
         private Double latitude;
 
-        @JsonAlias("지점경도")
-        private Double longtitude;
+        private Double longitude;
     }
 }

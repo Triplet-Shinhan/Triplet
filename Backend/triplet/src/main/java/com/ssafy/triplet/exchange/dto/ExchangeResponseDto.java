@@ -16,7 +16,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExchangeDto {
+public class ExchangeResponseDto {
 
     private int resultCode;
     private DataBody dataBody;
@@ -30,16 +30,13 @@ public class ExchangeDto {
 
     @Data
     private static class ExchangeData {
-        @JsonAlias("통화코드")
+
         private Long currencyCode;
 
-        @JsonAlias("환율")
         private Float exchangeRate;
 
-        @JsonAlias("환전신청단위")
         private Long exchangeUnit;
 
-        @JsonAlias("우대율")
         private String preferentialRate;
     }
 }

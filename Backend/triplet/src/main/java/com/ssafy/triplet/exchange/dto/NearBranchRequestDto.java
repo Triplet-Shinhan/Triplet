@@ -10,6 +10,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class NearBranchRequestDto {
-    private final Double latitude, longtitude;
+    private final Double latitude, longitude;
     private final String currency;
 }
