@@ -38,9 +38,9 @@ public class NearBranchDto {
         private String telNumber;
 
         @JsonAlias("지점위도")
-        private double latitude;
+        private Double latitude;
 
         @JsonAlias("지점경도")
-        private double longtitude;
+        private Double longtitude;
     }
 }

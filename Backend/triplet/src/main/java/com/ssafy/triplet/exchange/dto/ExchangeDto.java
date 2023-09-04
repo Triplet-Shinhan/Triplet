@@ -31,13 +31,13 @@ public class ExchangeDto {
     @Data
     private static class ExchangeData {
         @JsonAlias("통화코드")
-        private long currencyCode;
+        private Long currencyCode;
 
         @JsonAlias("환율")
-        private float exchangeRate;
+        private Float exchangeRate;
 
         @JsonAlias("환전신청단위")
-        private long exchangeUnit;
+        private Long exchangeUnit;
 
         @JsonAlias("우대율")
         private String preferentialRate;
