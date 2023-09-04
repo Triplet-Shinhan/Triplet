@@ -1,13 +1,10 @@
 package com.ssafy.triplet.user.repository;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.ssafy.triplet.user.domain.User;
 
-public interface UserRepository {
-	Optional<User> save(User user);
-	List<User> findAll();
-	Optional<User> findByUserId(Long userId);
-	void update(User user);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 }
