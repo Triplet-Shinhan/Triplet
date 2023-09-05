@@ -2,17 +2,20 @@ package com.ssafy.triplet.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triplet.user.domain.User;
 import com.ssafy.triplet.user.repository.UserRepository;
 
-@RestController
+// @RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
+	// private final UserService userService;
 	private final UserRepository userRepository;
 
 	@Autowired
@@ -20,7 +23,12 @@ public class UserController {
 		this.userRepository = userRepository;
 	}
 
-	@PostMapping("/login")
+	@GetMapping("/signup")
+	public String signup() {
+		return "signup";
+	}
+
+	@PostMapping("/signup")
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		userRepository.save(user);
 		return ResponseEntity.ok("User saved successfully");
