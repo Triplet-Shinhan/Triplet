@@ -2,13 +2,19 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
+import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 import com.ssafy.triplet.parser.dto.rateParser.RateReqDto;
 import com.ssafy.triplet.parser.dto.rateParser.RateResDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+
 @Component
 public class WebClientUtil {
+    @Value("${parser.api-key}")
+    private String apiKey;
 
     private final WebClient webClient;
 
@@ -18,11 +24,11 @@ public class WebClientUtil {
 
 
     //우대율 api 반환하는 메소드
-    public RateResDto getRate() {
+    public List<CurrencyRate> getPreferentialRate() {
         String url = "https://shbhack.shinhan.com/v1/search/fx/discount-rate";
 
         DataHeaderRequest dataHeader = new DataHeaderRequest();
-        dataHeader.setApikey("2023_Shinhan_SSAFY_Hackathon");
+        dataHeader.setApikey(apiKey);
 
         DataBodyRequest dataBody = new DataBodyRequest();
         dataBody.setServiceCode("T0501");
@@ -31,13 +37,17 @@ public class WebClientUtil {
         RateReqDto rateReqDto = new RateReqDto();
         rateReqDto.setDataHeader(dataHeader);
         rateReqDto.setDataBody(dataBody);
-
-        return webClient.post()
+        RateResDto rateResDto=webClient.post()
                 .uri(url)
                 .header("Content-Type", "application/json; charset=UTF-8")
                 .bodyValue(rateReqDto)
                 .retrieve()
                 .bodyToMono(RateResDto.class)
                 .block();
+
+        //에러처리
+
+
+        return rateResDto.getRateDataBody().getCurrencyRate();
     }
 }
