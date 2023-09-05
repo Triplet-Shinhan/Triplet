@@ -2,6 +2,9 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
+import com.ssafy.triplet.parser.dto.currency.Currency;
+import com.ssafy.triplet.parser.dto.currency.CurrencyReqDto;
+import com.ssafy.triplet.parser.dto.currency.CurrencyResDto;
 import com.ssafy.triplet.parser.dto.exchangeBranch.Branch;
 import com.ssafy.triplet.parser.dto.exchangeBranch.BranchReqDataBody;
 import com.ssafy.triplet.parser.dto.exchangeBranch.BranchReqDto;
@@ -145,5 +148,30 @@ public class WebClientUtil {
         //에러처리
 
         return exchangeRateResDto.getDataBody().getExchangeRateList();
+    }
+
+
+    public List<Currency> getAllCurrency(){
+        String url = "https://shbhack.shinhan.com/v1/search/fx/currencycode";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+        DataBodyRequest currencyReqDataBody= new DataBodyRequest();
+        currencyReqDataBody.setServiceCode("T0503");
+
+        CurrencyReqDto currencyReqDto = new CurrencyReqDto();
+        currencyReqDto.setDataHeader(dataHeader);
+        currencyReqDto.setDataBody(currencyReqDataBody);
+
+        CurrencyResDto currencyResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(currencyReqDto)
+                .retrieve()
+                .bodyToMono(CurrencyResDto.class)
+                .block();
+
+        return currencyResDto.getCurrencyDataBody().getCurrencyList();
     }
 }
