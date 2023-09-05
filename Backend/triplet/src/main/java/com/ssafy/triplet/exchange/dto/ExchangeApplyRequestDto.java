@@ -9,4 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExchangeApplyRequestDto {
     private String currency;
+
+    private Long amount;
+
+    private String location;
+
+    private String receiptDate;
+
+    private Integer receiveWay;
 }

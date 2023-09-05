@@ -21,19 +21,4 @@ public class NearBranchResponseDto {
     private int listNum;
     private List<BranchInfo> dataList;
 
-    @Data
-    private static class BranchInfo {
-
-        private String branchName;
-
-        private String areaCode;
-
-        private String address;
-
-        private String telNumber;
-
-        private Double latitude;
-
-        private Double longitude;
-    }
 }
