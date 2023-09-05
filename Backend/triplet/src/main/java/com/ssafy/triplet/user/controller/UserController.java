@@ -44,4 +44,10 @@ public class UserController {
 			})
 			.orElse("login");// 그대로 로그인 페이지
 	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "index";
+	}
 }
