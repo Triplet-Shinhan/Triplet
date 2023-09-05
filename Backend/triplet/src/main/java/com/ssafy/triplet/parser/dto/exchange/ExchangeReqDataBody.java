@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Exchange {
+public class ExchangeReqDataBody {
     @JsonProperty("serviceCode")
     private String serviceCode;
 
