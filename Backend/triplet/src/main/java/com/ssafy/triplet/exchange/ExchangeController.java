@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
-import com.ssafy.triplet.exchange.dto.ExchangeResultsRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
