@@ -25,16 +25,4 @@ public class ExchangeResponseDto {
         private List<String> currencyList;
         private List<ExchangeData> exchangeData;
     }
-
-    @Data
-    private static class ExchangeData {
-
-        private Long currencyCode;
-
-        private Float exchangeRate;
-
-        private Long exchangeUnit;
-
-        private String preferentialRate;
-    }
 }

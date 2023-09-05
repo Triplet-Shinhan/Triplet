@@ -39,8 +39,7 @@ public class ExchangeController {
     }
 
     @GetMapping("/results")
-    public ExchangeResultsResponseDto getExchangeResults(
-            @RequestBody ExchangeResultsRequestDto exchangeResultsRequestDto) {
-        return exchangeService.getExchangeResults(exchangeResultsRequestDto);
+    public ExchangeResultsResponseDto getExchangeResults() {
+        return exchangeService.getExchangeResults();
     }
 }
