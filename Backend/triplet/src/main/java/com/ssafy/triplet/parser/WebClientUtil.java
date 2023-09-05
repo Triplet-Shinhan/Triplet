@@ -2,7 +2,11 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
-import com.ssafy.triplet.parser.dto.exchange.Exchange;
+import com.ssafy.triplet.parser.dto.ExchangeBranch.Branch;
+import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchReqDataBody;
+import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchReqDto;
+import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchResDto;
+import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDto;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeResDto;
@@ -60,18 +64,18 @@ public class WebClientUtil {
 
 
     //환전신청 api
-    public ExchangeDataBody createExchange(Exchange exchange){
+    public ExchangeDataBody createExchange(ExchangeReqDataBody exchangeReqDataBody){
         String url = "https://shbhack.shinhan.com/v1/request/fx";
         //헤더 설정
         DataHeaderRequest dataHeader = new DataHeaderRequest();
         dataHeader.setApikey(apiKey);
         //요청body 설정
-        exchange.setServiceCode("T0511");
+        exchangeReqDataBody.setServiceCode("T0511");
 
         // API 요청 객체 설정
         ExchangeReqDto exchangeReqDto = new ExchangeReqDto();
         exchangeReqDto.setDataHeader(dataHeader);
-        exchangeReqDto.setDataBody(exchange);
+        exchangeReqDto.setDataBody(exchangeReqDataBody);
 
         ExchangeResDto exchangeResDto=webClient.post()
                 .uri(url)
@@ -84,6 +88,32 @@ public class WebClientUtil {
         //에러처리
 
         return exchangeResDto.getExchangeDataBody();
+    }
 
+    public List<Branch> getBranchName(String currency){
+        String url = "https://shbhack.shinhan.com/v1/search/branch/city";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+        BranchReqDataBody branchReqDataBody= new BranchReqDataBody();
+        branchReqDataBody.setCurrency(currency);
+        branchReqDataBody.setServiceCode("T0506");
+
+        BranchReqDto branchReqDto = new BranchReqDto();
+        branchReqDto.setDataHeader(dataHeader);
+        branchReqDto.setDataBody(branchReqDataBody);
+
+        BranchResDto branchResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(branchReqDto)
+                .retrieve()
+                .bodyToMono(BranchResDto.class)
+                .block();
+
+        //에러처리
+
+        return branchResDto.getDataBody().getBranchList();
     }
 }
