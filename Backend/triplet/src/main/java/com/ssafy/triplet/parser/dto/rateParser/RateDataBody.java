@@ -11,6 +11,6 @@ public class RateDataBody {
     private String listCount;
 
     @JsonProperty("리스트")
-    private List<RateList> rateLists;
+    private List<CurrencyRate> currencyRate;
 
 }
