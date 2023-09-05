@@ -1,10 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
+import { useBankApi } from '../../../context/BankAccountApiContext';
 import './Signup.scss';
 
 import React, { useState } from 'react';
 
 // To do
 // 백으로 쿼리 보내기
-//
+// 계좌 확인 후 인증 완료되면 회원가입 할 수 있도록 변경하기
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -12,6 +14,9 @@ export default function Signup() {
   const [birth, setBirth] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [account, setAccount] = useState(0);
+
+  const { bank } = useBankApi();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,30 +61,27 @@ export default function Signup() {
     setBirth('');
     setPhone('');
     setPassword('');
+  }; // handleSubmit 끝
+
+  // 이름이랑 계좌번호 같은지 확인하는 함수
+  const handleAccount = (e) => {
+    e.preventDefault();
+    const { isLoading, error, data } = useQuery(
+      ['', { name, account }],
+      () => {
+        return bank.verifyBankAccount(name, account);
+      },
+      { staleTime: 1000 * 60 * 1 }
+    );
   };
 
   // 값이 변할 때 추적하기 위한 함수
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleChange = (e, setter) => {
+    console.log(e.target.value);
+    setter(e.target.value);
   };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleBirthChange = (e) => {
-    setBirth(e.target.value);
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  // 비밀번호가 동일한지 확인하기 위한 함수
+  // 비밀번호가 같은지 확인하기 위한 함수
   const handleRight = (e) => {
     if (e.target.value === password) {
       console.log('같은 비밀번호입니다.');
@@ -94,31 +96,31 @@ export default function Signup() {
           type="email"
           placeholder="이메일"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => handleChange(e, setEmail)}
         />
         <input
           type="text"
           placeholder="이름"
           value={name}
-          onChange={handleNameChange}
+          onChange={(e) => handleChange(e, setName)}
         />
         <input
           type="text"
           placeholder="생년월일 8글자"
           value={birth}
-          onChange={handleBirthChange}
+          onChange={(e) => handleChange(e, setBirth)}
         />
         <input
           type="text"
           placeholder="전화번호(-제외)"
           value={phone}
-          onChange={handlePhoneChange}
+          onChange={(e) => handleChange(e, setPhone)}
         />
         <input
           type="password"
           placeholder="비밀번호"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => handleChange(e, setPassword)}
         />
         <input
           type="password"
@@ -127,8 +129,12 @@ export default function Signup() {
         />
         <button>회원가입</button>
       </form>
-      <form action="post" type="submit">
-        <input type="number" placeholder="계좌번호(-제외)" />
+      <form action="post" onSubmit={handleAccount}>
+        <input
+          type="number"
+          placeholder="계좌번호(-제외)"
+          onChange={(e) => handleChange(e, setAccount)}
+        />
         <button>인증</button>
       </form>
       <form action="post" type="submit">
