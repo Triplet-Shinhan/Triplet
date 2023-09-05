@@ -2,10 +2,10 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
-import com.ssafy.triplet.parser.dto.ExchangeBranch.Branch;
-import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchReqDataBody;
-import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchReqDto;
-import com.ssafy.triplet.parser.dto.ExchangeBranch.BranchResDto;
+import com.ssafy.triplet.parser.dto.exchangeBranch.Branch;
+import com.ssafy.triplet.parser.dto.exchangeBranch.BranchReqDataBody;
+import com.ssafy.triplet.parser.dto.exchangeBranch.BranchReqDto;
+import com.ssafy.triplet.parser.dto.exchangeBranch.BranchResDto;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDto;

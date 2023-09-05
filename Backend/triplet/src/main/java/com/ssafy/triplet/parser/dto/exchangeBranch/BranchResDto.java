@@ -1,10 +1,8 @@
-package com.ssafy.triplet.parser.dto.ExchangeBranch;
+package com.ssafy.triplet.parser.dto.exchangeBranch;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.triplet.parser.dto.DataHeader;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class BranchResDto {

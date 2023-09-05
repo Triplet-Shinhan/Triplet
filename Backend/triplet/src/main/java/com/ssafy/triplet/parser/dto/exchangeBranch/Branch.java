@@ -1,4 +1,4 @@
-package com.ssafy.triplet.parser.dto.ExchangeBranch;
+package com.ssafy.triplet.parser.dto.exchangeBranch;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
