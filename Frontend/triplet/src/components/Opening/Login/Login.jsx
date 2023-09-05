@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.scss';
-
-// To do
-// 백으로 쿼리 보내기
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,7 +20,21 @@ export default function Login() {
     // 정규식 기준에 올바른지 테스트
     if (phoneReg.test(phoneNum) && emailReg.test(email)) {
       // 백으로 쿼리 보내기
-      console.log('로그인 완료');
+      axios
+        .post('http://localhost:8080/login', { email, phoneNum })
+        .then((res) => {
+          console.log(res);
+          // id가 일치하지 않는 경우
+          if (res.data.email === undefined) {
+            console.log('입력하신 id가 일치하지 않습니다');
+            alert('입력하신 id가 일치하지 않습니다.');
+          } else if (res.data.email === null) {
+            console.log('입력하신 비밀번호가 일치하지 않습니다.');
+            alert('입력하신 비밀번호가 일치하지 않습니다.');
+          } else if (res.data.email === email) {
+            sessionStorage.setItem('user_id', email);
+          }
+        });
     } else if (!phoneReg.test(phoneNum)) {
       console.log('휴대폰 번호를 형식에 맞게 입력해주세요.');
       return;
@@ -36,12 +48,8 @@ export default function Login() {
   };
 
   // 값이 변할 때 추적하기 위한 함수
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhoneNum(e.target.value);
+  const handleChange = (e, setter) => {
+    setter(e.target.value);
   };
 
   return (
@@ -54,14 +62,14 @@ export default function Login() {
           type="email"
           placeholder="이메일"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => handleChange(e, setEmail)}
         />
         <input
           id="phoneNum"
           type="text"
           placeholder="전화번호(-를 포함하여 작성해주세요)"
           value={phoneNum}
-          onChange={handlePhoneChange}
+          onChange={(e) => handleChange(e, setPhoneNum)}
         />
         <button>로그인</button>
       </form>
