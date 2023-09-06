@@ -44,7 +44,6 @@ public class User {
 
 	public static User toUpdateUser(UserDto userDto) {
 		User user = new User();
-		user.setUserId(userDto.getUserId());
 		user.setName(userDto.getName());
 		user.setBirth(userDto.getBirth());
 		user.setEmail(userDto.getEmail());
