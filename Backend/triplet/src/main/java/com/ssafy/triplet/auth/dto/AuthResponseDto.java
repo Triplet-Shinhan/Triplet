@@ -6,10 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@ToString
 public class AuthResponseDto {
-    private Long successCode;
-    private String resultCode;
-    private String resultMessage;
+    private String bankCode;
+    private String receiptsAccount;
 }
