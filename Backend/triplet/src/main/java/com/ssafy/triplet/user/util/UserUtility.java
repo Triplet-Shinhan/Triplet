@@ -19,7 +19,4 @@ public class UserUtility {
 			.orElseThrow(() -> new IllegalArgumentException("User not found"));
 		return "name:" + user.getName() + "|email:" + user.getEmail();
 	}
-
-	//1원호출 api 활용하여 검증하는 메서드
-
 }
