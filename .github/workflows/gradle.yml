@@ -18,8 +18,12 @@ permissions:
   contents: read
 
 jobs:
+  
+   
   build:
     runs-on: ubuntu-latest
+    env:
+       working-directory: ./Backend/triplet
     
     steps:
     - uses: actions/checkout@v3
@@ -49,7 +53,7 @@ jobs:
         echo "EC2_HOST=${{secrets.EC2_HOST}}"  >> .env;
         echo "S3_ACCESS_KEY=${{secrets.S3_ACCESS_KEY}}; >> .env;
         echo "S3_SECRET_KEY=${{secrets.S3_SECRET_KEY}}; >> .env;
-        echo "S3_S3_BUCKET=${{secrets.S3_S3_BUCKET}}; >> .env;
+        echo "S3_BUCKET=${{secrets.S3_BUCKET}}; >> .env;
         cat .env;
     - name: Login to DockerHub
       uses: docker/login-action@v2
