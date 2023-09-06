@@ -6,8 +6,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@ToString
 public class AuthRequestDto {
     private String bankCode;
     private String accountNum;
