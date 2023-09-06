@@ -14,6 +14,6 @@ export default class BankAccount {
       .post('', {
         params: {},
       })
-      .then((res) => res.data.items);
+      .then((res) => res.data);
   }
 }
