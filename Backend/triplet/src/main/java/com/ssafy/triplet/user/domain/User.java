@@ -31,18 +31,7 @@ public class User {
 	private String phoneNum;
 	private String accountNum;
 
-	public static User toUserEntity(UserDto userDto) {
-		User user = new User();
-		user.setName(userDto.getName());
-		user.setBirth(userDto.getBirth());
-		user.setEmail(userDto.getEmail());
-		user.setPassword(userDto.getPassword());
-		user.setPhoneNum(userDto.getPhoneNum());
-		user.setAccountNum(userDto.getAccountNum());
-		return user;
-	}
-
-	public static User toUpdateUser(UserDto userDto) {
+	public User toUserEntity(UserDto userDto) {
 		User user = new User();
 		user.setName(userDto.getName());
 		user.setBirth(userDto.getBirth());

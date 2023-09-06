@@ -17,7 +17,7 @@ public class UserService {
 	private final UserRepository userRepository;
 
 	public void signup(UserDto userDto) {
-		User user = User.toUserEntity(userDto);
+		User user = new User().toUserEntity(userDto);
 		userRepository.save(user);
 	}
 
