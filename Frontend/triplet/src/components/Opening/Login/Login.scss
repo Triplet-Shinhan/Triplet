@@ -23,4 +23,11 @@ main {
     display: flex;
     flex-direction: column;
   }
+
+  .signUnable {
+    display: none;
+  }
+  .signAble {
+    display: block;
+  }
 }
