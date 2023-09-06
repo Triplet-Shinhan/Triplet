@@ -2,6 +2,10 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
+import com.ssafy.triplet.parser.dto.checkAccount.AuthRequestDto;
+import com.ssafy.triplet.parser.dto.checkAccount.CheckAccount;
+import com.ssafy.triplet.parser.dto.checkAccount.CheckAccountReqDto;
+import com.ssafy.triplet.parser.dto.checkAccount.CheckAccountResDto;
 import com.ssafy.triplet.parser.dto.currency.Currency;
 import com.ssafy.triplet.parser.dto.currency.CurrencyReqDto;
 import com.ssafy.triplet.parser.dto.currency.CurrencyResDto;
@@ -173,5 +177,28 @@ public class WebClientUtil {
                 .block();
 
         return currencyResDto.getCurrencyDataBody().getCurrencyList();
+    }
+
+    //1원 이체
+    public CheckAccount checkAccount(AuthRequestDto authRequestDto){
+        String url = "https://shbhack.shinhan.com/v1/auth/1transfer";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+
+        CheckAccountReqDto checkAccountReqDto = new CheckAccountReqDto();
+        checkAccountReqDto.setDataHeader(dataHeader);
+        checkAccountReqDto.setDataBody(authRequestDto);
+
+        CheckAccountResDto checkAccountResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(checkAccountReqDto )
+                .retrieve()
+                .bodyToMono(CheckAccountResDto.class)
+                .block();
+
+        return checkAccountResDto.getCheckAccount();
     }
 }
