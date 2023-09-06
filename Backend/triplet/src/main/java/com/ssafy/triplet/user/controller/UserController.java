@@ -53,7 +53,8 @@ public class UserController {
 			Cookie idCookie = new Cookie("login_user", userUtility.getStringForCookie(loginDto));
 			response.setContentType("text/html; charset=UTF-8");
 			response.addCookie(idCookie);
-			return "api/trips"; //프로젝트 조회 페이지로 이동
+//			return "api/trips"; //프로젝트 조회 페이지로 이동
+			return "main";
 		}
 
 		bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
@@ -62,9 +63,10 @@ public class UserController {
 
 	@PostMapping("/logout")
 	public String logout(HttpServletResponse response) {
-		Cookie cookie = new Cookie("userId", null);
+		Cookie cookie = new Cookie("login_user", null);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/";
+		return "index";
+//		return "redirect:/";
 	}
 }
