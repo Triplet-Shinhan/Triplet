@@ -21,7 +21,11 @@ export default function Login() {
     if (phoneReg.test(phoneNum) && emailReg.test(email)) {
       // 백으로 쿼리 보내기
       axios
-        .post('http://localhost:8080/login', { email, phoneNum })
+        .post('http://localhost:8080/users/login', {
+          withCredentials: true,
+          email,
+          phoneNum,
+        })
         .then((res) => {
           console.log(res);
           // id가 일치하지 않는 경우
@@ -42,6 +46,7 @@ export default function Login() {
       console.log('이메일 형식에 맞게 입력해주세요.');
       return;
     }
+
     // 폼 보내고 난 후 초기화
     setEmail('');
     setPhoneNum('');
