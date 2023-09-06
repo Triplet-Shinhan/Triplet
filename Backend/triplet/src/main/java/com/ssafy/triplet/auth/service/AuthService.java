@@ -28,4 +28,16 @@ public class AuthService {
 		String randomWord = authUtility.getRandomWord();
 		return Optional.of(null);
 	}
+
+	public void requestOneTransfer(OneTransferRequestDto request) {
+		String url = "https://shbhack.shinhan.com/v1/auth/1transfer";
+
+		//헤더 설정
+
+	}
+
+	public boolean getOneTransferResult() {
+
+		return false;
+	}
 }
