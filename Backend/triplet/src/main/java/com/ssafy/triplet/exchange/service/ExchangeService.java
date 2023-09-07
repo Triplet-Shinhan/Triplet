@@ -101,7 +101,7 @@ public class ExchangeService {
     }
 
     // 현재 사용자의 위치 기반 가까운 순서로 목록을 반환하는 메소드
-    public NearBranchResponseDto getNearBranch(@RequestBody NearBranchRequestDto nbrReq) {
+    public NearBranchResponseDto getNearBranch(NearBranchRequestDto nbrReq) {
 
         // 응답 객체
         NearBranchResponseDto nbrRes = new NearBranchResponseDto();

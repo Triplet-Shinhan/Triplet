@@ -28,7 +28,7 @@ public class ExchangeController {
     }
 
     @GetMapping("/locations")
-    public NearBranchResponseDto getBranchLocation(NearBranchRequestDto nearBranchRequest) {
+    public NearBranchResponseDto getBranchLocation(@RequestBody NearBranchRequestDto nearBranchRequest) {
         return exchangeService.getNearBranch(nearBranchRequest);
     }
 
