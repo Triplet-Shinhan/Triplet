@@ -39,7 +39,7 @@ jobs:
       
       #Build
     - name: Build with Gradle
-      run : ./gradlew clean build --exclude-task test
+      run : ./Backend/triplet/gradlew clean build --exclude-task test
       
       
     - name: Rename jar for deploy
