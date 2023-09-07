@@ -43,6 +43,9 @@ jobs:
       run : ./gradlew clean build --exclude-task test
       working-directory: ${{ env.working-directory }}
       
+    - name: Check contents of build/libs
+      run: ls -la build/libs/
+      
     - name: Rename jar for deploy
       run: mv build/libs/triplet-0.0.1-SNAPSHOT.jar build/libs/app.jar
 
@@ -62,8 +65,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }} 
     
-    - name: Check contents of build/libs
-      run: ls -la build/libs/
+   
     
     - name: docker file Build and push
       uses: docker/build-push-action@v3
