@@ -1,8 +1,9 @@
 package com.ssafy.triplet.auth.controller;
 
-import com.ssafy.triplet.auth.dto.AuthResponseDto;
 import com.ssafy.triplet.auth.dto.OneTransferRequestDto;
 import com.ssafy.triplet.auth.service.AuthService;
+import com.ssafy.triplet.auth.util.AuthUtility;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/v1/auth")
 public class AuthController {
     private final AuthService authService;
-
+    private final AuthUtility authUtility;
     @PostMapping("1transfer")
     public String transferOne(@Validated @ModelAttribute OneTransferRequestDto oneTransferRequestDto) {
-        authService.requestOneTransfer(oneTransferRequestDto);
-        AuthResponseDto response = authService.getOneTransferResponse(oneTransferRequestDto).orElse(null);
-        return "";
+        String memo = authUtility.getRandomWord();
+        authService.sendOne(oneTransferRequestDto, memo);
+        return memo;
     }
 }
