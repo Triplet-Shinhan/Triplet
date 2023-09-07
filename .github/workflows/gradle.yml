@@ -120,5 +120,5 @@ jobs:
             sudo docker stop triplet-container || true && sudo docker rm triplet-container || true
             sudo docker rmi ojin/triplet-server:latest || true
             sudo docker pull ojin/triplet-server:latest
-            sudo docker run -d --name triplet-container -p 8080:10134 --env-file .env ojin/triplet-server
+            sudo docker run -d --name triplet-container -p 8080:8080 --env-file .env ojin/triplet-server
             sudo docker ps -a
