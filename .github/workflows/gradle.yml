@@ -35,12 +35,13 @@ jobs:
         distribution: 'temurin'
         
     - name: Grant execute permission for gradlew
-      run: chmod +x ./Backend/triplet/gradlew
+      run: chmod +x gradlew
+      working-directory: ${{ env.working-directory }}
       
       #Build
     - name: Build with Gradle
-      run : ./Backend/triplet/gradlew clean build --exclude-task test
-      
+      run : ./gradlew clean build --exclude-task test
+      working-directory: ${{ env.working-directory }}
       
     - name: Rename jar for deploy
       run: mv build/libs/triplet-0.0.1-SNAPSHOT.jar build/libs/app.jar
