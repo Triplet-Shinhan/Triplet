@@ -1,43 +1,24 @@
 package com.ssafy.triplet.auth.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
-import com.ssafy.triplet.auth.dto.AuthResponseDto;
 import com.ssafy.triplet.auth.dto.OneTransferRequestDto;
-import com.ssafy.triplet.auth.util.AuthUtility;
+import com.ssafy.triplet.parser.WebClientUtil;
+import com.ssafy.triplet.parser.dto.checkAccount.AuthRequestDto;
 
 import lombok.RequiredArgsConstructor;
-
-/*
-1. 프론트에서 (“이름”,”계좌번호”) 백엔드단으로 전송하고 백엔드에서 랜덤한 입금자명 알려줌
-2. 백에서 해당정보로 신한api(입금자명은 백에서지정)에 전송
-3. 신한api는 해당계좌로 1원이체
-4. 사용자는 프론트단에서 입금자명입력
-5. 프론트는 사용자입력이 맞는지 확인
- */
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-	private AuthUtility authUtility;
+	private final WebClientUtil webClientUtil;
+	private final String SHINHAN_BANKCODE = "088";
 
-	//1원이체 api
-	public Optional<AuthResponseDto> getOneTransferResponse(OneTransferRequestDto oneTransferDto) {
-		String randomWord = authUtility.getRandomWord();
-		return Optional.of(null);
-	}
-
-	public void requestOneTransfer(OneTransferRequestDto request) {
-		String url = "https://shbhack.shinhan.com/v1/auth/1transfer";
-
-		//헤더 설정
-
-	}
-
-	public boolean getOneTransferResult() {
-
-		return false;
+	public void sendOne(OneTransferRequestDto request, String memo) {
+		AuthRequestDto authRequestDto = new AuthRequestDto();
+		authRequestDto.setBankCode(SHINHAN_BANKCODE);
+		authRequestDto.setAccountNum(request.getAccount());
+		authRequestDto.setMemo(memo);
+		webClientUtil.checkAccount(authRequestDto);
 	}
 }
