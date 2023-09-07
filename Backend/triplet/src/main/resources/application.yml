@@ -25,6 +25,9 @@ spring:
   thymeleaf:
     cache: false
 
+  session:
+    store-type: jdbc
+
   # spring data jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -32,5 +35,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
   parser:
     api-key: "2023_Shinhan_SSAFY_Hackathon"
