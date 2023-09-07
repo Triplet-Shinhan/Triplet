@@ -42,9 +42,13 @@ jobs:
     - name: Build with Gradle
       run : ./gradlew clean build --exclude-task test
       working-directory: ${{ env.working-directory }}
-      
+
+    - name: Show current working directory
+      run: pwd
+         
     - name: Check contents of build/libs
       run: ls -la build/libs/
+      working-directory: ${{ env.working-directory }}
       
     - name: Rename jar for deploy
       run: mv build/libs/triplet-0.0.1-SNAPSHOT.jar build/libs/app.jar
