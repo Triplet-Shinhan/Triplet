@@ -76,7 +76,8 @@ jobs:
     - name: docker file Build and push
       uses: docker/build-push-action@v3
       with:
-          context: .
+          context: ./Backend/triplet
+          dockerfile: ./Backend/triplet/Dockerfile
           push: true
           tags: ojin/triplet-server:latest
           
