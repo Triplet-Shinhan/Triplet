@@ -1,10 +1,15 @@
 package com.ssafy.triplet.exchange.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.ssafy.triplet.exchange.dto.BranchInfo;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeCodeData;
@@ -13,16 +18,20 @@ import com.ssafy.triplet.exchange.dto.ExchangeRateDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
+import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
+import com.ssafy.triplet.exchange.util.ExchangeUtil;
 import com.ssafy.triplet.parser.WebClientUtil;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 
 @Service
 public class ExchangeService {
     private final WebClientUtil webClientUtil;
+    private final ExchangeUtil exchangeUtil;
 
-    public ExchangeService(WebClientUtil webClientUtil) {
+    public ExchangeService(WebClientUtil webClientUtil, ExchangeUtil exchangeUtil) {
         this.webClientUtil = webClientUtil;
+        this.exchangeUtil = exchangeUtil;
     }
 
     public ExchangeResponseDto getRate(String currency) {
@@ -33,11 +42,13 @@ public class ExchangeService {
         // 신한 api로 부터 데이터를 가지고 온다.
 
         // todo : 현재 표시 가능한 모든 통화코드를 가지고 온다.
-        List<ExchangeCodeData> currencyCodes = webClientUtil.get_____(); // 최소 단위 가져오기 위함
+        List<ExchangeCodeData> currencyCodes = webClientUtil.getAllCurrency(); // 최소 단위 가져오기 위함
 
         // 환율 가지고 오기
         // TODO : 고시 환율 API 활용하여 가져오기
-        List<ExchangeRateDataBody> exchangeRateDatas = webClientUtil.get____(); // 미완
+        LocalDate now = LocalDate.now();
+        List<ExchangeRateDataBody> exchangeRateDatas = webClientUtil
+                .getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
 
         // api 성공했으면 200
         exchangeResponseDto.setResultCode(200);
@@ -89,15 +100,58 @@ public class ExchangeService {
         return exchangeResponseDto;
     }
 
-    public NearBranchResponseDto getNearBranch(Double latitude, Double longtitude) {
-        return new NearBranchResponseDto();
+    // 현재 사용자의 위치 기반 가까운 순서로 목록을 반환하는 메소드
+    public NearBranchResponseDto getNearBranch(@RequestBody NearBranchRequestDto nbrReq) {
+
+        // 응답 객체
+        NearBranchResponseDto nbrRes = new NearBranchResponseDto();
+
+        // 신한 API : 환전할 화폐에 대한 환전 가능한 지점 목록 불러오기
+        List<Branch> branches = webClientUtil.getBranchName(nbrReq.getCurrency());
+
+        // 불러오기 성공했으면
+        nbrRes.setResultCode(200);
+        nbrRes.setListNum(branches.length());
+
+        List<BranchInfo> biList = new ArrayList<BranchInfo>();
+
+        // TODO: 지점 정보 별로
+        for (Branch branch : branches) {
+
+            BranchInfo bi = new BranchInfo();
+
+            Double distance = exchangeUtil.getDistance(nbrReq.getLatitude(), nbrReq.getLongitude(),
+                    branch.getLatitude(), branch.getLongitude());
+            bi.setDistance(distance);
+            bi.setAddress(branch.getAddress());
+            bi.setAreaCode(branch.getAreaCode());
+            bi.setBranchName(branch.getBranchName());
+            bi.setLatitude(branch.getLatitude());
+            bi.setLongitude(branch.getLongitude());
+            bi.setTelNumber(branch.telNumber());
+
+            biList.add(bi);
+        }
+
+        // 가까운 지점 순서로 sort
+        Collections.sort(biList);
+
+        // data body 저장
+        nbrRes.setDataList(biList);
+        return nbrRes;
     }
 
+    // 사용자가 환전하였던 기록 목록을 반환한다.
     public ExchangeResultsResponseDto getExchangeResults() {
+        // TODO : DB 접속 및 사용자 정보 가지고 오기
+        // ExchangeReqDataBody erdb = getDB();
+
         return new ExchangeResultsResponseDto();
     }
 
-    public ExchangeApplyResponseDto applyExchange(ExchangeApplyRequestDto exchangeApplyRequestDto) {
+    // 환전 신청 요청하는 메소드
+    public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto exchangeApplyRequestDto) {
+        //
         return new ExchangeApplyResponseDto();
     }
 }
