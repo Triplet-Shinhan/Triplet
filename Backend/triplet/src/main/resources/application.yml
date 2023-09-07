@@ -39,3 +39,6 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
+parser:
+  api-key: "2023_Shinhan_SSAFY_Hackathon"
