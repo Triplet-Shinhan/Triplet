@@ -9,9 +9,9 @@ name: Spring Boot & Gradle CI/CD
  
 on:
   push:
-    branches: [ "deploy" ]
+    branches: [ "main","dev","deploy" ]
   pull_request:
-    branches: [ "deploy" ]
+    branches: [ "main","dev","deploy"  ]
 
 permissions:
   contents: read
@@ -41,13 +41,6 @@ jobs:
       #Build
     - name: Build with Gradle
       run : ./gradlew clean build --exclude-task test
-      working-directory: ${{ env.working-directory }}
-
-    - name: Show current working directory
-      run: pwd
-         
-    - name: Check contents of build/libs
-      run: ls -la build/libs/
       working-directory: ${{ env.working-directory }}
       
     - name: Rename jar for deploy
