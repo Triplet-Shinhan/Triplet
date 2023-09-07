@@ -29,7 +29,7 @@ public class ExchangeController {
 
     @GetMapping("/locations")
     public NearBranchResponseDto getBranchLocation(NearBranchRequestDto nearBranchRequest) {
-        return exchangeService.getNearBranch(nearBranchRequest.getLatitude(), nearBranchRequest.getLongitude());
+        return exchangeService.getNearBranch(nearBranchRequest);
     }
 
     @PostMapping("")
