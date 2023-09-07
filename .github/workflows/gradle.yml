@@ -18,11 +18,12 @@ permissions:
 
 jobs:
   
-   
+  
+  
   build:
     runs-on: ubuntu-latest
     env:
-       working-directory: "./Backend/triplet"
+     working-directory: "./Backend/triplet"
     
     steps:
     - uses: actions/checkout@v3
