@@ -105,7 +105,7 @@ jobs:
         key:  ${{secrets.EC2_SSH_KEY}}
         port:  ${{secrets.EC2_SSH_PORT}}
         source: ".env"
-        target: "home/ubuntu/app"
+        target: "app"
         
         
     - name: Docker 이미지 pull 이후 jar실행
