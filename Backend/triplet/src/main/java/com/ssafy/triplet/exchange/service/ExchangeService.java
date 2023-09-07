@@ -143,15 +143,61 @@ public class ExchangeService {
 
     // 사용자가 환전하였던 기록 목록을 반환한다.
     public ExchangeResultsResponseDto getExchangeResults() {
+        ExchangeResultsResponseDto erRes = new ExchangeResultsResponseDto();
+
         // TODO : DB 접속 및 사용자 정보 가지고 오기
+
         // ExchangeReqDataBody erdb = getDB();
 
-        return new ExchangeResultsResponseDto();
+        // 가져온 사용자 정보를 가지고
+
+        return erRes;
     }
 
     // 환전 신청 요청하는 메소드
     public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto exchangeApplyRequestDto) {
-        //
-        return new ExchangeApplyResponseDto();
+        ExchangeApplyResponseDto eaRes = new ExchangeApplyResponseDto(); // 최종 결과 DTO
+
+        // TODO : DB 접속 및 사용자 정보 가지고 오기
+        // ExchangeReqDataBody erdb = getDB();
+        ExchangeReqDataBody exchange = new ExchangeReqDataBody(); // 신한 API
+
+        exchange.setServiceCode("T0511");
+        exchange.setCurrency(exchangeApplyRequestDto.getCurrency());
+        // exchange.setName(exchange.getName()); //신청자 이름
+        exchange.setExchangeAmount(exchangeApplyRequestDto.getAmount());
+        exchange.setLocation(exchangeApplyRequestDto.getLocation());
+        exchange.setRecieveDate(exchangeApplyRequestDto.getReceiptDate());
+        // exchange.setRecieveName(exchange.getName()) // 수령자 이름
+        // exchange.setBirth(exchange.getBirth()) // 생일
+        // eschange.setPhoneNum(exchange.getPhoneNum); // 전화번호
+        exchange.setReiciveWay(exchangeApplyRequestDto.getReceiveWay());
+
+        // 신한 환전 API 호출
+        ExchangeDataBody edb = webClientUtil.createExchange(exchange);
+
+        /** 자동 이체 */
+
+        // 쿠키로 계좌 번호 불러오기
+        String accountNum = get___();
+
+        // 이체 할 때 보낼 데이터 바디
+        TransferRequestBody tReqBody = new TransferRequestBody();
+
+        tReqBody.setAccountNum(accountNum);
+        tReqBody.setBankCode("088");
+        tReqBody.setDepositAccountNum(edb.getVirtualAccountNumber()); // 가상 계좌로 입금
+        tReqBody.setAmount(edb.getConvertedKRWAmount()); // 변환된 원화 만큼 이체해야한다.
+        // tReqBody.setDepositAccountMemo(erdb.getName()+" 환전");
+        tReqBody.setWithdrawlAccountMemo(exchangeApplyRequestDto.getCurrency() + " 환전 신청");
+
+        webClientUtil.createTransfer(tReqBody); // 계좌 이체 API 호출
+
+        // 성공
+        eaRes.setResultCode(200);
+        eaRes.setConvertedKRWAmount(edb.getConvertedKRWAmount());
+        eaRes.setExchangeRate(edb.getExchangeRate());
+        eaRes.setPreferentialRate(edb.getPreferentialRate());
+        return eaRes;
     }
 }
