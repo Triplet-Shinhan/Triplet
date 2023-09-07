@@ -18,6 +18,7 @@ public enum ErrorCode {
     //로그인
     EMAIL_NOT_FOUND(401, "존재하지 않는 아이디입니다."),
     PASSWORD_ERROR(401, "일치하지 않는 비밀번호 입니다."),
+    LOGIN_FAILED(400, "로그인에 실패하였습니다."),
     //세션
     COOKIE_ERROR(401, "로그인하지 않은 상태입니다."),
     //프로젝트
