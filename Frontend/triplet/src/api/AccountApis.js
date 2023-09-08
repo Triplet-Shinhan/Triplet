@@ -5,9 +5,15 @@ export const checkAccount = ({ name, account }) => {
 };
 
 export const signupUser = ({ formData }) => {
-  return axios.post(
-    'http://localhost:8080/users/signup',
-    { data: formData },
-    { headers: { 'Content-type': 'application/json' } }
-  );
+  return axios({
+    method: 'POST',
+    url: 'http://localhost:8080/users/signup',
+    data: formData,
+    headers: { 'Content-type': 'application/json' },
+  });
+  // return axios.post(
+  //   'http://localhost:8080/users/signup',
+  //   { data: formData },
+  //   { headers: { 'Content-type': 'application/json' } }
+  // );
 };
