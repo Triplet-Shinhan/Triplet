@@ -1,10 +1,6 @@
 package com.ssafy.triplet.user.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +15,7 @@ import com.ssafy.triplet.user.dto.UserDto;
 import com.ssafy.triplet.user.service.UserService;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -32,35 +29,43 @@ public class UserController {
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto userDto) {
 		userService.signup(userDto);
-		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK));
+		return ResponseEntity.ok().build();//헤더에만 성공 코드
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<ApiResponse> login(@Validated @ModelAttribute LoginDto loginDto, HttpSession session,
-		BindingResult bindingResult,
+	public ResponseEntity<ApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
 		HttpServletResponse response) {
-		if (bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().build();
-		}
-
 		User loginUser = userService.login(loginDto).orElse(null);
 		if (loginUser == null) {
 			throw new BaseException(ErrorCode.LOGIN_FAILED);
 		}
 
-		session.setAttribute("email", loginUser.getEmail());
-		Cookie idCookie = new Cookie("login_user", loginDto.getEmail());// 쿠키 저장값 수정 필요
-		idCookie.setMaxAge(86400);//24시간
-		response.addCookie(idCookie);
-		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK));
+		// 세션을 설정하여 사용자 정보를 저장
+		HttpSession session = request.getSession();
+		session.setAttribute("user", loginUser);
+
+		// 쿠키를 통해 세션 ID를 클라이언트에 저장
+		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
+		sessionCookie.setMaxAge(86400); // 24시간
+		sessionCookie.setPath("/");
+		response.addCookie(sessionCookie);
+
+		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/logout")
-	public ResponseEntity<ApiResponse> logout(HttpSession session, HttpServletResponse response) {
-		session.invalidate();
-		Cookie cookie = new Cookie("login_user", null);
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK));
+	public ResponseEntity<ApiResponse> logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+
+		// 클라이언트 쿠키를 삭제하여 로그인 상태 해제
+		Cookie sessionCookie = new Cookie("JSESSIONID", null);
+		sessionCookie.setMaxAge(0);
+		sessionCookie.setPath("/");
+		response.addCookie(sessionCookie);
+
+		return ResponseEntity.ok().build();
 	}
 }
