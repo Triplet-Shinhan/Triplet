@@ -1,34 +1,10 @@
-#spring:
-#  datasourcㅎe: # H2 DB 설정
-#    url: jdbc:h2:tcp://localhost/~/triplet
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
-#  h2:
-#    console:
-#      enabled: true
-#  jpa:
-#    database: H2
-#    show-sql: true # Jpa 수행 시 SQL문 로그 출력
-#    properties:
-#      hibernate:
-#        ddl-auto: update
-#        format_sql: true # 쿼리 출력시 포맷 정렬되도록 설정
-
-# database 연동 설정
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/triplet?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ssafy
     password: '0205'
-  thymeleaf:
-    cache: false
 
-  session:
-    store-type: jdbc
-
-  # spring data jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
@@ -36,5 +12,5 @@ spring:
     hibernate:
       ddl-auto: update
 
-  parser:
-    api-key: "2023_Shinhan_SSAFY_Hackathon"
+parser:
+  api-key: "2023_Shinhan_SSAFY_Hackathon"
