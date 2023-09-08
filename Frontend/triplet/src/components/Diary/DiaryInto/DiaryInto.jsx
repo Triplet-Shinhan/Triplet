@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDiaryApi } from '../../../context/DiaryApiContext';
 import { useQuery } from '@tanstack/react-query';
 import DiaryPreview from '../DiaryPreview/DiaryPreview';
+import './DiaryInto.scss';
 
 export default function DiarySettings() {
   // 로그인 사용자 세션에서 가져오기 => 안녕하세요 뒤에 뿌리기
@@ -27,11 +28,11 @@ export default function DiarySettings() {
 
   return (
     <>
-      <h1>안녕하세요.</h1>
+      <h1>안녕하세요</h1>
       <h2>신한 해커톤님</h2>
       <ul>
         <li>
-          프로젝트 영역
+          <span>프로젝트 영역</span>
           {/* tripList 형식 오는거 확인해볼 것 undefined인지 아닌지 */}
           {tripList === undefined ? (
             <span>
@@ -42,10 +43,16 @@ export default function DiarySettings() {
           )}
         </li>
         <li>
-          <button>환전신청하러가기</button>
+          <button className="goBtn goExchange">
+            환전신청하러가기
+            <span className="next">&gt;</span>
+          </button>
         </li>
         <li>
-          <button onClick={() => navigate('/trips/setup')}>
+          <button
+            className="goBtn makeNew"
+            onClick={() => navigate('/trips/setup')}
+          >
             새 프로젝트 생성하기
           </button>
         </li>
