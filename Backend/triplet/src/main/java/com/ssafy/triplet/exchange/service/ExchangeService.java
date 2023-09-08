@@ -17,6 +17,7 @@ import com.ssafy.triplet.exchange.dto.ExchangeData;
 import com.ssafy.triplet.exchange.dto.ExchangeRateDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
+import com.ssafy.triplet.exchange.dto.ExchangeResultsRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
@@ -146,11 +147,19 @@ public class ExchangeService {
         ExchangeResultsResponseDto erRes = new ExchangeResultsResponseDto();
 
         // TODO : DB 접속 및 사용자 정보 가지고 오기
+        ExchangeReqDataBody erdb = getDB();
 
-        // ExchangeReqDataBody erdb = getDB();
+        // 가져온 사용자 정보를 가지고 환전  기록을 가지고 온다.
+        ExchangeResultsRequestDto erReq  = new ExchangeResultsRequestDto(); // 신한 api 요청 dto
+        erReq.setServiceCode("T0512");
+        erReq.setBirth(erdb.getBirth());
+        erReq.setName(erdb.getName());
+        erReq.setPhoneNum(erdb.getPhoneNum());
+        
 
-        // 가져온 사용자 정보를 가지고
+        erRes = webClientUtil.getExchangeResults(erReq);
 
+        // 가지고 온 환전 기록을 반환 한다.
         return erRes;
     }
 
