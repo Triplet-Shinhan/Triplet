@@ -18,6 +18,17 @@
   font-family: 'Montserrat', sans-serif;
   font-family: 'Noto Sans KR', sans-serif;
   color: var(--color-text-black);
+  background-color: var(--color-bg-gray);
+  list-style-type: none;
+}
+
+button {
+  border: none;
+  background-color: #fdfdfd;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 body {
