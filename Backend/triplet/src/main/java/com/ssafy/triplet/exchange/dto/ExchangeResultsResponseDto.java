@@ -16,8 +16,8 @@ public class ExchangeResultsResponseDto {
     private class DataBody {
         private String state;
         private String name;
-        private String telNumber;
-        private String birthDate;
+        private String phoneNumber;
+        private String birth;
         private String applicationDate;
         private String receiptDate;
         private String receiptLocation;
