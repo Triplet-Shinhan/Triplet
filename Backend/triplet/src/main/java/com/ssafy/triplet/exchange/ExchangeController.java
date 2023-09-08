@@ -15,11 +15,14 @@ import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.service.ExchangeService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/exchanges")
 public class ExchangeController {
 
-    ExchangeService exchangeService;
+    private final ExchangeService exchangeService;
 
     @GetMapping("")
     public ExchangeResponseDto getExchange(@RequestParam("currency") String currency) {
