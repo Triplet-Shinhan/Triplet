@@ -1,2 +1,5 @@
 server:
   port: 8080
+
+parser:
+  api-key: "2023_Shinhan_SSAFY_Hackathon"
