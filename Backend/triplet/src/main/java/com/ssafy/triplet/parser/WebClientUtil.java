@@ -6,6 +6,10 @@ import com.ssafy.triplet.parser.dto.checkAccount.AuthRequestDto;
 import com.ssafy.triplet.parser.dto.checkAccount.CheckAccount;
 import com.ssafy.triplet.parser.dto.checkAccount.CheckAccountReqDto;
 import com.ssafy.triplet.parser.dto.checkAccount.CheckAccountResDto;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeDataBody;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeReqDataBody;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeReqDto;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeResDto;
 import com.ssafy.triplet.parser.dto.currency.Currency;
 import com.ssafy.triplet.parser.dto.currency.CurrencyReqDto;
 import com.ssafy.triplet.parser.dto.currency.CurrencyResDto;
@@ -101,6 +105,7 @@ public class WebClientUtil {
         return exchangeResDto.getExchangeDataBody();
     }
 
+    //지점명
     public List<Branch> getBranchName(String currency){
         String url = "https://shbhack.shinhan.com/v1/search/branch/city";
 
@@ -128,6 +133,7 @@ public class WebClientUtil {
         return branchResDto.getDataBody().getBranchList();
     }
 
+    //환율
     public List<ExchangeRate> getExchangeRate(String findDate){
         String url = "https://shbhack.shinhan.com/v1/search/fxrate/number";
 
@@ -154,7 +160,7 @@ public class WebClientUtil {
         return exchangeRateResDto.getDataBody().getExchangeRateList();
     }
 
-
+    //통화
     public List<Currency> getAllCurrency(){
         String url = "https://shbhack.shinhan.com/v1/search/fx/currencycode";
 
@@ -201,4 +207,30 @@ public class WebClientUtil {
 
         return checkAccountResDto.getCheckAccount();
     }
+
+    //환전 결과 조회
+    public CheckExchangeDataBody getExchangeResult(CheckExchangeReqDataBody checkExchangeReqDataBody){
+        String url = "https://shbhack.shinhan.com/v1/search/fx/request-list";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+
+        checkExchangeReqDataBody.setServiceCode("T0512");
+        CheckExchangeReqDto checkExchangeReqDto = new CheckExchangeReqDto();
+        checkExchangeReqDto.setDataHeader(dataHeader);
+        checkExchangeReqDto.setDataBody(checkExchangeReqDataBody);
+
+        CheckExchangeResDto checkAccountResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(checkExchangeReqDto )
+                .retrieve()
+                .bodyToMono(CheckExchangeResDto.class)
+                .block();
+
+        return checkAccountResDto.getCheckExchangeDataBody();
+
+    }
+
 }
