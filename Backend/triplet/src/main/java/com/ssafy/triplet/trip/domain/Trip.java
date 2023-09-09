@@ -34,7 +34,6 @@ public class Trip {
 
 	@ManyToOne// N : 1 관계
 	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
-	@Column(nullable = false)
 	private User user;
 
 	@Column(nullable = false)

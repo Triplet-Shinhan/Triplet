@@ -32,12 +32,10 @@ public class Daily {
 
 	@ManyToOne// N : 1 관계
 	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
-	@Column(nullable = false)
 	private User user;
 
 	@ManyToOne// N : 1 관계
 	@JoinColumn(name = "trip_id", referencedColumnName = "tripId")//해당 유저의 tripId를 외래키로 가져온다.
-	@Column(nullable = false)
 	private Trip trip;
 
 	@Column(nullable = false)
