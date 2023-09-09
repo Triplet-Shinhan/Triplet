@@ -28,6 +28,10 @@ import com.ssafy.triplet.parser.dto.exchangeRate.ExchangeRateResDto;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 import com.ssafy.triplet.parser.dto.rateParser.RateReqDto;
 import com.ssafy.triplet.parser.dto.rateParser.RateResDto;
+import com.ssafy.triplet.parser.dto.transfer.TransferDataBody;
+import com.ssafy.triplet.parser.dto.transfer.TransferReqDataBody;
+import com.ssafy.triplet.parser.dto.transfer.TransferReqDto;
+import com.ssafy.triplet.parser.dto.transfer.TransferResDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -231,6 +235,29 @@ public class WebClientUtil {
 
         return checkAccountResDto.getCheckExchangeDataBody();
 
+    }
+
+    //이체
+    public TransferDataBody createTransfer(TransferReqDataBody transferReqDataBody){
+        String url = "https://shbhack.shinhan.com/v1/transfer/krw";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+
+        TransferReqDto transferReqDto = new TransferReqDto();
+        transferReqDto.setDataHeader(dataHeader);
+        transferReqDto.setDataBody(transferReqDataBody);
+
+        TransferResDto transferResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(transferReqDto )
+                .retrieve()
+                .bodyToMono(TransferResDto.class)
+                .block();
+
+        return transferResDto.getTransferDataBody();
     }
 
 }
