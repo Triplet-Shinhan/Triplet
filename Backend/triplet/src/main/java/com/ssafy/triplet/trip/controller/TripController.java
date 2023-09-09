@@ -1,0 +1,38 @@
+package com.ssafy.triplet.trip.controller;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ssafy.triplet.exception.BaseException;
+import com.ssafy.triplet.exception.ErrorCode;
+import com.ssafy.triplet.trip.dto.MainPageTripDto;
+import com.ssafy.triplet.trip.service.TripService;
+import com.ssafy.triplet.user.domain.User;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+public class TripController {
+	private final TripService tripService;
+
+	@GetMapping("/trips")
+	public ResponseEntity<List<MainPageTripDto>> findAllTrips(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session != null) {
+			User user = (User)session.getAttribute("user");
+			if (user != null) {
+				Long userId = user.getUserId();
+				return ResponseEntity.ok(tripService.getAllTrips(userId));
+			}
+		}
+		throw new BaseException(ErrorCode.USER_ID_NOT_FOUND);
+	}
+}
