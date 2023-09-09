@@ -8,7 +8,6 @@
   --color-point-yellow: #fdea87;
   --color-point-warning: #ff3f3f;
   --color-divide: #868484;
-
   --font-logo: 'Montserrat', sans-serif;
 }
 
@@ -18,7 +17,6 @@
   font-family: 'Montserrat', sans-serif;
   font-family: 'Noto Sans KR', sans-serif;
   color: var(--color-text-black);
-  background-color: var(--color-bg-gray);
   list-style-type: none;
 }
 
@@ -35,6 +33,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-gray);
 }
 
 code {
