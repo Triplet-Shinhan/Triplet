@@ -1,4 +1,4 @@
-.loginMain {
+.signupMain {
   width: 50vw;
   height: 80vh;
   background-color: var(--color-bg-gray);
@@ -22,12 +22,5 @@
   form {
     display: flex;
     flex-direction: column;
-  }
-
-  .signUnable {
-    display: none;
-  }
-  .signAble {
-    display: block;
   }
 }
