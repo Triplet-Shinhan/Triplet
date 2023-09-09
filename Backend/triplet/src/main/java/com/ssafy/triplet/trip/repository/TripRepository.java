@@ -9,5 +9,5 @@ import com.ssafy.triplet.trip.domain.Trip;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-	List<Trip> findAllByUser_Id(Long userId);
+	List<Trip> findAllByUserId(Long userId);
 }
