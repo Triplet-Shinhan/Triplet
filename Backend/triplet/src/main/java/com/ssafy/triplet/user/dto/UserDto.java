@@ -1,5 +1,6 @@
 package com.ssafy.triplet.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.triplet.user.domain.User;
 
 import lombok.AllArgsConstructor;
@@ -12,11 +13,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
+	@JsonProperty("name")
 	private String name;
+	@JsonProperty("birth")
 	private String birth;
+	@JsonProperty("email")
 	private String email;
+	@JsonProperty("password")
 	private String password;
+	@JsonProperty("phoneNum")
 	private String phoneNum;
+	@JsonProperty("accountNum")
 	private String accountNum;
 
 	public static UserDto toUserDto(User user) {
