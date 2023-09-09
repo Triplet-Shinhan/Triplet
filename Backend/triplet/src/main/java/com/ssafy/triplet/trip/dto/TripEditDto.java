@@ -14,12 +14,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripEditDto {
-	@JsonProperty("fixedRate")
-	private Float fixedRate;
-
 	@JsonProperty("startDate")
 	private Date startDate;
 
 	@JsonProperty("endDate")
 	private Date endDate;
+
+	@JsonProperty("fixedRate")
+	private Float fixedRate;
 }
