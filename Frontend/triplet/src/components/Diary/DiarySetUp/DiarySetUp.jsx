@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './DiarySetUp.scss';
+import { useMutation } from '@tanstack/react-query';
+import { makeNewTrip } from '../../../api/DiaryApis';
 
 export default function DiarySetUp() {
   const budget = [
@@ -40,9 +42,24 @@ export default function DiarySetUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // startDate 보다 endDate가 빠르면 생성 안되는 로직 추가 필요
+    makeTripDiary.mutate({ tripInfo });
   };
 
   // 프로젝트 정보 넘기기
+  const makeTripDiary = useMutation(
+    ({ tripInfo }) => makeNewTrip({ tripInfo }),
+    {
+      onSuccess: () => {
+        console.log('success');
+        alert('생성');
+        // Diary 달력페이지로 이동
+      },
+      onError: () => {
+        console.log('생성이 되지 않았습니다.');
+      },
+    }
+  );
 
   return (
     <>
@@ -79,8 +96,10 @@ export default function DiarySetUp() {
               onChange={handleChange}
               required
             >
-              {budget.map((v) => (
-                <option value={v}>{v}</option>
+              {budget.map((v, i) => (
+                <option key={i} value={v}>
+                  {v}
+                </option>
               ))}
             </select>
           </div>

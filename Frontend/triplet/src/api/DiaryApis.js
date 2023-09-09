@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class Diary {
   constructor() {
     this.httpClient = axios.create({
-      baseURL: 'https://localhost:8080',
+      baseURL: 'http://43.201.254.59:8080/',
     });
   }
 
@@ -12,3 +12,11 @@ export default class Diary {
     return this.httpClient.get('/api/trips').then((res) => res.data);
   }
 }
+
+export const makeNewTrip = ({ tripInfo }) => {
+  return axios.post(
+    'http://43.201.254.59:8080/api/trips',
+    { data: tripInfo },
+    { headers: { 'Content-type': 'application/json' } }
+  );
+};
