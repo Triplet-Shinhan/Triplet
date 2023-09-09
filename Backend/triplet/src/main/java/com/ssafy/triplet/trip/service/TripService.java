@@ -56,7 +56,7 @@ public class TripService {
 		trip.setExchangedBudget(tripDto.getExchangedBudget());
 		trip.setUsedBudget(tripDto.getUsedBudget());
 		trip.setCurrency(tripDto.getCurrency());
-		trip.setFixedBudget(tripDto.getFixedBudget());
+		trip.setFixedBudget(tripDto.getFixedRate());
 		trip.setStartDate(tripDto.getStartDate());
 		trip.setEndDate(tripDto.getEndDate());
 		return trip;
