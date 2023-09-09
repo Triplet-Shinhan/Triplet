@@ -18,7 +18,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,13 +27,13 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<ApiResponse> saveUser(@Valid @RequestBody UserDto userDto) {
+	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto userDto) {
 		userService.signup(userDto);
 		return ResponseEntity.ok().build();//헤더에만 성공 코드
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginDto loginDto, HttpServletRequest request,
+	public ResponseEntity<ApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
 		HttpServletResponse response) {
 		User loginUser = userService.login(loginDto).orElse(null);
 		if (loginUser == null) {
@@ -55,7 +54,7 @@ public class UserController {
 	}
 
 	@PostMapping("/logout")
-	public ResponseEntity<ApiResponse> logout(@Valid HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<ApiResponse> logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
