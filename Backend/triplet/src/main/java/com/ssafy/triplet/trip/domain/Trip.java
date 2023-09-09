@@ -1,6 +1,6 @@
 package com.ssafy.triplet.trip.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.ssafy.triplet.user.domain.User;
 
@@ -54,7 +54,7 @@ public class Trip {
 	private String currency;
 
 	@Column(nullable = false)
-	private Float fixedBudget;
+	private Float fixedRate;
 
 	@Column(nullable = false)
 	private Date startDate;

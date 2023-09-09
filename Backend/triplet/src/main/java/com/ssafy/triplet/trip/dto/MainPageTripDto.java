@@ -1,6 +1,6 @@
 package com.ssafy.triplet.trip.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
