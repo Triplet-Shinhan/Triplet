@@ -141,7 +141,7 @@ export default function Signup() {
   };
 
   return (
-    <main>
+    <main className="signupMain">
       <h1>사용자 등록</h1>
       <form action="POST" onSubmit={handleSubmit}>
         <input
