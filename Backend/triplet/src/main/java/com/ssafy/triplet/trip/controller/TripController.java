@@ -51,14 +51,14 @@ public class TripController {
 	}
 
 	@DeleteMapping("/{tripId}")
-	public ResponseEntity<Trip> deleteTrip(@PathVariable String tripId) {
-		tripService.removeTrip(Long.parseLong(tripId));
+	public ResponseEntity<Trip> deleteTrip(@PathVariable Long tripId) {
+		tripService.removeTrip(tripId);
 		return ResponseEntity.ok().build();
 	}
 
 	@PatchMapping("/{tripId}")
-	public ResponseEntity<Trip> updateTrip(@PathVariable String tripId, @RequestBody TripEditDto tripEditDto) {
-		tripService.editTrip(Long.parseLong(tripId), tripEditDto);
+	public ResponseEntity<Trip> updateTrip(@PathVariable Long tripId, @RequestBody TripEditDto tripEditDto) {
+		tripService.editTrip(tripId, tripEditDto);
 		return ResponseEntity.ok().build();
 	}
 }
