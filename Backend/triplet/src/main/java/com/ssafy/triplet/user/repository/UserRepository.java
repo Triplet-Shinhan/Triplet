@@ -10,4 +10,6 @@ import com.ssafy.triplet.user.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByEmail(String email);
+	Optional<User> findByPhoneNum(String phoneNum);
+	Optional<User> findByAccountNum(String phoneNum);
 }
