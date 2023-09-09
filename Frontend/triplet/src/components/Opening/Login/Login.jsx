@@ -21,7 +21,7 @@ export default function Login() {
     if (phoneReg.test(phoneNum) && emailReg.test(email)) {
       // 백으로 쿼리 보내기
       axios
-        .post('http://localhost:8080/users/login', {
+        .post('http://54.180.9.17:8080/users/login', {
           withCredentials: true,
           email,
           phoneNum,
@@ -58,7 +58,7 @@ export default function Login() {
   };
 
   return (
-    <main>
+    <main className="loginMain">
       <h1>새로운 여행 플랫폼의 시작</h1>
       <h2>Triplet</h2>
       <form onSubmit={handleSubmit}>
