@@ -1,7 +1,7 @@
 package com.ssafy.triplet.exception;
 
 public record ErrorResponse(
-        ErrorCode errorCode,
+        int errorCode,
         String errorMsg
 ) {
 }

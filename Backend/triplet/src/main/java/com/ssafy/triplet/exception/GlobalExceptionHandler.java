@@ -10,6 +10,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException ex){
         return ResponseEntity.status(ex.getErrorCode().getErrorCode())
-                .body(new ErrorResponse(ex.getErrorCode(),ex.getErrorCode().getErrorMsg()));
+                .body(new ErrorResponse(ex.getErrorCode().getErrorCode(),ex.getErrorCode().getErrorMsg()));
     }
 }
