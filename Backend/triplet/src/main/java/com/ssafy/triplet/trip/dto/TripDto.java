@@ -35,8 +35,8 @@ public class TripDto {
 	@JsonProperty("currency")
 	private String currency;
 
-	@JsonProperty("fixedBudget")
-	private Float fixedBudget;
+	@JsonProperty("fixedRate")
+	private Float fixedRate;
 
 	@JsonProperty("startDate")
 	private Date startDate;
