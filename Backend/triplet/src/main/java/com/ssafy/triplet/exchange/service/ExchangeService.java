@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ssafy.triplet.exchange.dto.BranchInfo;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
-import com.ssafy.triplet.exchange.dto.ExchangeCodeData;
 import com.ssafy.triplet.exchange.dto.ExchangeData;
-import com.ssafy.triplet.exchange.dto.ExchangeRateDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResultsRequestDto;
@@ -23,6 +21,11 @@ import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.util.ExchangeUtil;
 import com.ssafy.triplet.parser.WebClientUtil;
+import com.ssafy.triplet.parser.dto.currency.Currency;
+import com.ssafy.triplet.parser.dto.exchange.ExchangeDataBody;
+import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
+import com.ssafy.triplet.parser.dto.exchangeBranch.Branch;
+import com.ssafy.triplet.parser.dto.exchangeRate.ExchangeRate;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 
 @Service
@@ -43,13 +46,12 @@ public class ExchangeService {
         // 신한 api로 부터 데이터를 가지고 온다.
 
         // todo : 현재 표시 가능한 모든 통화코드를 가지고 온다.
-        List<ExchangeCodeData> currencyCodes = webClientUtil.getAllCurrency(); // 최소 단위 가져오기 위함
+        List<Currency> currencyCodes = webClientUtil.getAllCurrency(); // 최소 단위 가져오기 위함
 
         // 환율 가지고 오기
         // TODO : 고시 환율 API 활용하여 가져오기
         LocalDate now = LocalDate.now();
-        List<ExchangeRateDataBody> exchangeRateDatas = webClientUtil
-                .getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
+        List<ExchangeRate> exchangeRateDatas = webClientUtil.getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
 
         // api 성공했으면 200
         exchangeResponseDto.setResultCode(200);
@@ -57,7 +59,7 @@ public class ExchangeService {
         // 우대율 가지고 오기
         List<CurrencyRate> preferentialList = webClientUtil.getPreferentialRate();
 
-        // 응답 데이터 바디
+        // 응답 데이터 바디Backend/triplet/src/main/java/com/ssafy/triplet/exchange/service/ExchangeService.java
         ExchangeResponseDataBody dataBody = new ExchangeResponseDataBody();
 
         dataBody.setListNum(currencyCodes.size()); // 리스트 수 입력
@@ -65,20 +67,20 @@ public class ExchangeService {
         List<String> curCodes = new ArrayList<String>();
 
         // 각 통화에 대한 통화코드, 환율, 최소 단위, 우대율 파싱하기
-        for (ExchangeRateDataBody curData : exchangeRateDatas) { // 각 통화별로 조사 시작
+        for (ExchangeRate curData : exchangeRateDatas) { // 각 통화별로 조사 시작
             ExchangeData ed = new ExchangeData();
 
             // 통화코드 설정
-            ed.setCurrencyCode(curData.getCurrency());
-            curCodes.add(curData.getCurrency()); // 통화 리스트에 저장
+            ed.setCurrencyCode(curData.getCurrencyCode());
+            curCodes.add(curData.getCurrencyCode()); // 통화 리스트에 저장
 
             // 환율 설정
-            ed.setExchangeRate(curData.getSellingRate());
+            ed.setExchangeRate(curData.getExchangeRate());
 
             // 최소 단위 파싱하기
-            for (ExchangeCodeData cd : currencyCodes) {
-                if (cd.getCurrencyCode() == curData.getCurrency()) { // 같은 이름 코드라면
-                    ed.setExchangeUnit(cd.getUnit()); // 최소 단위 저장
+            for (Currency cd : currencyCodes) {
+                if (cd.getCurrencyCode() == curData.getCurrencyCode()) { // 같은 이름 코드라면
+                    ed.setExchangeUnit(cd.getExchangeUnit()); // 최소 단위 저장
                     break;
                 }
             }
@@ -86,7 +88,7 @@ public class ExchangeService {
             // 우대율 파싱하기
             Preferential: for (CurrencyRate preferential : preferentialList) { // 각 우대율에서
                 for (String cd : preferential.getCurrencyCode().split(",")) { // 각 통화 코드에 대해 조사 시작
-                    if (cd == curData.getCurrency()) { // 같은 통화 코드라면
+                    if (cd == curData.getCurrencyCode()) { // 같은 통화 코드라면
                         ed.setPreferentialRate(preferential.getPreferentialRate()); // 우대율 저장
                         break Preferential;
                     }
@@ -112,7 +114,7 @@ public class ExchangeService {
 
         // 불러오기 성공했으면
         nbrRes.setResultCode(200);
-        nbrRes.setListNum(branches.length());
+        nbrRes.setListNum(branches.size());
 
         List<BranchInfo> biList = new ArrayList<BranchInfo>();
 
@@ -122,14 +124,14 @@ public class ExchangeService {
             BranchInfo bi = new BranchInfo();
 
             Double distance = exchangeUtil.getDistance(nbrReq.getLatitude(), nbrReq.getLongitude(),
-                    branch.getLatitude(), branch.getLongitude());
+                    Double.parseDouble(branch.getLatitude()), Double.parseDouble(branch.getLongitude()));
             bi.setDistance(distance);
             bi.setAddress(branch.getAddress());
             bi.setAreaCode(branch.getAreaCode());
             bi.setBranchName(branch.getBranchName());
             bi.setLatitude(branch.getLatitude());
             bi.setLongitude(branch.getLongitude());
-            bi.setTelNumber(branch.telNumber());
+            bi.setTelNumber(branch.getTelNumber());
 
             biList.add(bi);
         }

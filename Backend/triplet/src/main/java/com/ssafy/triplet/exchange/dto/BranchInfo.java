@@ -13,9 +13,9 @@ public class BranchInfo implements Comparable<BranchInfo> {
 
     private String telNumber;
 
-    private Double latitude;
+    private String latitude;
 
-    private Double longitude;
+    private String longitude;
 
     private Double distance;
 
