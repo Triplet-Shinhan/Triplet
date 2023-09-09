@@ -30,7 +30,7 @@ public class TripService {
 			throw new BaseException(ErrorCode.USER_ID_NOT_FOUND);
 		}
 
-		List<Trip> trips = tripRepository.findAllByUserId(userId);
+		List<Trip> trips = tripRepository.findAllByUserUserId(userId);
 		List<MainPageTripDto> mainPageTrips = new ArrayList<>();
 		for (Trip trip : trips) {
 			MainPageTripDto mainPageTripDto = new MainPageTripDto();
