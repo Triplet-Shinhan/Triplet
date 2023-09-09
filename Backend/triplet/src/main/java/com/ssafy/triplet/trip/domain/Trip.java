@@ -1,6 +1,7 @@
 package com.ssafy.triplet.trip.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.ssafy.triplet.user.domain.User;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +33,7 @@ public class Trip {
 	private Long tripId;
 
 	@ManyToOne// N : 1 관계
-	@JoinColumn(name = "user_id", referencedColumnName = "id")//해당 유저의 userId를 외래키로 가져온다.
+	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
 	@Column(nullable = false)
 	private User user;
 
@@ -61,4 +63,7 @@ public class Trip {
 
 	@Column(nullable = false)
 	private Date endDate;
+
+	@OneToMany
+	private List<Daily> Dailies;
 }
