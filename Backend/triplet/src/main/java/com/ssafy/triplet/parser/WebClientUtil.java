@@ -2,6 +2,10 @@ package com.ssafy.triplet.parser;
 
 import com.ssafy.triplet.parser.dto.DataBodyRequest;
 import com.ssafy.triplet.parser.dto.DataHeaderRequest;
+import com.ssafy.triplet.parser.dto.acount.AccountDataBody;
+import com.ssafy.triplet.parser.dto.acount.AccountReqDataBody;
+import com.ssafy.triplet.parser.dto.acount.AccountReqDto;
+import com.ssafy.triplet.parser.dto.acount.AccountResDto;
 import com.ssafy.triplet.parser.dto.checkAccount.AuthRequestDto;
 import com.ssafy.triplet.parser.dto.checkAccount.CheckAccount;
 import com.ssafy.triplet.parser.dto.checkAccount.CheckAccountReqDto;
@@ -258,6 +262,30 @@ public class WebClientUtil {
                 .block();
 
         return transferResDto.getTransferDataBody();
+    }
+
+    //거래내역 조회
+    public AccountDataBody getAccount(String accountNum){
+        String url = "https://shbhack.shinhan.com/v1/search/transaction";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+
+        AccountReqDto accountReqDto = new AccountReqDto();
+        accountReqDto.setDataHeader(dataHeader);
+        AccountReqDataBody accountReqDataBody=new AccountReqDataBody(accountNum);
+        accountReqDto.setDataBody(accountReqDataBody);
+
+        AccountResDto accountResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(accountReqDto )
+                .retrieve()
+                .bodyToMono(AccountResDto.class)
+                .block();
+
+        return accountResDto.getAccountDataBody();
     }
 
 }
