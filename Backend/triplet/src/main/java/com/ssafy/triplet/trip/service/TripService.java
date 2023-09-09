@@ -1,8 +1,11 @@
 package com.ssafy.triplet.trip.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.ssafy.triplet.trip.domain.Trip;
+import com.ssafy.triplet.trip.dto.LoginUserDto;
 import com.ssafy.triplet.trip.dto.TripDto;
 import com.ssafy.triplet.trip.repository.TripRepository;
 import com.ssafy.triplet.user.repository.UserRepository;
@@ -28,5 +31,9 @@ public class TripService {
 		trip.setStartDate(tripDto.getStartDate());
 		trip.setEndDate(tripDto.getEndDate());
 		return trip;
+	}
+
+	public List<Trip> findAllTrips(LoginUserDto loginUserDto) {
+		return tripRepository.findAllByUser_Id(loginUserDto.getUserId());
 	}
 }
