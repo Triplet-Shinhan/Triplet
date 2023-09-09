@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.exception.ErrorCode;
+import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.dto.MainPageTripDto;
+import com.ssafy.triplet.trip.dto.TripDto;
 import com.ssafy.triplet.trip.service.TripService;
 import com.ssafy.triplet.user.domain.User;
 
@@ -19,11 +22,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/trips")
 public class TripController {
 	private final TripService tripService;
 
-	@GetMapping("/trips")
+	@GetMapping
 	public ResponseEntity<List<MainPageTripDto>> findAllTrips(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if (session != null) {
@@ -34,5 +37,11 @@ public class TripController {
 			}
 		}
 		throw new BaseException(ErrorCode.USER_ID_NOT_FOUND);
+	}
+
+	@PostMapping
+	public ResponseEntity<Trip> createTrip(TripDto tripDto) {
+		tripService.saveTrip(tripDto);
+		return ResponseEntity.ok().build();
 	}
 }
