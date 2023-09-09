@@ -14,11 +14,12 @@ public enum ErrorCode {
     PHONE_INPUT_ERROR(400, "올바르지 않은 전화번호 형식입니다."),
     ACCOUNT_INPUT_ERROR(400, "올바르지 않은 계좌번호 형식입니다."),
     EMAIL_DUPLICATED_ERROR(409, "이미 가입된 이메일입니다."),//중복
+    PHONE_DUPLICATED_ERROR(409, "이미 가입된 전화번호입니다."),//중복
     ACCOUNT_DUPLICATED_ERROR(409, "이미 가입된 계좌번호입니다."),//중복
 
     //로그인
     EMAIL_NOT_FOUND(401, "존재하지 않는 아이디(이메일)입니다."),
-    PASSWORD_ERROR(401, "비밀번호가 일치하지 않습니다."),
+    PASSWORD_INCORRECT(401, "비밀번호가 일치하지 않습니다."),
 
     //세션
     COOKIE_ERROR(401, "로그인하지 않은 상태입니다."),
