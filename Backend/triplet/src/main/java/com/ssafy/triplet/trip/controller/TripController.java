@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.exception.ErrorCode;
+import com.ssafy.triplet.trip.domain.Daily;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.dto.MainPageTripDto;
 import com.ssafy.triplet.trip.dto.TripDto;
@@ -60,5 +61,20 @@ public class TripController {
 	public ResponseEntity<Trip> updateTrip(@PathVariable Long tripId, @RequestBody TripEditDto tripEditDto) {
 		tripService.editTrip(tripId, tripEditDto);
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/{tripId}/daily")
+	public ResponseEntity<List<Daily>> readDaily(@PathVariable String tripId) {
+		return null;
+	}
+
+	@GetMapping("{tripId}/daily/{dailyId}")
+	public ResponseEntity<List<Payment>> readPayment(@PathVariable String tripId, @PathVariable String dailyId) {
+		return null;
+	}
+
+	@PostMapping("{tripId}/daily/{dailyId}/images")
+	public ResponseEntity<Trip> uploadImage(@PathVariable String tripId, @PathVariable String dailyId) {
+		return null;
 	}
 }
