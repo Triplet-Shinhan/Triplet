@@ -24,8 +24,12 @@ public class TripService {
 	private final TripRepository tripRepository;
 	private final TripValidation tripValidation;
 
-	//메인화면 프로젝트 조회
+	// 메인화면 프로젝트 조회
 	public List<MainPageTripDto> getAllTrips(Long userId) {
+		if (userRepository.findById(userId).orElse(null) == null) {//회원 정보를 찾을 수 없을 경우 에러
+			throw new BaseException(ErrorCode.USER_ID_NOT_FOUND);
+		}
+
 		List<Trip> trips = tripRepository.findAllByUserId(userId);
 		List<MainPageTripDto> mainPageTrips = new ArrayList<>();
 		for (Trip trip : trips) {
@@ -39,7 +43,7 @@ public class TripService {
 		return mainPageTrips;
 	}
 
-	//프로젝트 생성
+	// 프로젝트 생성
 	public void saveTrip(TripDto tripDto) {
 		//유효성 검증
 		tripValidation.checkCreateValid(tripDto);
@@ -48,19 +52,23 @@ public class TripService {
 		tripRepository.save(trip);
 	}
 
+	// 프로젝트 삭제
 	public void removeTrip(Long tripId) {
 		//유효성 검증
-
+		if (tripRepository.findById(tripId).orElse(null) == null) {//프로젝트 ID를 찾을 수 없을 경우 에러
+			throw new BaseException(ErrorCode.TRIP_ID_NOT_FOUND);
+		}
 		//삭제
 		tripRepository.deleteById(tripId);
 	}
 
+	// 프로젝트 수정
 	public void editTrip(Long tripId, TripEditDto tripEditDto) {// 여행 시작날짜, 여행 종료날짜, 환율 변경
 		//유효성 검증
 		tripValidation.checkEditValid(tripEditDto);
 		// DB에서 해당 ID의 Trip 찾기
 		Trip trip = tripRepository.findById(tripId).orElse(null);
-		if(trip == null) {
+		if (trip == null) {
 			throw new BaseException(ErrorCode.TRIP_ID_NOT_FOUND);
 		}
 		//수정
