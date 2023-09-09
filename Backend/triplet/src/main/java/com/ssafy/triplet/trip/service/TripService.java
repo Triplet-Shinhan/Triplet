@@ -40,6 +40,13 @@ public class TripService {
 		tripRepository.save(trip);
 	}
 
+	public void removeTrip(Long tripId) {
+		//유효성 검증
+
+		//삭제
+		tripRepository.deleteById(tripId);
+	}
+
 	private Trip toTripEntity(TripDto tripDto) {
 		Trip trip = new Trip();
 		trip.setUser(userRepository.findById(tripDto.getUserId()).orElse(null));

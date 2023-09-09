@@ -3,7 +3,9 @@ package com.ssafy.triplet.trip.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +44,12 @@ public class TripController {
 	@PostMapping
 	public ResponseEntity<Trip> createTrip(TripDto tripDto) {
 		tripService.saveTrip(tripDto);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("/{tripId}")
+	public ResponseEntity<Trip> deleteTrip(@PathVariable String tripId) {// 메인페이지에 나와있는 프로젝트의 ID를 받아서 삭제
+		tripService.removeTrip(Long.parseLong(tripId));
 		return ResponseEntity.ok().build();
 	}
 }
