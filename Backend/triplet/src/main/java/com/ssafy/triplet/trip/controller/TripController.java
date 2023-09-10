@@ -50,9 +50,9 @@ public class TripController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto) {
+	public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto, HttpServletRequest httpServletRequest) {
 		logger.debug("createTrip request success");
-		tripService.saveTrip(tripDto);
+		tripService.saveTrip(tripDto, httpServletRequest);
 		logger.debug("createTrip success");
 		return ResponseEntity.ok().build();
 	}
