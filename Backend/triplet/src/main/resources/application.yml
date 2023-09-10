@@ -44,4 +44,7 @@ parser:
 
 logging:
   level:
-    root: debug
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
