@@ -63,18 +63,18 @@ public class TripController {
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/{tripId}/daily")
-	public ResponseEntity<List<Daily>> readDaily(@PathVariable String tripId) {
+	@GetMapping("/{tripId}/dailies")
+	public ResponseEntity<List<Daily>> readDaily(@PathVariable Long tripId) {
 		return null;
 	}
 
-	@GetMapping("{tripId}/daily/{dailyId}")
-	public ResponseEntity<List<Payment>> readPayment(@PathVariable String tripId, @PathVariable String dailyId) {
+	@GetMapping("{tripId}/dailies/{dailyId}")
+	public ResponseEntity<List<Payment>> readPayment(@PathVariable Long tripId, @PathVariable Long dailyId) {
 		return null;
 	}
 
-	@PostMapping("{tripId}/daily/{dailyId}/images")
-	public ResponseEntity<Trip> uploadImage(@PathVariable String tripId, @PathVariable String dailyId) {
+	@PostMapping("{tripId}/dailies/{dailyId}/images")
+	public ResponseEntity<Trip> uploadImage(@PathVariable Long tripId, @PathVariable Long dailyId) {
 		return null;
 	}
 }
