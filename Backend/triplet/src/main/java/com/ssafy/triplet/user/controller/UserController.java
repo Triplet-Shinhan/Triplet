@@ -57,11 +57,10 @@ public class UserController {
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
 		sessionCookie.setSecure(false); // HTTPS를 사용해야만 합니다. -> true 면 https / flase 면 http
-		// sessionCookie.setHttpOnly(true); // JavaScript에서의 접근 방지
-		response.addCookie(sessionCookie);
+		sessionCookie.setHttpOnly(true); // JavaScript에서의 접근 방지
 
 		// SameSite 속성을 raw 헤더에 추가
-		String cookieHeader = String.format("%s; %s", sessionCookie.toString(), "SameSite=Lax");
+		String cookieHeader = String.format("%s; %s", sessionCookie.toString(), "SameSite=None");
 		response.setHeader("Set-Cookie", cookieHeader);
 
 		logger.debug("login success");
