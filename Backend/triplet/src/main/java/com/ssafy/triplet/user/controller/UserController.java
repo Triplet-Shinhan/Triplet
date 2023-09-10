@@ -56,7 +56,7 @@ public class UserController {
 		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
-		sessionCookie.setSecure(true); // HTTPS를 사용해야만 합니다.
+		sessionCookie.setSecure(false); // HTTPS를 사용해야만 합니다. -> true 면 https / flase 면 http
 		sessionCookie.setHttpOnly(true); // JavaScript에서의 접근 방지
 		response.addCookie(sessionCookie);
 
