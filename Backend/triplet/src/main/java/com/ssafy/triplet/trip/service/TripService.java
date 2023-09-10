@@ -14,13 +14,16 @@ import com.ssafy.triplet.trip.dto.TripEditDto;
 import com.ssafy.triplet.trip.repository.TripRepository;
 import com.ssafy.triplet.trip.util.TripValidation;
 import com.ssafy.triplet.user.repository.UserRepository;
+import com.ssafy.triplet.user.util.UserUtility;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class TripService {
 	private final UserRepository userRepository;
+	private final UserUtility userUtility;
 	private final TripRepository tripRepository;
 	private final TripValidation tripValidation;
 
@@ -44,11 +47,11 @@ public class TripService {
 	}
 
 	// 프로젝트 생성
-	public void saveTrip(TripDto tripDto) {
+	public void saveTrip(TripDto tripDto, HttpServletRequest httpServletRequest) {
 		//유효성 검증
 		tripValidation.checkCreateValid(tripDto);
 		//생성
-		Trip trip = toTripEntity(tripDto);
+		Trip trip = toTripEntity(tripDto, httpServletRequest);
 		tripRepository.save(trip);
 	}
 
@@ -78,9 +81,9 @@ public class TripService {
 		tripRepository.save(trip);
 	}
 
-	private Trip toTripEntity(TripDto tripDto) {
+	private Trip toTripEntity(TripDto tripDto, HttpServletRequest httpServletRequest) {
 		Trip trip = new Trip();
-		trip.setUser(userRepository.findById(tripDto.getUserId()).orElse(null));
+		trip.setUser(userUtility.getUserFromCookie(httpServletRequest));
 		trip.setPrjName(tripDto.getPrjName());
 		trip.setLocation(tripDto.getLocation());
 		trip.setBudget(tripDto.getBudget());
