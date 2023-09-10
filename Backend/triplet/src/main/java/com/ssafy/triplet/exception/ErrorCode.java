@@ -23,6 +23,7 @@ public enum ErrorCode {
 
     //세션
     COOKIE_ERROR(401, "로그인하지 않은 상태입니다."),
+    COOKIE_NOT_FOUND(401, "쿠키를 찾을 수 없습니다."),
 
     //프로젝트
     PRJ_NAME_ERROR(400, "올바르지 않은 프로젝트 이름입니다."),
