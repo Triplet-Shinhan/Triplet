@@ -67,6 +67,7 @@ public class ExchangeService {
         dataBody.setListNum(currencyCodes.size()); // 리스트 수 입력
 
         List<String> curCodes = new ArrayList<String>();
+        List<ExchangeData> exchangeList = new ArrayList<ExchangeData>();
 
         // 각 통화에 대한 통화코드, 환율, 최소 단위, 우대율 파싱하기
         for (ExchangeRate curData : exchangeRateDatas) { // 각 통화별로 조사 시작
@@ -81,7 +82,7 @@ public class ExchangeService {
 
             // 최소 단위 파싱하기
             for (Currency cd : currencyCodes) {
-                if (cd.getCurrencyCode() == curData.getCurrencyCode()) { // 같은 이름 코드라면
+                if (cd.getCurrencyCode().equals(curData.getCurrencyCode())) { // 같은 이름 코드라면
                     ed.setExchangeUnit(cd.getExchangeUnit()); // 최소 단위 저장
                     break;
                 }
@@ -90,15 +91,18 @@ public class ExchangeService {
             // 우대율 파싱하기
             Preferential: for (CurrencyRate preferential : preferentialList) { // 각 우대율에서
                 for (String cd : preferential.getCurrencyCode().split(",")) { // 각 통화 코드에 대해 조사 시작
-                    if (cd == curData.getCurrencyCode()) { // 같은 통화 코드라면
+                    if (cd.equals(curData.getCurrencyCode())) { // 같은 통화 코드라면
                         ed.setPreferentialRate(preferential.getPreferentialRate()); // 우대율 저장
                         break Preferential;
                     }
                 }
             }
+
+            exchangeList.add(ed);
         }
 
         dataBody.setCurrencyList(curCodes); // 통화리스트 저장
+        dataBody.setExchangeData(exchangeList); // 환율 데이터 저장
         exchangeResponseDto.setDataBody(dataBody); // 데이터 바디 저장
 
         return exchangeResponseDto;
