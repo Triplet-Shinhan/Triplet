@@ -1,15 +1,17 @@
-package com.ssafy.triplet.user.domain;
+package com.ssafy.triplet.trip.domain;
 
+import java.sql.Date;
 import java.util.List;
 
-import com.ssafy.triplet.trip.domain.Trip;
-import com.ssafy.triplet.user.dto.UserDto;
+import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,43 +24,45 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Table(name = "users")
+@Table(name = "trip")
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class User {
+public class Trip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //MySQL의 AUTO_INCREMENT를 사용
-	private Long userId;
+	private Long tripId;
+
+	@ManyToOne// N : 1 관계
+	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
+	private User user;
 
 	@Column(nullable = false)
-	private String name;
+	private String prjName;
 
 	@Column(nullable = false)
-	private String birth;
+	private String location;
 
 	@Column(nullable = false)
-	private String email;
+	private Long budget;
 
 	@Column(nullable = false)
-	private String password;
+	private Long exchangedBudget;
 
 	@Column(nullable = false)
-	private String phoneNum;
+	private Long usedBudget;
 
 	@Column(nullable = false)
-	private String accountNum;
+	private String currency;
+
+	@Column(nullable = false)
+	private Float fixedRate;
+
+	@Column(nullable = false)
+	private Date startDate;
+
+	@Column(nullable = false)
+	private Date endDate;
 
 	@OneToMany
-	private List<Trip> trips;
-
-	public User toUserEntity(UserDto userDto) {
-		User user = new User();
-		user.setName(userDto.getName());
-		user.setBirth(userDto.getBirth());
-		user.setEmail(userDto.getEmail());
-		user.setPassword(userDto.getPassword());
-		user.setPhoneNum(userDto.getPhoneNum());
-		user.setAccountNum(userDto.getAccountNum());
-		return user;
-	}
+	private List<Daily> Dailies;
 }
