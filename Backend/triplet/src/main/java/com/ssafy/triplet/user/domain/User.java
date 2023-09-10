@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Table(name = "users")
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //MySQL의 AUTO_INCREMENT를 사용

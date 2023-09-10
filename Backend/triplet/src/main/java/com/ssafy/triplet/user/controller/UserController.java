@@ -32,7 +32,9 @@ public class UserController {
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto userDto) {
 		logger.debug("signup request success");
+		System.out.println(userDto);
 		userService.signup(userDto);
+
 		logger.debug("signup success");
 		return ResponseEntity.ok().build();//헤더에만 성공 코드
 	}
