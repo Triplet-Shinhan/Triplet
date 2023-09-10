@@ -14,9 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripDto {
-	@JsonProperty("userId")
-	private Long userId;
-
 	@JsonProperty("prjName")
 	private String prjName;
 
@@ -29,13 +26,13 @@ public class TripDto {
 	@JsonProperty("exchangedBudget")
 	private Long exchangedBudget;
 
-	@JsonProperty("usedBudget")
+	@JsonProperty("usedBudget")//보류
 	private Long usedBudget;
 
 	@JsonProperty("currency")
 	private String currency;
 
-	@JsonProperty("fixedRate")
+	@JsonProperty("fixedRate")//보류
 	private Float fixedRate;
 
 	@JsonProperty("startDate")
