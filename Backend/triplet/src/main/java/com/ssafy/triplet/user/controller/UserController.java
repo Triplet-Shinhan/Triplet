@@ -60,7 +60,7 @@ public class UserController {
 		sessionCookie.setHttpOnly(true); // JavaScript에서의 접근 방지
 
 		// SameSite 속성을 raw 헤더에 추가
-		String cookieHeader = String.format("%s; %s", sessionCookie.toString(), "SameSite=None");
+		String cookieHeader = String.format("%s; %s", sessionCookie.toString(), "SameSite=None", "Secure");
 		response.setHeader("Set-Cookie", cookieHeader);
 
 		logger.debug("login success");
