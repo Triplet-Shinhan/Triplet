@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.exception.ErrorCode;
-import com.ssafy.triplet.trip.domain.Daily;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.dto.MainPageTripDto;
 import com.ssafy.triplet.trip.dto.TripDto;
@@ -63,18 +62,18 @@ public class TripController {
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/{tripId}/dailies")
-	public ResponseEntity<List<Daily>> readDaily(@PathVariable Long tripId) {
-		return null;
-	}
-
-	@GetMapping("{tripId}/dailies/{dailyId}")
-	public ResponseEntity<List<Payment>> readPayment(@PathVariable Long tripId, @PathVariable Long dailyId) {
-		return null;
-	}
-
-	@PostMapping("{tripId}/dailies/{dailyId}/images")
-	public ResponseEntity<Trip> uploadImage(@PathVariable Long tripId, @PathVariable Long dailyId) {
-		return null;
-	}
+	// @GetMapping("/{tripId}/dailies")
+	// public ResponseEntity<List<Daily>> readDaily(@PathVariable Long tripId) {
+	// 	return null;
+	// }
+	//
+	// @GetMapping("{tripId}/dailies/{dailyId}")
+	// public ResponseEntity<List<Payment>> readPayment(@PathVariable Long tripId, @PathVariable Long dailyId) {
+	// 	return null;
+	// }
+	//
+	// @PostMapping("{tripId}/dailies/{dailyId}/images")
+	// public ResponseEntity<Trip> uploadImage(@PathVariable Long tripId, @PathVariable Long dailyId) {
+	// 	return null;
+	// }
 }
