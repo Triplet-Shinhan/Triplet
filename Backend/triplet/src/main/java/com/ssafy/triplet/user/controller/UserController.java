@@ -1,5 +1,7 @@
 package com.ssafy.triplet.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,16 +27,20 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/users")
 public class UserController {
 	private final UserService userService;
+	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto userDto) {
+		logger.debug("signup request success");
 		userService.signup(userDto);
+		logger.debug("signup success");
 		return ResponseEntity.ok().build();//헤더에만 성공 코드
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<ApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
 		HttpServletResponse response) {
+		logger.debug("login request success");
 		User loginUser = userService.login(loginDto).orElse(null);
 		if (loginUser == null) {
 			throw new BaseException(ErrorCode.LOGIN_FAILED);
@@ -49,12 +55,14 @@ public class UserController {
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
 		response.addCookie(sessionCookie);
+		logger.debug("login success");
 
 		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/logout")
 	public ResponseEntity<ApiResponse> logout(HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("logout request success");
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
@@ -65,6 +73,7 @@ public class UserController {
 		sessionCookie.setMaxAge(0);
 		sessionCookie.setPath("/");
 		response.addCookie(sessionCookie);
+		logger.debug("logout request success");
 
 		return ResponseEntity.ok().build();
 	}
