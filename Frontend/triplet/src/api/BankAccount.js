@@ -4,7 +4,7 @@ import React from 'react';
 export default class BankAccount {
   constructor() {
     this.httpClient = axios.create({
-      baseURL: 'http://43.201.254.59:8080/',
+      baseURL: process.env.REACT_APP_TRIPLET_SERVER_IP,
     });
   }
 

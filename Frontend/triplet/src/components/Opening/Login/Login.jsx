@@ -21,7 +21,7 @@ export default function Login() {
     if (phoneReg.test(phoneNum) && emailReg.test(email)) {
       // 백으로 쿼리 보내기
       axios
-        .post('http://54.180.9.17:8080/users/login', {
+        .post(process.env.REACT_APP_TRIPLET_SERVER_IP + 'users/login', {
           withCredentials: true,
           email,
           phoneNum,

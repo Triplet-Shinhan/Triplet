@@ -119,6 +119,7 @@ export default function DiarySetUp() {
               type="date"
               id="tripDate"
               name="endDate"
+              min={tripInfo.startDate}
               value={tripInfo.endDate}
               onChange={handleChange}
               required
