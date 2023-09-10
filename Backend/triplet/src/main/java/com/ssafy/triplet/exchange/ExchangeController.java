@@ -14,6 +14,7 @@ import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.service.ExchangeService;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeDataBody;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +42,7 @@ public class ExchangeController {
     }
 
     @GetMapping("/results")
-    public ExchangeResultsResponseDto getExchangeResults() {
+    public CheckExchangeDataBody getExchangeResults() {
         return exchangeService.getExchangeResults();
     }
 }

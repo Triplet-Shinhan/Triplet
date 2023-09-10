@@ -15,12 +15,13 @@ import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeData;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
-import com.ssafy.triplet.exchange.dto.ExchangeResultsRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.util.ExchangeUtil;
 import com.ssafy.triplet.parser.WebClientUtil;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeDataBody;
+import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeReqDataBody;
 import com.ssafy.triplet.parser.dto.currency.Currency;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
@@ -38,6 +39,7 @@ public class ExchangeService {
         this.exchangeUtil = exchangeUtil;
     }
 
+    // 환전 메인 페이지를 위한 정보 불러오기 메소드 
     public ExchangeResponseDto getRate(String currency) {
 
         // 신한 api 요청 해서 통화코드, 환율 , 환전신청단위 , 우대율
@@ -45,11 +47,11 @@ public class ExchangeService {
         ExchangeResponseDto exchangeResponseDto = new ExchangeResponseDto();
         // 신한 api로 부터 데이터를 가지고 온다.
 
-        // todo : 현재 표시 가능한 모든 통화코드를 가지고 온다.
+        // 현재 표시 가능한 모든 통화코드를 가지고 온다.
         List<Currency> currencyCodes = webClientUtil.getAllCurrency(); // 최소 단위 가져오기 위함
 
         // 환율 가지고 오기
-        // TODO : 고시 환율 API 활용하여 가져오기
+        // 고시 환율 API 활용하여 가져오기
         LocalDate now = LocalDate.now();
         List<ExchangeRate> exchangeRateDatas = webClientUtil.getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
 
@@ -94,7 +96,6 @@ public class ExchangeService {
                     }
                 }
             }
-
         }
 
         dataBody.setCurrencyList(curCodes); // 통화리스트 저장
@@ -145,21 +146,17 @@ public class ExchangeService {
     }
 
     // 사용자가 환전하였던 기록 목록을 반환한다.
-    public ExchangeResultsResponseDto getExchangeResults() {
-        ExchangeResultsResponseDto erRes = new ExchangeResultsResponseDto();
+    public CheckExchangeDataBody getExchangeResults() {
+        CheckExchangeDataBody erRes = new CheckExchangeDataBody();
 
         // TODO : DB 접속 및 사용자 정보 가지고 오기
         ExchangeReqDataBody erdb = getDB();
-
-        // 가져온 사용자 정보를 가지고 환전  기록을 가지고 온다.
-        ExchangeResultsRequestDto erReq  = new ExchangeResultsRequestDto(); // 신한 api 요청 dto
-        erReq.setServiceCode("T0512");
-        erReq.setBirth(erdb.getBirth());
-        erReq.setName(erdb.getName());
-        erReq.setPhoneNum(erdb.getPhoneNum());
         
 
-        erRes = webClientUtil.getExchangeResults(erReq);
+        // 가져온 사용자 정보를 가지고 환전  기록을 가지고 온다.
+        CheckExchangeReqDataBody erReq  = new CheckExchangeReqDataBody(erdb.getName(), erdb.getPhoneNum(), erdb.getBirth()); // 신한 api 요청 dto
+        erReq.setServiceCode("T0512");
+        erRes = webClientUtil.getExchangeResult(erReq);
 
         // 가지고 온 환전 기록을 반환 한다.
         return erRes;
@@ -171,6 +168,7 @@ public class ExchangeService {
 
         // TODO : DB 접속 및 사용자 정보 가지고 오기
         // ExchangeReqDataBody erdb = getDB();
+
         ExchangeReqDataBody exchange = new ExchangeReqDataBody(); // 신한 API
 
         exchange.setServiceCode("T0511");
