@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DiaryInto from './components/Diary/DiaryInto/DiaryInto';
 import DiarySetUp from './components/Diary/DiarySetUp/DiarySetUp';
 import { DiaryApiProvider } from './context/DiaryApiContext';
+import { BankAccountProvider } from './context/BankAccountApiContext';
+import Exchange from './components/Exchange/Exchange';
 
 const queryClient = new QueryClient();
 
@@ -18,17 +20,20 @@ const router = createBrowserRouter([
       { path: '/signup', element: <Signup /> },
       { path: '/trips', element: <DiaryInto /> },
       { path: '/trips/setup', element: <DiarySetUp /> },
+      { path: '/exchange', element: <Exchange /> },
     ],
   },
 ]);
 
 function App() {
   return (
-    <DiaryApiProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </DiaryApiProvider>
+    <BankAccountProvider>
+      <DiaryApiProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </DiaryApiProvider>
+    </BankAccountProvider>
   );
 }
 

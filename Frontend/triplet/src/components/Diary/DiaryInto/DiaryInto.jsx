@@ -48,7 +48,10 @@ export default function DiarySettings() {
         </li>
         <li>
           <li>
-            <button className="goBtn goExchange">
+            <button
+              className="goBtn goExchange"
+              onClick={() => navigate('/exchange')}
+            >
               <span>환전신청 하러 가기</span>
               <IoIosArrowForward className="next" />
             </button>
