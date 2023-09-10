@@ -119,7 +119,7 @@ public class ExchangeService {
 
         List<BranchInfo> biList = new ArrayList<BranchInfo>();
 
-        // TODO: 지점 정보 별로
+        // 지점 정보 별로
         for (Branch branch : branches) {
 
             BranchInfo bi = new BranchInfo();
