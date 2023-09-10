@@ -26,7 +26,7 @@ public class AuthController {
 	private final AuthUtility authUtility;
 	private final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-	@PostMapping("1transfer")
+	@PostMapping("/1transfer")
 	public ResponseEntity<Map<String, String>> transferOne(
 		@Validated @ModelAttribute OneTransferRequestDto oneTransferRequestDto) {
 		logger.debug("1transfer request success");
