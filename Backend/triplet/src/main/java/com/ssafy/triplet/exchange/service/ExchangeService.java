@@ -162,11 +162,8 @@ public class ExchangeService {
     }
 
     // 사용자가 환전하였던 기록 목록을 반환한다.
-    public CheckExchangeDataBody getExchangeResults(HttpServletRequest httpServletRequest) {
+    public CheckExchangeDataBody getExchangeResults(User user) {
         CheckExchangeDataBody erRes = new CheckExchangeDataBody();
-
-        // DB 접속 및 사용자 정보 가지고 오기
-        User user = userUtility.getUserFromCookie(httpServletRequest);
 
         // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다.
         CheckExchangeReqDataBody erReq = new CheckExchangeReqDataBody(user.getName(), user.getPhoneNum(),
@@ -180,12 +177,9 @@ public class ExchangeService {
 
     // 환전 신청 요청하는 메소드
     public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto exchangeApplyRequestDto,
-            HttpServletRequest httpServletRequest) {
+            User user) {
 
         ExchangeApplyResponseDto eaRes = new ExchangeApplyResponseDto(); // 최종 결과 DTO
-
-        // DB 접속 및 사용자 정보 가지고 오기
-        User user = userUtility.getUserFromCookie(httpServletRequest);
 
         ExchangeReqDataBody exchange = new ExchangeReqDataBody(); // 신한 API
 
