@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ExchangeApplyResponseDto {
-    private Integer resultCode;
+    private String resultCode;
 
-    private Long convertedKRWAmount;
+    private String convertedKRWAmount;
 
-    private Double exchangeRate;
+    private String exchangeRate;
 
-    private Long preferentialRate;
+    private String preferentialRate;
 }

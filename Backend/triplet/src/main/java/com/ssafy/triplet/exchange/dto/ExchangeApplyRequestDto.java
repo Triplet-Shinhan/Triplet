@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ExchangeApplyRequestDto {
     private String currency;
 
-    private Long amount;
+    private String amount;
 
     private String location;
 
