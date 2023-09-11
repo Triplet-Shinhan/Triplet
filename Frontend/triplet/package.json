@@ -44,5 +44,5 @@
   "devDependencies": {
     "eslint-config-react-app": "^7.0.1"
   },
-  "proxy": "http://43.200.6.24:8080/"
+  "proxy": "http://13.209.9.197:8080/"
 }
