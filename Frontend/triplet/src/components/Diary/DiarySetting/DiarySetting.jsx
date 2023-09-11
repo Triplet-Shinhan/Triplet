@@ -53,8 +53,7 @@ export default function DiarySetting() {
                 <button>수정하기</button>
               </div>
             </form>
-            <br />
-
+            <hr />
             <form action="DELETE" className="deleteForm">
               <div>프로젝트 삭제</div>
               <button>삭제하기</button>

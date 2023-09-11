@@ -69,6 +69,7 @@
       .modifyDate {
         display: flex;
         flex-direction: column;
+        height: 8vh;
       }
 
       button {
@@ -77,7 +78,7 @@
     }
 
     .modifyForm {
-      flex-grow: 1;
+      flex-grow: 0.8;
       justify-content: space-between;
       .startDate {
         margin-bottom: 1vh;
@@ -86,8 +87,12 @@
         width: 10vw;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: flex-end;
+        input {
+          width: 10vw;
+          height: 3vh;
+        }
       }
       button {
         align-items: flex-end;
@@ -131,7 +136,11 @@ aside {
       font-weight: 700;
       font-size: 2.5rem;
     }
-  }
+
+    hr {
+      width: 100%;
+    }
+  } // innerMain 끝
 
   .solCharacter {
     width: 20vw;
