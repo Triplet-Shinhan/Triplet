@@ -2,6 +2,8 @@ package com.ssafy.triplet.trip.controller;
 
 import java.util.List;
 
+import com.ssafy.triplet.user.repository.UserRepository;
+import com.ssafy.triplet.user.util.UserUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/trips")
 public class TripController {
+	private final UserRepository userRepository;
 	private final TripService tripService;
+	private final UserUtility userUtility;
 	private final Logger logger = LoggerFactory.getLogger(TripController.class);
 
 	@GetMapping
@@ -43,6 +47,8 @@ public class TripController {
 			if (user != null) {
 				Long userId = user.getUserId();
 				logger.debug("readTrips success");
+				//회원 정보를 찾을 수 없을 경우 에러
+				userRepository.findById(userId).orElseThrow(() -> new BaseException(ErrorCode.USER_ID_NOT_FOUND));
 				return ResponseEntity.ok(tripService.getAllTrips(userId));
 			}
 		}
@@ -52,7 +58,8 @@ public class TripController {
 	@PostMapping
 	public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto, HttpServletRequest httpServletRequest) {
 		logger.debug("createTrip request success");
-		tripService.saveTrip(tripDto, httpServletRequest);
+		User loginUser = userUtility.getUserFromCookie(httpServletRequest);
+		tripService.saveTrip(tripDto, loginUser);
 		logger.debug("createTrip success");
 		return ResponseEntity.ok().build();
 	}
