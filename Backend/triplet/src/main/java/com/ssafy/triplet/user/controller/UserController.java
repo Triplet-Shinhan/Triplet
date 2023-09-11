@@ -43,10 +43,7 @@ public class UserController {
 	public ResponseEntity<ApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
 		HttpServletResponse response) {
 		logger.debug("login request success");
-		User loginUser = userService.login(loginDto).orElse(null);
-		if (loginUser == null) {
-			throw new BaseException(ErrorCode.LOGIN_FAILED);
-		}
+		User loginUser = userService.login(loginDto).orElseThrow(() -> new BaseException(ErrorCode.LOGIN_FAILED));
 
 		// 세션을 설정하여 사용자 정보를 저장
 		HttpSession session = request.getSession();
@@ -56,14 +53,7 @@ public class UserController {
 		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
-		sessionCookie.setSecure(false); // HTTPS를 사용해야만 합니다. -> true 면 https / flase 면 http
-		// sessionCookie.setHttpOnly(true); // JavaScript에서의 접근 방지
 		response.addCookie(sessionCookie);
-
-		// SameSite 속성을 raw 헤더에 추가
-		String cookieHeader = String.format("%s; %s", sessionCookie.toString(), "SameSite=Lax");
-		response.setHeader("Set-Cookie", cookieHeader);
-
 		logger.debug("login success");
 
 		return ResponseEntity.ok().build();
