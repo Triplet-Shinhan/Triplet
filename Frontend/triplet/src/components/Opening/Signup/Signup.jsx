@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  // let isChecked = false;
+  let isChecked = false;
   // (name = null),
   //   (birth = null),
   //   (email = null),
@@ -40,11 +40,14 @@ export default function Signup() {
     ({ name, accountNum }) => checkAccount({ name, accountNum }),
     {
       // 데이터 보내주는지 확인하기
-      onSuccess: (accName) => {
+      onSuccess: (data) => {
         // 1원 계좌 확인
         // 성공시 resultCode 200번
         console.log('success');
-        setAccountName(accName);
+        console.log(data);
+        console.log(data.data.memo);
+
+        setAccountName(data.data.memo);
       },
       onError: () => {
         console.log('동일하지 않습니다.');
@@ -53,19 +56,16 @@ export default function Signup() {
   );
 
   // 회원가입 잘 되는지 확인하는 함수
-  const signupUserMutation = useMutation(
-    ({ formData }) => signupUser({ formData }),
-    {
-      onSuccess: () => {
-        // 회원가입 잘 되면 코드 성공 코드 200번
-        console.log('success');
-        navigate('/');
-      },
-      onError: () => {
-        console.log('회원가입이 되지 않았습니다.');
-      },
-    }
-  );
+  const signupUserMutation = useMutation(() => signupUser({ formData }), {
+    onSuccess: () => {
+      // 회원가입 잘 되면 코드 성공 코드 200번
+      console.log('success');
+      navigate('/');
+    },
+    onError: () => {
+      console.log('회원가입이 되지 않았습니다.');
+    },
+  });
 
   // form 제출했을 때
   const handleSubmit = (e) => {
@@ -105,23 +105,23 @@ export default function Signup() {
       console.log('비밀번호 형식에 맞게 입력해주세요');
       return;
     }
-
     // 폼 보내고 난 이후 초기화
-    setFormData({
-      email: '',
-      name: '',
-      birth: '',
-      phoneNum: '',
-      password: '',
-      accountNum: '',
-    });
+    // setFormData({
+    //   email: '',
+    //   name: '',
+    //   birth: '',
+    //   phoneNum: '',
+    //   password: '',
+    //   accountNum: '',
+    // });
   }; // handleSubmit 끝
 
   // 입력받은 입금자명과 1원계좌의 이름이 같은지 확인하는 함수
   const checkSame = (e) => {
     e.preventDefault();
-    // if (inputName === accountName) isChecked = true;
-    // else alert('입금자명이 일치하지 않습니다.');
+    console.log(inputName);
+    if (accountName === inputName) isChecked = true;
+    else alert('입금자명이 일치하지 않습니다.');
   };
 
   // 값이 변할 때 추적하기 위한 함수

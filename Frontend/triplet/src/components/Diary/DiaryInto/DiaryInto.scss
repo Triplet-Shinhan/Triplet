@@ -42,13 +42,17 @@ h2 {
       background-color: var(--color-text-white);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       border-radius: 20px;
+      align-items: center;
 
       button {
         font-size: 2rem;
         color: var(--color-input-text);
       }
+    }
+    .empty {
+      justify-content: center;
     }
   }
 }

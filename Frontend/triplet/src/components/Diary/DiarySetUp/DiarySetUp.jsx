@@ -27,12 +27,15 @@ export default function DiarySetUp() {
   ];
 
   const [tripInfo, setTripInfo] = useState({
-    tripName: '',
-    tripPlace: '',
-    tripCurrency: '',
-    tripBudget: '',
+    prjName: '',
+    location: '',
+    currency: '',
+    budget: '',
     startDate: '',
     endDate: '',
+    exchangedBudget: '',
+    usedBudget: '',
+    fixedRate: '',
   });
 
   const handleChange = (e) => {
@@ -42,24 +45,20 @@ export default function DiarySetUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // startDate 보다 endDate가 빠르면 생성 안되는 로직 추가 필요
     makeTripDiary.mutate({ tripInfo });
   };
 
   // 프로젝트 정보 넘기기
-  const makeTripDiary = useMutation(
-    ({ tripInfo }) => makeNewTrip({ tripInfo }),
-    {
-      onSuccess: () => {
-        console.log('success');
-        alert('생성');
-        // Diary 달력페이지로 이동
-      },
-      onError: () => {
-        console.log('생성이 되지 않았습니다.');
-      },
-    }
-  );
+  const makeTripDiary = useMutation(() => makeNewTrip({ tripInfo }), {
+    onSuccess: () => {
+      console.log('success');
+      alert('생성');
+      // Diary 달력페이지로 이동
+    },
+    onError: () => {
+      console.log('생성이 되지 않았습니다.');
+    },
+  });
 
   return (
     <>
@@ -75,24 +74,24 @@ export default function DiarySetUp() {
             />
             <figcaption>Triplet</figcaption>
           </figure>
-          <div>
-            <label htmlFor="tripName">프로젝트 이름을 설정해주세요</label>
+          <section>
+            <label htmlFor="prjName">프로젝트 이름을 설정해주세요</label>
             <input
               type="text"
-              id="tripName"
-              name="tripName"
-              value={tripInfo.tripName}
+              id="prjName"
+              name="prjName"
+              value={tripInfo.prjName}
               onChange={handleChange}
               placeholder="프로젝트 이름"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="tripCurrency">통화설정을 해주세요</label>
+          </section>
+          <section>
+            <label htmlFor="currency">통화설정을 해주세요</label>
             <select
-              name="tripCurrency"
-              id="tripCurrency"
-              value={tripInfo.tripCurrency}
+              name="currency"
+              id="currency"
+              value={tripInfo.currency}
               onChange={handleChange}
               required
             >
@@ -102,8 +101,8 @@ export default function DiarySetUp() {
                 </option>
               ))}
             </select>
-          </div>
-          <div>
+          </section>
+          <section>
             <label htmlFor="tripDate" className="tripDate">
               여행 기간을 알려주세요
             </label>
@@ -124,39 +123,75 @@ export default function DiarySetUp() {
               onChange={handleChange}
               required
             />
-          </div>
-          <div>
-            <label htmlFor="tripPlace">여행지를 적어주세요</label>
+          </section>
+          <section>
+            <label htmlFor="location">여행지를 적어주세요</label>
             <input
               type="text"
-              id="tripPlace"
-              name="tripPlace"
+              id="location"
+              name="location"
               placeholder="여행지 이름"
-              value={tripInfo.tripPlace}
+              value={tripInfo.location}
               onChange={handleChange}
               required
             />
-          </div>
-          <div>
-            <label htmlFor="tripBudget">예산을 알려주세요</label>
+          </section>
+          <section>
+            <label htmlFor="budget">예산을 알려주세요</label>
             <input
               type="text"
-              id="tripBudget"
-              name="tripBudget"
+              id="budget"
+              name="budget"
               placeholder="₩250,000"
-              value={tripInfo.tripBudget}
+              value={tripInfo.budget}
               onChange={handleChange}
               required
             />
-          </div>
+          </section>
+          <section>
+            <label htmlFor="budget">예상 환전 현금</label>
+            <input
+              type="text"
+              id="exchangedBudget"
+              name="exchangedBudget"
+              placeholder="₩250,000"
+              value={tripInfo.exchangedBudget}
+              onChange={handleChange}
+              required
+            />
+          </section>
+          <section>
+            <label htmlFor="budget">사용된 예산</label>
+            <input
+              type="text"
+              id="usedBudget"
+              name="usedBudget"
+              placeholder="₩250,000"
+              value={tripInfo.usedBudget}
+              onChange={handleChange}
+              required
+            />
+          </section>
+          <section>
+            <label htmlFor="budget">환전 환율</label>
+            <input
+              type="text"
+              id="fixedRate"
+              name="fixedRate"
+              placeholder="₩250,000"
+              value={tripInfo.fixedRate}
+              onChange={handleChange}
+              required
+            />
+          </section>
           <button>
-            <div className="makeDiary">생성하기</div>
+            <section className="makeDiary">생성하기</section>
           </button>
-          <div className="boardingArea">boarding pass</div>
+          <section className="boardingArea">boarding pass</section>
         </form>
-        <div className="backgroundForm">
-          <div className="backgroundFooter">Boarding Pass</div>
-        </div>
+        <section className="backgroundForm">
+          <section className="backgroundFooter">Boarding Pass</section>
+        </section>
       </main>
     </>
   );
