@@ -1,6 +1,5 @@
 package com.ssafy.triplet.payment.controller;
 
-import com.ssafy.triplet.parser.Object.ExchangeResult;
 import com.ssafy.triplet.payment.dto.PaymentReqDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
