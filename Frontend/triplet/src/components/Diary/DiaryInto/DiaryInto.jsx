@@ -13,7 +13,17 @@ export default function DiarySettings() {
   const navigate = useNavigate();
   // 다이어리 API 사용하겠다는 의미
   // const { diaryFunc } = useDiaryApi();
-  const tripList = undefined;
+  // const tripList = undefined;
+
+  const tripList = [
+    {
+      tripId: 1,
+      tripLocation: '영국',
+      tripPName: '영국',
+      startDate: '2023-03-05',
+      endDate: '2023-04-02',
+    },
+  ];
   // 백에서 diary api로 data 가져옴
   // const {
   //   isLoading,
@@ -34,7 +44,9 @@ export default function DiarySettings() {
       <ul className="tripInto">
         <li className="tripInfo">
           <nav>프로젝트</nav>
-          <div className="tripList">
+          <div
+            className={tripList === undefined ? 'tripList empty' : 'tripList'}
+          >
             {/* tripList 형식 오는거 확인해볼 것 undefined인지 아닌지 */}
             {tripList === undefined ? (
               <button onClick={() => navigate('/trips/setup')}>
@@ -47,7 +59,7 @@ export default function DiarySettings() {
           </div>
         </li>
         <li>
-          <li>
+          <section>
             <button
               className="goBtn goExchange"
               onClick={() => navigate('/exchange')}
@@ -55,8 +67,8 @@ export default function DiarySettings() {
               <span>환전신청 하러 가기</span>
               <IoIosArrowForward className="next" />
             </button>
-          </li>
-          <li>
+          </section>
+          <section>
             <button
               className="goBtn makeNew"
               onClick={() => navigate('/trips/setup')}
@@ -64,7 +76,7 @@ export default function DiarySettings() {
               <span>새 프로젝트 생성하기</span>
               <IoIosArrowForward className="next yellow" />
             </button>
-          </li>
+          </section>
         </li>
       </ul>
     </>
