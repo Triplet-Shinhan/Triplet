@@ -43,10 +43,7 @@ public class UserController {
 	public ResponseEntity<ApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
 		HttpServletResponse response) {
 		logger.debug("login request success");
-		User loginUser = userService.login(loginDto).orElse(null);
-		if (loginUser == null) {
-			throw new BaseException(ErrorCode.LOGIN_FAILED);
-		}
+		User loginUser = userService.login(loginDto).orElseThrow(() -> new BaseException(ErrorCode.LOGIN_FAILED));
 
 		// 세션을 설정하여 사용자 정보를 저장
 		HttpSession session = request.getSession();
