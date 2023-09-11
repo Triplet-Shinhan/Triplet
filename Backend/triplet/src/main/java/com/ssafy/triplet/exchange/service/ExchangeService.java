@@ -29,9 +29,7 @@ import com.ssafy.triplet.parser.dto.exchangeRate.ExchangeRate;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 import com.ssafy.triplet.parser.dto.transfer.TransferReqDataBody;
 import com.ssafy.triplet.user.domain.User;
-import com.ssafy.triplet.user.util.UserUtility;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -39,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 public class ExchangeService {
     private final WebClientUtil webClientUtil;
     private final ExchangeUtil exchangeUtil;
-    private final UserUtility userUtility;
 
     // 환전 메인 페이지를 위한 정보 불러오기 메소드
     public ExchangeResponseDto getRate(String currency) {
@@ -180,7 +177,6 @@ public class ExchangeService {
             User user) {
 
         ExchangeApplyResponseDto eaRes = new ExchangeApplyResponseDto(); // 최종 결과 DTO
-
         ExchangeReqDataBody exchange = new ExchangeReqDataBody(); // 신한 API
 
         exchange.setServiceCode("T0511");

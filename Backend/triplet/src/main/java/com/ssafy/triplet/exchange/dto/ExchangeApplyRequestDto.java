@@ -16,5 +16,5 @@ public class ExchangeApplyRequestDto {
 
     private String receiptDate;
 
-    private Integer receiveWay;
+    private String receiveWay;
 }
