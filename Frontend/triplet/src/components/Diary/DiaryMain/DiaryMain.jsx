@@ -1,8 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DiaryMain.scss';
 
 export default function Diary() {
+  // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+  const navigate = useNavigate();
+  // props로 시작 날짜, 끝 날짜 가져오기
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -20,11 +26,14 @@ export default function Diary() {
               <div>신한 해커톤</div>
               <button>로그아웃</button>
             </form>
-            <img
-              src="../../../assets/icons/setting.png"
-              width="30vw"
-              alt="환경설정"
-            />
+            <button>
+              <img
+                src="../../../assets/icons/setting.png"
+                width="30vw"
+                alt="환경설정"
+                onClick={() => navigate('/trips/dailies/setting')}
+              />
+            </button>
           </section>
         </nav>
       </header>
@@ -70,7 +79,9 @@ export default function Diary() {
               </li>
             ))}
           </ul>
-          <ul></ul>
+          <ul className="calSection">
+            <li></li>
+          </ul>
         </section>
       </main>
     </>
