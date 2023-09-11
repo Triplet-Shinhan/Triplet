@@ -39,7 +39,7 @@ public class ExchangeService {
         this.exchangeUtil = exchangeUtil;
     }
 
-    // 환전 메인 페이지를 위한 정보 불러오기 메소드 
+    // 환전 메인 페이지를 위한 정보 불러오기 메소드
     public ExchangeResponseDto getRate(String currency) {
 
         // 신한 api 요청 해서 통화코드, 환율 , 환전신청단위 , 우대율
@@ -53,7 +53,8 @@ public class ExchangeService {
         // 환율 가지고 오기
         // 고시 환율 API 활용하여 가져오기
         LocalDate now = LocalDate.now();
-        List<ExchangeRate> exchangeRateDatas = webClientUtil.getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
+        List<ExchangeRate> exchangeRateDatas = webClientUtil
+                .getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
 
         // api 성공했으면 200
         exchangeResponseDto.setResultCode(200);
@@ -61,10 +62,8 @@ public class ExchangeService {
         // 우대율 가지고 오기
         List<CurrencyRate> preferentialList = webClientUtil.getPreferentialRate();
 
-        // 응답 데이터 바디Backend/triplet/src/main/java/com/ssafy/triplet/exchange/service/ExchangeService.java
+        // 응답 데이터 바디
         ExchangeResponseDataBody dataBody = new ExchangeResponseDataBody();
-
-        dataBody.setListNum(currencyCodes.size()); // 리스트 수 입력
 
         List<String> curCodes = new ArrayList<String>();
         List<ExchangeData> exchangeList = new ArrayList<ExchangeData>();
@@ -74,15 +73,15 @@ public class ExchangeService {
             ExchangeData ed = new ExchangeData();
 
             // 통화코드 설정
-            ed.setCurrencyCode(curData.getCurrencyCode());
-            curCodes.add(curData.getCurrencyCode()); // 통화 리스트에 저장
+            ed.setCurrencyCode(curData.getCurrencyCode().trim());
+            curCodes.add(curData.getCurrencyCode().trim()); // 통화 리스트에 저장
 
             // 환율 설정
             ed.setExchangeRate(curData.getExchangeRate());
 
             // 최소 단위 파싱하기
             for (Currency cd : currencyCodes) {
-                if (cd.getCurrencyCode().equals(curData.getCurrencyCode())) { // 같은 이름 코드라면
+                if (cd.getCurrencyCode().trim().equals(curData.getCurrencyCode().trim())) { // 같은 이름 코드라면
                     ed.setExchangeUnit(cd.getExchangeUnit()); // 최소 단위 저장
                     break;
                 }
@@ -91,7 +90,7 @@ public class ExchangeService {
             // 우대율 파싱하기
             Preferential: for (CurrencyRate preferential : preferentialList) { // 각 우대율에서
                 for (String cd : preferential.getCurrencyCode().split(",")) { // 각 통화 코드에 대해 조사 시작
-                    if (cd.equals(curData.getCurrencyCode())) { // 같은 통화 코드라면
+                    if (cd.trim().equals(curData.getCurrencyCode().trim())) { // 같은 통화 코드라면
                         ed.setPreferentialRate(preferential.getPreferentialRate()); // 우대율 저장
                         break Preferential;
                     }
@@ -101,6 +100,17 @@ public class ExchangeService {
             exchangeList.add(ed);
         }
 
+        // NULL 값 제외하기
+        for (int idx = 0; idx < curCodes.size(); idx++) {
+            if (exchangeList.get(idx).getExchangeUnit() == null
+                    || exchangeList.get(idx).getPreferentialRate() == null) {
+                exchangeList.remove(idx);
+                curCodes.remove(idx);
+                idx--;
+            }
+        }
+
+        dataBody.setListNum(exchangeList.size()); // 리스트 수 입력
         dataBody.setCurrencyList(curCodes); // 통화리스트 저장
         dataBody.setExchangeData(exchangeList); // 환율 데이터 저장
         exchangeResponseDto.setDataBody(dataBody); // 데이터 바디 저장
@@ -155,10 +165,10 @@ public class ExchangeService {
 
         // TODO : DB 접속 및 사용자 정보 가지고 오기
         ExchangeReqDataBody erdb = getDB();
-        
 
-        // 가져온 사용자 정보를 가지고 환전  기록을 가지고 온다.
-        CheckExchangeReqDataBody erReq  = new CheckExchangeReqDataBody(erdb.getName(), erdb.getPhoneNum(), erdb.getBirth()); // 신한 api 요청 dto
+        // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다.
+        CheckExchangeReqDataBody erReq = new CheckExchangeReqDataBody(erdb.getName(), erdb.getPhoneNum(),
+                erdb.getBirth()); // 신한 api 요청 dto
         erReq.setServiceCode("T0512");
         erRes = webClientUtil.getExchangeResult(erReq);
 
