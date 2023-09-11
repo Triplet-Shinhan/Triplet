@@ -1,5 +1,6 @@
 @mixin deleteBtn {
   width: 7vw;
+  height: 6vh;
   background-color: var(--color-point-warning);
   color: var(--color-text-white);
   font-size: 1.5rem;
@@ -47,6 +48,8 @@
   .innerMain {
     width: 54vw;
     margin-top: 7vh;
+    display: flex;
+    flex-direction: column;
 
     form {
       display: flex;
@@ -73,8 +76,26 @@
       }
     }
 
+    .modifyForm {
+      flex-grow: 1;
+      justify-content: space-between;
+      .startDate {
+        margin-bottom: 1vh;
+      }
+      .modifyBtnArea {
+        width: 10vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-end;
+      }
+      button {
+        align-items: flex-end;
+      }
+    }
     .deleteForm {
       display: flex;
+      flex-grow: 5;
       justify-content: space-between;
 
       div {

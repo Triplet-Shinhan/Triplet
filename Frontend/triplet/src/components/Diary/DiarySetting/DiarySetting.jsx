@@ -23,7 +23,7 @@ export default function DiarySetting() {
         </header>
         <main className="settingMain">
           <section className="innerMain">
-            <form action="PATCH" onSubmit={handleSumbit}>
+            <form action="PATCH" onSubmit={handleSumbit} className="modifyForm">
               <section className="modifyTrip">
                 <div>여행기간 수정</div>
                 <p>여행 기간 변경을 할 수 있습니다.</p>
@@ -35,6 +35,7 @@ export default function DiarySetting() {
               <div className="modifyBtnArea">
                 <section className="modifyDate">
                   <input
+                    className="startDate"
                     type="date"
                     name="startDate"
                     value={tripDate.startDate}
@@ -52,6 +53,7 @@ export default function DiarySetting() {
                 <button>수정하기</button>
               </div>
             </form>
+            <br />
 
             <form action="DELETE" className="deleteForm">
               <div>프로젝트 삭제</div>
