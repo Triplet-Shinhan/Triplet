@@ -8,6 +8,7 @@ import DiarySetUp from './components/Diary/DiarySetUp/DiarySetUp';
 import { DiaryApiProvider } from './context/DiaryApiContext';
 import { BankAccountProvider } from './context/BankAccountApiContext';
 import Exchange from './components/Exchange/Exchange';
+import DiaryMain from './components/Diary/DiaryMain/DiaryMain';
 
 const queryClient = new QueryClient();
 
@@ -15,11 +16,13 @@ const router = createBrowserRouter([
   {
     path: '/',
     children: [
-      { index: true, element: <DiaryInto /> },
+      { index: true, element: <Login /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
       { path: '/trips', element: <DiaryInto /> },
       { path: '/trips/setup', element: <DiarySetUp /> },
+      // { path: '/trips/:tripId/dailies', element: <Diary /> },
+      { path: '/trips/dailies', element: <DiaryMain /> },
       { path: '/exchange', element: <Exchange /> },
     ],
   },
