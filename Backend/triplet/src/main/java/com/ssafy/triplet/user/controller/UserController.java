@@ -53,7 +53,13 @@ public class UserController {
 		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
+		sessionCookie.setSecure(true);
+		sessionCookie.setHttpOnly(true);
+
 		response.addCookie(sessionCookie);
+		String cookieHeader = "JSESSIONID=" + session.getId() + "; Max-Age=86400; Path=/; HttpOnly; SameSite=None; Secure";
+		response.setHeader("Set-Cookie", cookieHeader);
+
 		logger.debug("login success");
 
 		return ResponseEntity.ok().build();
