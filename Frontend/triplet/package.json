@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "triplet-ssafy.netlify.app",
+  "homepage": "https://triplet-ssafy.netlify.app",
   "eslintConfig": {
     "extends": [
       "react-app",
