@@ -1,16 +1,24 @@
 import axios from 'axios';
 
-export const checkAccount = ({ name, account }) => {
-  return axios.post('http://43.201.254.59:8080/check', {
-    name,
-    account,
-  });
+export const AxiosInstance = axios.create({
+  withCredentials: true,
+  baseURL: process.env.REACT_APP_TRIPLET_SERVER_IP,
+});
+
+export const checkAccount = ({ name, accountNum }) => {
+  return axios.post(
+    process.env.REACT_APP_TRIPLET_SERVER_IP + '/v1/auth/1transfer',
+    {
+      name,
+      accountNum,
+    }
+  );
 };
 
 export const signupUser = ({ formData }) => {
   return axios.post(
-    'http://43.201.254.59:8080/users/signup',
-    { data: formData },
-    { headers: { 'Content-type': 'application/json' } }
+    process.env.REACT_APP_TRIPLET_SERVER_IP + '/users/signup',
+    formData,
+    { headers: { 'Content-type': 'application/json; charset=UTF-8' } }
   );
 };

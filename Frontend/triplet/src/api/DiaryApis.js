@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { AxiosInstance } from '../api/AccountApis';
 
 export default class Diary {
   constructor() {
     this.httpClient = axios.create({
       baseURL: process.env.REACT_APP_TRIPLET_SERVER_IP,
+      withCredentials: true,
     });
   }
 
@@ -13,10 +15,9 @@ export default class Diary {
   }
 }
 
-export const makeNewTrip = ({ tripInfo }) => {
-  return axios.post(
-    process.env.REACT_APP_TRIPLET_SERVER_IP + 'api/trips',
-    { data: tripInfo },
-    { headers: { 'Content-type': 'application/json' } }
-  );
+export const makeNewTrip = async ({ tripInfo }) => {
+  const res = await AxiosInstance.post('/api/trips', tripInfo, {
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+  });
+  console.log(res);
 };
