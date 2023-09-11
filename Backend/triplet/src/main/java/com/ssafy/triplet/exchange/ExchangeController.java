@@ -16,6 +16,7 @@ import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.service.ExchangeService;
 import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeDataBody;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -37,12 +38,14 @@ public class ExchangeController {
     }
 
     @PostMapping("")
-    public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto ExchangeApplyRequestDto) {
-        return exchangeService.applyExchange(ExchangeApplyRequestDto);
+    public ExchangeApplyResponseDto applyExchange(HttpServletRequest httpServletRequest,
+            @RequestBody ExchangeApplyRequestDto ExchangeApplyRequestDto) {
+
+        return exchangeService.applyExchange(ExchangeApplyRequestDto, httpServletRequest);
     }
 
     @GetMapping("/results")
-    public CheckExchangeDataBody getExchangeResults() {
-        return exchangeService.getExchangeResults();
+    public CheckExchangeDataBody getExchangeResults(HttpServletRequest httpServletRequest) {
+        return exchangeService.getExchangeResults(httpServletRequest);
     }
 }

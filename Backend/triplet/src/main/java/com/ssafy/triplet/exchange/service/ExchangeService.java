@@ -15,7 +15,6 @@ import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
 import com.ssafy.triplet.exchange.dto.ExchangeData;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
-import com.ssafy.triplet.exchange.dto.ExchangeResultsResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
 import com.ssafy.triplet.exchange.util.ExchangeUtil;
@@ -28,16 +27,19 @@ import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
 import com.ssafy.triplet.parser.dto.exchangeBranch.Branch;
 import com.ssafy.triplet.parser.dto.exchangeRate.ExchangeRate;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
+import com.ssafy.triplet.parser.dto.transfer.TransferReqDataBody;
+import com.ssafy.triplet.user.domain.User;
+import com.ssafy.triplet.user.util.UserUtility;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ExchangeService {
     private final WebClientUtil webClientUtil;
     private final ExchangeUtil exchangeUtil;
-
-    public ExchangeService(WebClientUtil webClientUtil, ExchangeUtil exchangeUtil) {
-        this.webClientUtil = webClientUtil;
-        this.exchangeUtil = exchangeUtil;
-    }
+    private final UserUtility userUtility;
 
     // 환전 메인 페이지를 위한 정보 불러오기 메소드
     public ExchangeResponseDto getRate(String currency) {
@@ -160,15 +162,15 @@ public class ExchangeService {
     }
 
     // 사용자가 환전하였던 기록 목록을 반환한다.
-    public CheckExchangeDataBody getExchangeResults() {
+    public CheckExchangeDataBody getExchangeResults(HttpServletRequest httpServletRequest) {
         CheckExchangeDataBody erRes = new CheckExchangeDataBody();
 
-        // TODO : DB 접속 및 사용자 정보 가지고 오기
-        ExchangeReqDataBody erdb = getDB();
+        // DB 접속 및 사용자 정보 가지고 오기
+        User user = userUtility.getUserFromCookie(httpServletRequest);
 
         // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다.
-        CheckExchangeReqDataBody erReq = new CheckExchangeReqDataBody(erdb.getName(), erdb.getPhoneNum(),
-                erdb.getBirth()); // 신한 api 요청 dto
+        CheckExchangeReqDataBody erReq = new CheckExchangeReqDataBody(user.getName(), user.getPhoneNum(),
+                user.getBirth()); // 신한 api 요청 dto
         erReq.setServiceCode("T0512");
         erRes = webClientUtil.getExchangeResult(erReq);
 
@@ -177,47 +179,48 @@ public class ExchangeService {
     }
 
     // 환전 신청 요청하는 메소드
-    public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto exchangeApplyRequestDto) {
+    public ExchangeApplyResponseDto applyExchange(@RequestBody ExchangeApplyRequestDto exchangeApplyRequestDto,
+            HttpServletRequest httpServletRequest) {
+
         ExchangeApplyResponseDto eaRes = new ExchangeApplyResponseDto(); // 최종 결과 DTO
 
-        // TODO : DB 접속 및 사용자 정보 가지고 오기
-        // ExchangeReqDataBody erdb = getDB();
+        // DB 접속 및 사용자 정보 가지고 오기
+        User user = userUtility.getUserFromCookie(httpServletRequest);
 
         ExchangeReqDataBody exchange = new ExchangeReqDataBody(); // 신한 API
 
         exchange.setServiceCode("T0511");
         exchange.setCurrency(exchangeApplyRequestDto.getCurrency());
-        // exchange.setName(exchange.getName()); //신청자 이름
+        exchange.setName(user.getName()); // 신청자 이름
+
         exchange.setExchangeAmount(exchangeApplyRequestDto.getAmount());
         exchange.setLocation(exchangeApplyRequestDto.getLocation());
-        exchange.setRecieveDate(exchangeApplyRequestDto.getReceiptDate());
-        // exchange.setRecieveName(exchange.getName()) // 수령자 이름
-        // exchange.setBirth(exchange.getBirth()) // 생일
-        // eschange.setPhoneNum(exchange.getPhoneNum); // 전화번호
-        exchange.setReiciveWay(exchangeApplyRequestDto.getReceiveWay());
+        exchange.setReceiveDate(exchangeApplyRequestDto.getReceiptDate());
+        exchange.setReceiverName(user.getName()); // 수령자 이름
+        exchange.setBirth(user.getBirth()); // 생일
+        exchange.setPhoneNum(user.getPhoneNum()); // 전화번호
+        exchange.setReceiveWay(String.valueOf(exchangeApplyRequestDto.getReceiveWay()));
 
         // 신한 환전 API 호출
         ExchangeDataBody edb = webClientUtil.createExchange(exchange);
 
         /** 자동 이체 */
-
-        // 쿠키로 계좌 번호 불러오기
-        String accountNum = get___();
+        String accountNum = user.getAccountNum();
 
         // 이체 할 때 보낼 데이터 바디
-        TransferRequestBody tReqBody = new TransferRequestBody();
+        TransferReqDataBody tReqBody = new TransferReqDataBody();
 
-        tReqBody.setAccountNum(accountNum);
-        tReqBody.setBankCode("088");
+        tReqBody.setWithdrawalAccountNum(accountNum);
+        tReqBody.setDepositBankCode("088");
         tReqBody.setDepositAccountNum(edb.getVirtualAccountNumber()); // 가상 계좌로 입금
-        tReqBody.setAmount(edb.getConvertedKRWAmount()); // 변환된 원화 만큼 이체해야한다.
-        // tReqBody.setDepositAccountMemo(erdb.getName()+" 환전");
-        tReqBody.setWithdrawlAccountMemo(exchangeApplyRequestDto.getCurrency() + " 환전 신청");
+        tReqBody.setTransferAmount(edb.getConvertedKRWAmount()); // 변환된 원화 만큼 이체해야한다.
+        tReqBody.setDepositAccountMemo(user.getName() + "_환전");
+        tReqBody.setWithdrawalAccountMemo(exchangeApplyRequestDto.getCurrency() + "_환전 신청");
 
         webClientUtil.createTransfer(tReqBody); // 계좌 이체 API 호출
 
         // 성공
-        eaRes.setResultCode(200);
+        eaRes.setResultCode("200");
         eaRes.setConvertedKRWAmount(edb.getConvertedKRWAmount());
         eaRes.setExchangeRate(edb.getExchangeRate());
         eaRes.setPreferentialRate(edb.getPreferentialRate());
