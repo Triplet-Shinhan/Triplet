@@ -73,9 +73,10 @@ public class TripService {
         trip.setLocation(tripDto.getLocation());
         trip.setBudget(tripDto.getBudget());
         trip.setExchangedBudget(tripDto.getExchangedBudget());
-        trip.setUsedBudget(tripDto.getUsedBudget());
+        trip.setUsedBudget(0L);
         trip.setCurrency(tripDto.getCurrency());
-        trip.setFixedRate(tripDto.getFixedRate());
+        // trip.setFixedRate(tripDto.getFixedRate());//현재 환율 가져오기
+        trip.setFixedRate(1000F);//환전 에서 가져와야하는데 일단 테스트용으로 100으로 지정한다.
         trip.setStartDate(tripDto.getStartDate());
         trip.setEndDate(tripDto.getEndDate());
         return trip;
