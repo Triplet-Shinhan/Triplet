@@ -23,12 +23,8 @@ public class TripValidation {
 			throw new BaseException(ErrorCode.BUDGET_ERROR);
 		} else if (isInputInvalid(String.valueOf(tripDto.getExchangedBudget()))) {
 			throw new BaseException(ErrorCode.EXCHANGED_BUDGET_ERROR);
-		} else if (isInputInvalid(String.valueOf(tripDto.getUsedBudget()))) {
-			throw new BaseException(ErrorCode.USED_BUDGET_ERROR);
 		} else if (isInputInvalid(tripDto.getCurrency())) {
 			throw new BaseException(ErrorCode.CURRENCY_ERROR);
-		} else if (isInputInvalid(String.valueOf(tripDto.getFixedRate()))) {
-			throw new BaseException(ErrorCode.FIXED_RATE_ERROR);
 		} else if (isInputInvalid(tripDto.getStartDate().toString())) {
 			throw new BaseException(ErrorCode.START_DATE_ERROR);
 		} else if (isInputInvalid(tripDto.getEndDate().toString())) {
@@ -41,8 +37,6 @@ public class TripValidation {
 			throw new BaseException(ErrorCode.START_DATE_ERROR);
 		} else if (isInputInvalid(tripEditDto.getEndDate().toString())) {
 			throw new BaseException(ErrorCode.END_DATE_ERROR);
-		} else if (isInputInvalid(String.valueOf(tripEditDto.getFixedRate()))) {
-			throw new BaseException(ErrorCode.FIXED_RATE_ERROR);
 		}
 	}
 
