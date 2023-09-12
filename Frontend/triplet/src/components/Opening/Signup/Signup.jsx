@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import './Signup.scss';
-import { checkAccount, signupUser } from '../../../api/AccountApis';
+import { useMutation } from "@tanstack/react-query";
+import "./Signup.scss";
+import { checkAccount, signupUser } from "../../../api/AccountApis";
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   // let isChecked = false;
@@ -13,15 +13,15 @@ export default function Signup() {
   //   (password = null),
   //   (phoneNum = null),
   //   (accountNum = null);
-  const [accountName, setAccountName] = useState(''); // 1원이체 계좌
-  const [inputName, setInputName] = useState(''); // 입금자명
+  const [accountName, setAccountName] = useState(""); // 1원이체 계좌
+  const [inputName, setInputName] = useState(""); // 입금자명
   const [formData, setFormData] = useState({
-    name: '',
-    birth: '',
-    email: '',
-    password: '',
-    phoneNum: '',
-    accountNum: '',
+    name: "",
+    birth: "",
+    email: "",
+    password: "",
+    phoneNum: "",
+    accountNum: "",
   });
 
   const navigate = useNavigate();
@@ -43,29 +43,26 @@ export default function Signup() {
       onSuccess: (accName) => {
         // 1원 계좌 확인
         // 성공시 resultCode 200번
-        console.log('success');
+        console.log("success");
         setAccountName(accName);
       },
       onError: () => {
-        console.log('동일하지 않습니다.');
+        console.log("동일하지 않습니다.");
       },
     }
   );
 
   // 회원가입 잘 되는지 확인하는 함수
-  const signupUserMutation = useMutation(
-    ({ formData }) => signupUser({ formData }),
-    {
-      onSuccess: () => {
-        // 회원가입 잘 되면 코드 성공 코드 200번
-        console.log('success');
-        navigate('/');
-      },
-      onError: () => {
-        console.log('회원가입이 되지 않았습니다.');
-      },
-    }
-  );
+  const signupUserMutation = useMutation(({ formData }) => signupUser({ formData }), {
+    onSuccess: () => {
+      // 회원가입 잘 되면 코드 성공 코드 200번
+      console.log("success");
+      navigate("/");
+    },
+    onError: () => {
+      console.log("회원가입이 되지 않았습니다.");
+    },
+  });
 
   // form 제출했을 때
   const handleSubmit = (e) => {
@@ -88,32 +85,32 @@ export default function Signup() {
     ) {
       console.log(formData);
       signupUserMutation.mutate({ formData });
-      console.log('회원가입 완료!');
+      console.log("회원가입 완료!");
     } else if (!emailReg.test(formData.email)) {
-      console.log('이메일 형식에 맞게 입력해주세요.');
+      console.log("이메일 형식에 맞게 입력해주세요.");
       return;
     } else if (!nameReg.test(formData.name)) {
-      console.log('이름 형식에 맞게 입력해주세요.');
+      console.log("이름 형식에 맞게 입력해주세요.");
       return;
     } else if (!birthReg.test(formData.birth)) {
-      console.log('숫자만 입력해주세요.');
+      console.log("숫자만 입력해주세요.");
       return;
     } else if (!phoneReg.test(formData.phoneNum)) {
-      console.log('올바른 휴대폰 번호를 입력해주세요');
+      console.log("올바른 휴대폰 번호를 입력해주세요");
       return;
     } else {
-      console.log('비밀번호 형식에 맞게 입력해주세요');
+      console.log("비밀번호 형식에 맞게 입력해주세요");
       return;
     }
 
     // 폼 보내고 난 이후 초기화
     setFormData({
-      email: '',
-      name: '',
-      birth: '',
-      phoneNum: '',
-      password: '',
-      accountNum: '',
+      email: "",
+      name: "",
+      birth: "",
+      phoneNum: "",
+      password: "",
+      accountNum: "",
     });
   }; // handleSubmit 끝
 
@@ -136,80 +133,81 @@ export default function Signup() {
   // 비밀번호가 같은지 확인하기 위한 함수
   const handleRight = (e) => {
     if (e.target.value === formData.password) {
-      console.log('같은 비밀번호입니다.');
-    } else console.log('다른 비밀번호입니다.');
+      console.log("같은 비밀번호입니다.");
+    } else console.log("다른 비밀번호입니다.");
   };
 
   return (
-    <main>
-      <h1>사용자 등록</h1>
-      <form action="POST" onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="이름"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="birth"
-          placeholder="생년월일 8글자"
-          value={formData.birth}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="phoneNum"
-          placeholder="전화번호(-제외)"
-          value={formData.phoneNum}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호 확인"
-          onChange={handleRight}
-        />
-        {/* className={isChecked ? 'signAble' : 'signUnable'} */}
-        <button>회원가입</button>
-      </form>
+    <div className="signupBackground">
+      <main className="signupMainContainer">
+        <h1>사용자 등록</h1>
+        <form action="POST" onSubmit={handleSubmit}>
+          <div className="signupInputArea">
+            <input
+              type="email"
+              name="email"
+              placeholder="이메일"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="이름"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="birth"
+              placeholder="생년월일 8자리"
+              value={formData.birth}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="phoneNum"
+              placeholder="전화번호(-제외)"
+              value={formData.phoneNum}
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="비밀번호"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <input type="password" placeholder="비밀번호 확인" onChange={handleRight} />
+          </div>
 
-      {/* 계좌번호 확인 form */}
-      <form action="POST" onSubmit={handleAccount}>
-        <input
-          type="number"
-          name="accountNum"
-          placeholder="계좌번호(-제외)"
-          value={formData.accountNum}
-          onChange={handleChange}
-        />
-        <button>인증</button>
-      </form>
+          {/* className={isChecked ? 'signAble' : 'signUnable'} */}
+          <button className="registerBtn">회원가입</button>
+        </form>
 
-      {/* 입금자명 확인 form */}
-      <form action="POST" onSubmit={checkSame}>
-        <input
-          type="text"
-          placeholder="인증코드(입금자명)을 입력해주세요."
-          value={inputName}
-          onChange={(e) => setInputName(e.target.value)}
-        />
-        <button>확인</button>
-      </form>
-    </main>
+        {/* 계좌번호 확인 form */}
+        <form className="authForm" action="POST" onSubmit={handleAccount}>
+          <input
+            type="number"
+            name="accountNum"
+            placeholder="계좌번호(-제외)"
+            value={formData.accountNum}
+            onChange={handleChange}
+          />
+          <button className="authBtn">인증</button>
+        </form>
+
+        {/* 입금자명 확인 form */}
+        <form class="confirmForm" action="POST" onSubmit={checkSame}>
+          <input
+            type="text"
+            placeholder="인증코드(입금자명)을 입력해주세요."
+            value={inputName}
+            onChange={(e) => setInputName(e.target.value)}
+          />
+          <button className="confirmBtn">확인</button>
+        </form>
+      </main>
+    </div>
   );
 }
