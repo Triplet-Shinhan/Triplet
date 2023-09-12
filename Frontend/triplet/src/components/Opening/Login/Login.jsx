@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.scss';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.scss";
+import axios from "axios";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [phoneNum, setPhoneNum] = useState('');
+  const [email, setEmail] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function Login() {
     if (phoneReg.test(phoneNum) && emailReg.test(email)) {
       // 백으로 쿼리 보내기
       axios
-        .post('http://localhost:8080/users/login', {
+        .post("http://localhost:8080/users/login", {
           withCredentials: true,
           email,
           phoneNum,
@@ -30,26 +30,26 @@ export default function Login() {
           console.log(res);
           // id가 일치하지 않는 경우
           if (res.data.email === undefined) {
-            console.log('입력하신 id가 일치하지 않습니다');
-            alert('입력하신 id가 일치하지 않습니다.');
+            console.log("입력하신 id가 일치하지 않습니다");
+            alert("입력하신 id가 일치하지 않습니다.");
           } else if (res.data.email === null) {
-            console.log('입력하신 비밀번호가 일치하지 않습니다.');
-            alert('입력하신 비밀번호가 일치하지 않습니다.');
+            console.log("입력하신 비밀번호가 일치하지 않습니다.");
+            alert("입력하신 비밀번호가 일치하지 않습니다.");
           } else if (res.data.email === email) {
-            sessionStorage.setItem('user_id', email);
+            sessionStorage.setItem("user_id", email);
           }
         });
     } else if (!phoneReg.test(phoneNum)) {
-      console.log('휴대폰 번호를 형식에 맞게 입력해주세요.');
+      console.log("휴대폰 번호를 형식에 맞게 입력해주세요.");
       return;
     } else {
-      console.log('이메일 형식에 맞게 입력해주세요.');
+      console.log("이메일 형식에 맞게 입력해주세요.");
       return;
     }
 
     // 폼 보내고 난 후 초기화
-    setEmail('');
-    setPhoneNum('');
+    setEmail("");
+    setPhoneNum("");
   };
 
   // 값이 변할 때 추적하기 위한 함수
@@ -58,27 +58,35 @@ export default function Login() {
   };
 
   return (
-    <main>
-      <h1>새로운 여행 플랫폼의 시작</h1>
-      <h2>Triplet</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          id="email"
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => handleChange(e, setEmail)}
-        />
-        <input
-          id="phoneNum"
-          type="text"
-          placeholder="전화번호(-를 포함하여 작성해주세요)"
-          value={phoneNum}
-          onChange={(e) => handleChange(e, setPhoneNum)}
-        />
-        <button>로그인</button>
-      </form>
-      <button onClick={() => navigate('/signup')}>아이디가 없다면?</button>
-    </main>
+    <div className="loginBackground">
+      <main className="loginMainContainer">
+        <h1>새로운 금융 여행 플랫폼의 시작</h1>
+        <h2>Triplet</h2>
+        <form className="loginForm" onSubmit={handleSubmit}>
+          <div className="loginInputArea">
+            <input
+              id="email"
+              type="email"
+              className="email"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => handleChange(e, setEmail)}
+            />
+            <input
+              id="password"
+              type="text"
+              className="password"
+              placeholder="비밀번호"
+              value={phoneNum}
+              onChange={(e) => handleChange(e, setPhoneNum)}
+            />
+          </div>
+          <button className="loginBtn">로그인</button>
+        </form>
+        <button className="registerBtn" onClick={() => navigate("/signup")}>
+          아이디가 없다면?
+        </button>
+      </main>
+    </div>
   );
 }

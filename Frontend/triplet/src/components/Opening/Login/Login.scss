@@ -1,27 +1,81 @@
-main {
+.loginBackground{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.loginMainContainer {
   width: 50vw;
   height: 80vh;
-  background-color: var(--color-bg-gray);
+  background-color: var(--color-text-white);
   margin: 0 auto;
   margin-top: 90px;
   text-align: center;
   border-radius: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
 
   h1 {
-    font-size: 2.5rem; //16px
+    font-size: 1.6rem; //16px
     font-weight: bold;
   }
 
   h2 {
-    font-size: 4.5rem;
+    font-size: 4rem;
     font-family: var(--font-logo);
+    margin-top: 1rem;
   }
 
-  form {
+  .loginForm {
     display: flex;
     flex-direction: column;
+    align-items : center;
+    margin-top : 5vh;
+
+    .loginInputArea{
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-input-text);
+      border-radius: 0.3rem;
+      
+
+      input{
+        // border-top: 0px;
+        // border-left: 0px;
+        // border-right: 0px;
+        // border-bottom: 1px solid var(--color-input-text);
+        
+        border: 1px solid var(--color-input-text);
+        width: 38vw;
+        padding : 1vw;
+        font-weight: bold;
+      }
+
+    }
+    
+    .loginBtn{
+      height: 4.5vh;
+      border: 0;
+      border-radius: 0.3rem;
+      width: 40vw;
+      padding: 1vh;
+      color: var(--color-text-white);
+      background-color: var(--color-bg);
+      margin-top: 3vh;
+    }
+  }
+
+  .registerBtn{
+    background-color: var(--color-text-white);
+    border: 0px;
+    font-weight: bold;
+    height: 4vh;
+    width: fit-content;
+    align-self: center;
   }
 
   .signUnable {
