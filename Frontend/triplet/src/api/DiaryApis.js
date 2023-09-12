@@ -4,7 +4,7 @@ import { AxiosInstance } from '../api/AccountApis';
 export default class Diary {
   constructor() {
     this.httpClient = axios.create({
-      baseURL: process.env.REACT_APP_TRIPLET_SERVER_IP,
+      baseURL: AxiosInstance.baseURL,
       withCredentials: true,
     });
   }
@@ -15,9 +15,6 @@ export default class Diary {
   }
 }
 
-export const makeNewTrip = async ({ tripInfo }) => {
-  const res = await AxiosInstance.post('/api/trips', tripInfo, {
-    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-  });
-  console.log(res);
+export const makeNewTrip = ({ tripInfo }) => {
+  return axios.post(`${AxiosInstance.baseURL}/api/trips`, tripInfo);
 };
