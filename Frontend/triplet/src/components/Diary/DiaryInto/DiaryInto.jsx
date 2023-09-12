@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import DiaryPreview from '../DiaryPreview/DiaryPreview';
 import { IoIosArrowForward } from 'react-icons/io';
+import { useDiaryApi } from '../../../context/DiaryApiContext';
 import './DiaryInto.scss';
 
 export default function DiarySettings() {
