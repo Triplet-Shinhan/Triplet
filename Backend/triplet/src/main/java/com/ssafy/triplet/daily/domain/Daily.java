@@ -1,8 +1,9 @@
-package com.ssafy.triplet.trip.domain;
+package com.ssafy.triplet.daily.domain;
 
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
