@@ -11,30 +11,21 @@ export default function DiarySettings() {
   // 있으면 리스트 불러오기
   const navigate = useNavigate();
   // 다이어리 API 사용하겠다는 의미
-  // const { diaryFunc } = useDiaryApi();
+  const { diaryFunc } = useDiaryApi();
   // const tripList = undefined;
 
-  const tripList = [
-    {
-      tripId: 1,
-      tripLocation: '영국',
-      tripPName: '영국',
-      startDate: '2023-03-05',
-      endDate: '2023-04-02',
-    },
-  ];
   // 백에서 diary api로 data 가져옴
-  // const {
-  //   isLoading,
-  //   error,
-  //   data: tripList,
-  // } = useQuery(
-  //   ['diary'],
-  //   () => {
-  //     return diaryFunc.viewProject();
-  //   },
-  //   { staleTime: 1000 * 6 * 1 }
-  // );
+  const {
+    isLoading,
+    error,
+    data: tripList,
+  } = useQuery(
+    ['diary'],
+    () => {
+      return diaryFunc.viewProject();
+    },
+    { staleTime: 1000 * 6 * 1 }
+  );
 
   return (
     <>
@@ -47,7 +38,7 @@ export default function DiarySettings() {
             className={tripList === undefined ? 'tripList empty' : 'tripList'}
           >
             {/* tripList 형식 오는거 확인해볼 것 undefined인지 아닌지 */}
-            {tripList === undefined ? (
+            {tripList === null ? (
               <button onClick={() => navigate('/trips/setup')}>
                 현재 생성된 프로젝트가 없습니다. <br />새 프로젝트를
                 생성해주세요.
