@@ -2,6 +2,7 @@ package com.ssafy.triplet.trip.dto;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -15,9 +16,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TripEditDto {
 	@JsonProperty("startDate")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date startDate;
 
 	@JsonProperty("endDate")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 
 	@JsonProperty("fixedRate")

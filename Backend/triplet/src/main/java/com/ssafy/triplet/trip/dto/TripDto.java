@@ -2,6 +2,7 @@ package com.ssafy.triplet.trip.dto;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -36,8 +37,10 @@ public class TripDto {
 	private Float fixedRate;
 
 	@JsonProperty("startDate")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date startDate;
 
 	@JsonProperty("endDate")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 }
