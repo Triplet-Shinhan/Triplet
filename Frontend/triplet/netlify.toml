@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/proxy/*"
-  to = "https://stalwart-crisp-e3127e.netlify.app/"
+  to = "https://www.triplet-ssafy.store/"
   status = 200
   force = true
