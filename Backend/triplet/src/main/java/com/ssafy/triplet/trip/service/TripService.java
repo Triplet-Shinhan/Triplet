@@ -63,7 +63,6 @@ public class TripService {
         //수정
         trip.setStartDate(tripEditDto.getStartDate());
         trip.setEndDate(tripEditDto.getEndDate());
-        trip.setFixedRate(tripEditDto.getFixedRate());
         tripRepository.save(trip);
     }
 

@@ -22,7 +22,4 @@ public class TripEditDto {
 	@JsonProperty("endDate")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
-
-	@JsonProperty("fixedRate")
-	private Float fixedRate;
 }
