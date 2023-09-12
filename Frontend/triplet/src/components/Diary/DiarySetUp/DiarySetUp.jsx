@@ -149,37 +149,13 @@ export default function DiarySetUp() {
             />
           </section>
           <section>
-            <label htmlFor="budget">예상 환전 현금</label>
+            <label htmlFor="budget">환전 현금</label>
             <input
               type="text"
               id="exchangedBudget"
               name="exchangedBudget"
               placeholder="₩250,000"
               value={tripInfo.exchangedBudget}
-              onChange={handleChange}
-              required
-            />
-          </section>
-          <section>
-            <label htmlFor="budget">사용된 예산</label>
-            <input
-              type="text"
-              id="usedBudget"
-              name="usedBudget"
-              placeholder="₩250,000"
-              value={tripInfo.usedBudget}
-              onChange={handleChange}
-              required
-            />
-          </section>
-          <section>
-            <label htmlFor="budget">환전 환율</label>
-            <input
-              type="text"
-              id="fixedRate"
-              name="fixedRate"
-              placeholder="₩250,000"
-              value={tripInfo.fixedRate}
               onChange={handleChange}
               required
             />
