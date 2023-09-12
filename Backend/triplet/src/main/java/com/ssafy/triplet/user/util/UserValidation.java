@@ -66,7 +66,7 @@ public class UserValidation {
 	private boolean isRegexMatch(String field, String target) {
 		switch (field) {
 			case "name" -> {
-				return target.matches("^[가-힣]{2,4}$");
+				return target.matches("^[가-힣]{2,6}$");
 			}
 			case "birth" -> {
 				return target.matches("^(19|20)\\d\\d(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$");
