@@ -17,5 +17,6 @@ export default class Diary {
 }
 
 export const makeNewTrip = ({ tripInfo }) => {
+  console.log({ tripInfo });
   return axios.post(`${PROXY}/api/trips`, tripInfo);
 };
