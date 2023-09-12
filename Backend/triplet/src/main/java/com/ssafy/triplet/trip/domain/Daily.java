@@ -2,6 +2,7 @@ package com.ssafy.triplet.trip.domain;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
@@ -39,6 +40,7 @@ public class Daily {
 	private Trip trip;
 
 	@Column(nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;
 
 	@Column(nullable = false)
