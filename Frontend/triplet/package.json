@@ -44,5 +44,5 @@
   "devDependencies": {
     "eslint-config-react-app": "^7.0.1"
   },
-  "proxy": "https://www.triplet-ssafy.store/"
+  "proxy": "https://www.triplet-ssafy.store"
 }
