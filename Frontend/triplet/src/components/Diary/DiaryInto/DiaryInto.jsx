@@ -12,7 +12,7 @@ export default function DiarySettings() {
   // 있으면 리스트 불러오기
   const navigate = useNavigate();
   // 다이어리 API 사용하겠다는 의미
-  const { diaryFunc } = useDiaryApi();
+  const { diary } = useDiaryApi();
   // const tripList = undefined;
 
   // 백에서 diary api로 data 가져옴
@@ -23,11 +23,12 @@ export default function DiarySettings() {
   } = useQuery(
     ['diary'],
     () => {
-      return diaryFunc.viewProject();
+      return diary.viewProject();
     },
-    { staleTime: 1000 * 6 * 1 }
+    { staleTime: 1000 * 6 * 5 }
   );
 
+  console.log(tripList);
   return (
     <>
       <h1>안녕하세요</h1>
@@ -45,7 +46,8 @@ export default function DiarySettings() {
                 생성해주세요.
               </button>
             ) : (
-              tripList.map((diary) => <DiaryPreview diaryInfo={diary} />)
+              'hi'
+              // tripList.map((diary) => <DiaryPreview diaryInfo={diary} />)
             )}
           </div>
         </li>

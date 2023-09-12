@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { AxiosInstance } from './AccountApis';
 
 const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+
 export default class Diary {
   constructor() {
     this.httpClient = axios.create({
-      baseURL: AxiosInstance.baseURL,
+      baseURL: PROXY,
       withCredentials: true,
     });
   }
