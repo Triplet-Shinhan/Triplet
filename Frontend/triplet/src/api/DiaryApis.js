@@ -1,19 +1,20 @@
 import axios from 'axios';
-import { AxiosInstance } from '../api/AccountApis';
-const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
-// export default class Diary {
-//   constructor() {
-//     this.httpClient = axios.create({
-//       baseURL: AxiosInstance.baseURL,
-//       withCredentials: true,
-//     });
-//   }
+import { AxiosInstance } from './AccountApis';
 
-//   // 프로젝트보기
-//   async viewProject() {
-//     return this.httpClient.get('/api/trips').then((res) => res.data);
-//   }
-// }
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+export default class Diary {
+  constructor() {
+    this.httpClient = axios.create({
+      baseURL: AxiosInstance.baseURL,
+      withCredentials: true,
+    });
+  }
+
+  // 프로젝트보기
+  async viewProject() {
+    return this.httpClient.get('/api/trips').then((res) => res.data);
+  }
+}
 
 export const makeNewTrip = ({ tripInfo }) => {
   return axios.post(`${PROXY}/api/trips`, tripInfo);

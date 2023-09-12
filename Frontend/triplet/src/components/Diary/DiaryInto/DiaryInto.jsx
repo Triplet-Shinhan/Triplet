@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDiaryApi } from '../../../context/DiaryApiContext';
 import { useQuery } from '@tanstack/react-query';
 import DiaryPreview from '../DiaryPreview/DiaryPreview';
 import { IoIosArrowForward } from 'react-icons/io';
