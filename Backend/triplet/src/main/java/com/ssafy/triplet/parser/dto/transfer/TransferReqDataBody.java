@@ -3,9 +3,11 @@ package com.ssafy.triplet.parser.dto.transfer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TransferReqDataBody {
 
     @JsonProperty("출금계좌번호")
