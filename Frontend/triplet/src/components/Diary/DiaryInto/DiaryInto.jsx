@@ -40,14 +40,13 @@ export default function DiarySettings() {
             className={tripList === undefined ? 'tripList empty' : 'tripList'}
           >
             {/* tripList 형식 오는거 확인해볼 것 undefined인지 아닌지 */}
-            {tripList === null ? (
+            {tripList === undefined ? (
               <button onClick={() => navigate('/trips/setup')}>
                 현재 생성된 프로젝트가 없습니다. <br />새 프로젝트를
                 생성해주세요.
               </button>
             ) : (
-              'hi'
-              // tripList.map((diary) => <DiaryPreview diaryInfo={diary} />)
+              tripList.map((diary) => <DiaryPreview diaryInfo={diary} />)
             )}
           </div>
         </li>
