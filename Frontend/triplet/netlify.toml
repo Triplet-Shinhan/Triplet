@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/proxy/*"
-  to = "https://www.triplet-ssafy.store/"
+  to = "https://www.triplet-ssafy.store"
   status = 200
   force = true
