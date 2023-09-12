@@ -16,7 +16,7 @@ export default function DiarySetting() {
     <>
       <div className="settingPage">
         <header className="settingHeader">
-          <nav>
+          <nav className="settingNav">
             <div className="nameArea">Triplet</div>
             <div>설정</div>
           </nav>
