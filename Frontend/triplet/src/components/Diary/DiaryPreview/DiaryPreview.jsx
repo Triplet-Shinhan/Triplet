@@ -6,14 +6,10 @@ export default function DiaryPreview({ diaryInfo }) {
   const navigate = useNavigate();
 
   return (
-    <ul
-      key={diaryInfo.tripId}
-      className="diaryPreview"
-      onClick={() => navigate('/trips/dailies')}
-    >
+    <ul className="diaryPreview" onClick={() => navigate('/trips/dailies')}>
       <section className="diaryInfo">
-        <li className="tripLoca">{diaryInfo.tripLocation}</li>
-        <li className="tripName">{diaryInfo.tripPName}</li>
+        <li className="tripLoca">{diaryInfo.location}</li>
+        <li className="tripName">{diaryInfo.prjName}</li>
         <li className="tripDate">
           {diaryInfo.startDate} ~ {diaryInfo.endDate}
         </li>
