@@ -34,8 +34,6 @@ export default function DiarySetUp() {
     startDate: '',
     endDate: '',
     exchangedBudget: '',
-    usedBudget: '',
-    fixedRate: '',
   });
 
   const handleChange = (e) => {

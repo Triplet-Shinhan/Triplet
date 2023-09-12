@@ -4,7 +4,7 @@ const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
 
 export const AxiosInstance = axios.create({
   withCredentials: true,
-  baseURL: process.env.REACT_APP_TRIPLET_SERVER_IP,
+  baseURL: `${PROXY}`,
 });
 
 export const checkAccount = ({ name, accountNum }) => {
@@ -15,9 +15,7 @@ export const checkAccount = ({ name, accountNum }) => {
 };
 
 export const signupUser = ({ formData }) => {
-  return axios.post(
-    process.env.REACT_APP_TRIPLET_SERVER_IP + '/users/signup',
-    formData,
-    { headers: { 'Content-type': 'application/json; charset=UTF-8' } }
-  );
+  return axios.post(`${PROXY}/users/signup`, formData, {
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+  });
 };
