@@ -45,6 +45,21 @@ public class UserController {
 		logger.debug("login request success");
 		User loginUser = userService.login(loginDto).orElseThrow(() -> new BaseException(ErrorCode.LOGIN_FAILED));
 
+//		// 세션을 설정하여 사용자 정보를 저장
+//		HttpSession session = request.getSession();
+//		session.setAttribute("user", loginUser);
+//
+//		// 쿠키를 통해 세션 ID를 클라이언트에 저장
+//		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
+//		sessionCookie.setMaxAge(86400); // 24시간
+//		sessionCookie.setPath("/");
+//		sessionCookie.setSecure(true);
+//		sessionCookie.setHttpOnly(true);
+//
+//		String cookieHeader = "JSESSIONID=" + session.getId() + "; Max-Age=86400; Path=/; HttpOnly; SameSite=None; Secure";
+//		response.addCookie(sessionCookie);
+//		response.setHeader("Set-Cookie", cookieHeader);
+
 		// 세션을 설정하여 사용자 정보를 저장
 		HttpSession session = request.getSession();
 		session.setAttribute("user", loginUser);
@@ -53,12 +68,7 @@ public class UserController {
 		Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
 		sessionCookie.setMaxAge(86400); // 24시간
 		sessionCookie.setPath("/");
-		sessionCookie.setSecure(true);
-		sessionCookie.setHttpOnly(true);
-
 		response.addCookie(sessionCookie);
-		String cookieHeader = "JSESSIONID=" + session.getId() + "; Max-Age=86400; Path=/; HttpOnly; SameSite=None; Secure";
-		response.setHeader("Set-Cookie", cookieHeader);
 
 		logger.debug("login success");
 
