@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
@@ -17,15 +18,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @Builder
 @Table(name = "trip")
+@Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Trip {
@@ -34,7 +33,7 @@ public class Trip {
 	private Long tripId;
 
 	@ManyToOne// N : 1 관계
-	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
+	@JoinColumn(name = "user_id")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
 
 	@Column(nullable = false)
@@ -65,7 +64,4 @@ public class Trip {
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
-
-	@OneToMany
-	private List<Daily> Dailies;
 }

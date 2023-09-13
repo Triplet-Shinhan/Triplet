@@ -29,9 +29,8 @@ public class ExchangeController {
     private final UserUtility userUtility;
 
     @GetMapping("")
-    public ExchangeResponseDto getExchange(@RequestParam("currency") String currency) {
-        return exchangeService.getRate(currency);
-
+    public ExchangeResponseDto getExchange() {
+        return exchangeService.getRate();
     }
 
     @GetMapping("/locations")
