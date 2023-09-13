@@ -68,5 +68,5 @@ public class Trip {
 	private Date endDate;
 
 	@OneToMany
-	private List<Daily> Dailies;
+	private List<Daily> dailies;
 }
