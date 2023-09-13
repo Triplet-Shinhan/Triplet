@@ -39,7 +39,7 @@ public class ExchangeService {
     private final ExchangeUtil exchangeUtil;
 
     // 환전 메인 페이지를 위한 정보 불러오기 메소드
-    public ExchangeResponseDto getRate(String currency) {
+    public ExchangeResponseDto getRate() {
 
         // 신한 api 요청 해서 통화코드, 환율 , 환전신청단위 , 우대율
 

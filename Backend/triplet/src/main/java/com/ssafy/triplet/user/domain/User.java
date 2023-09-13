@@ -23,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Builder
-@Table(name = "users")
+@Table(name = "user")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @ToString
@@ -50,7 +50,7 @@ public class User {
 	@Column(nullable = false)
 	private String accountNum;
 
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 
 	public User toUserEntity(UserDto userDto) {
