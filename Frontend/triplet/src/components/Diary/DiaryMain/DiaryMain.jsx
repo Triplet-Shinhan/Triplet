@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
+import { getCookie } from '../../../api/cookie';
 
 export default function Diary() {
   // 날짜 넣기 위한 Day 배열
@@ -9,6 +10,8 @@ export default function Diary() {
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
+  let tripStart = '',
+    tripEnd = '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,25 +25,35 @@ export default function Diary() {
     const startDate = getDayOfWeek(tripInfo.startDate);
     const endDate = getDayOfWeek(tripInfo.endDate);
 
-    const adjustStartDate = (date, daysToDelete) => {
+    const adjustDate = (date, daysToDelete) => {
       const adjustedDate = new Date(date);
-      adjustedDate.setDate(adjustedDate.getDate() - daysToDelete);
+      adjustedDate.setDate(adjustedDate.getDate() + daysToDelete);
       return adjustedDate;
     };
 
     if (startDate !== 0) {
-      const adjustedStartDate = adjustStartDate(
+      const adjustedStartDate = adjustDate(
         tripInfo.startDate,
-        7 - startDate
+        -tripInfo.startDate
       );
-      return adjustedStartDate;
-    } else return tripInfo.startDate;
+
+      tripStart = adjustedStartDate;
+    } else tripStart = tripInfo.startDate;
+
+    if (endDate !== 6) {
+      const adjustedEndDate = adjustDate(tripInfo.endDate, tripInfo.endDate);
+      tripEnd = adjustedEndDate;
+    } else tripEnd = tripInfo.endDate;
   };
 
-  let tripStart = startCal(),
-    tripEnd = 0;
+  startCal();
+  console.log('tripStart : ' + tripStart.getDate());
+  console.log('tripEnd : ' + tripEnd.getDate());
 
-  console.log(tripStart);
+  // 쿠키 가져오기
+  const userName = decodeURI(getCookie('name'));
+  console.log(userName);
+
   return (
     <>
       <header>
@@ -107,9 +120,8 @@ export default function Diary() {
               </li>
             ))}
           </ul>
-          <ul className="calSection">
-            <li></li>
-          </ul>
+          {/* 반복문 개수만큼 fractal 만들기 */}
+          <ul className="calSection">{}</ul>
         </section>
       </main>
     </>

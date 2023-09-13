@@ -3,10 +3,11 @@ import './App.css';
 import Signup from './components/Opening/Signup/Signup';
 import Login from './components/Opening/Login/Login';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import DiaryInto from './components/Diary/DiaryInto/DiaryInto';
-import DiarySetUp from './components/Diary/DiarySetUp/DiarySetUp';
 import { DiaryApiProvider } from './context/DiaryApiContext';
 import { BankAccountProvider } from './context/BankAccountApiContext';
+import { CookiesProvider } from 'react-cookie';
+import DiaryInto from './components/Diary/DiaryInto/DiaryInto';
+import DiarySetUp from './components/Diary/DiarySetUp/DiarySetUp';
 import Exchange from './components/Exchange/Exchange';
 import DiaryMain from './components/Diary/DiaryMain/DiaryMain';
 import DiarySetting from './components/Diary/DiarySetting/DiarySetting';
@@ -31,13 +32,15 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <BankAccountProvider>
-      <DiaryApiProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </DiaryApiProvider>
-    </BankAccountProvider>
+    <CookiesProvider>
+      <BankAccountProvider>
+        <DiaryApiProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </DiaryApiProvider>
+      </BankAccountProvider>
+    </CookiesProvider>
   );
 }
 
