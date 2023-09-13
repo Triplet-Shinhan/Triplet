@@ -2,8 +2,10 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
 import { getCookie } from '../../../api/cookie';
+import { logoutUser } from '../../../api/AccountApis';
+import { useMutation } from '@tanstack/react-query';
 
-export default function Diary() {
+export default function DiaryMain() {
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -53,6 +55,13 @@ export default function Diary() {
   console.log('tripStart : ' + tripStart);
   console.log('tripEnd : ' + tripEnd);
 
+  const userLogout = useMutation(() => logoutUser(), {
+    onSuccess: (data) => {
+      console.log(data);
+      navigate('/login');
+    },
+  });
+
   return (
     <>
       <header>
@@ -64,7 +73,7 @@ export default function Diary() {
           <section className="settings">
             <form className="userInfo" action="POST" method={handleSubmit}>
               <div>{userName}</div>
-              <button>로그아웃</button>
+              <button onClick={() => userLogout.mutate()}>로그아웃</button>
             </form>
             <button>
               <img

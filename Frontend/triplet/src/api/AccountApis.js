@@ -19,3 +19,7 @@ export const signupUser = ({ formData }) => {
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
   });
 };
+
+export const logoutUser = () => {
+  return axios.post(`${PROXY}/users/logout`);
+};

@@ -7,7 +7,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useDiaryApi } from '../../../context/DiaryApiContext';
 import './DiaryInto.scss';
 
-export default function DiarySettings() {
+export default function DiaryInto() {
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
   const navigate = useNavigate();
