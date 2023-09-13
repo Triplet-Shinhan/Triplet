@@ -184,7 +184,12 @@ export default function Signup() {
         {/* 계좌번호 확인 form */}
         <div className="authArea">
           <div className="formArea">
-            <form className="authForm" action="POST" onSubmit={handleAccount}>
+            <form
+              id="authForm"
+              className="authForm"
+              action="POST"
+              onSubmit={handleAccount}
+            >
               <input
                 type="text"
                 name="accountNum"
@@ -195,7 +200,12 @@ export default function Signup() {
             </form>
 
             {/* 입금자명 확인 form */}
-            <form className="confirmForm" action="POST" onSubmit={checkSame}>
+            <form
+              id="confirmForm"
+              className="confirmForm"
+              action="POST"
+              onSubmit={checkSame}
+            >
               <input
                 type="text"
                 className="verifyCode"
