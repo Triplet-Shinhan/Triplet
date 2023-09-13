@@ -41,3 +41,10 @@ cloud:
 
 parser:
   api-key: "2023_Shinhan_SSAFY_Hackathon"
+
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG

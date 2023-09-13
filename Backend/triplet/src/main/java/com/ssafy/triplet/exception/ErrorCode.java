@@ -23,9 +23,19 @@ public enum ErrorCode {
 
     //세션
     COOKIE_ERROR(401, "로그인하지 않은 상태입니다."),
+    COOKIE_NOT_FOUND(401, "쿠키를 찾을 수 없습니다."),
 
     //프로젝트
-    USER_ID_NOT_FOUND(401, "아이디를 찾을 수 없습니다."),
+    PRJ_NAME_ERROR(400, "올바르지 않은 프로젝트 이름입니다."),
+    LOCATION_ERROR(400, "올바르지 않은 여행지입니다."),
+    BUDGET_ERROR(400, "올바르지 않은 예산입니다."),
+    EXCHANGED_BUDGET_ERROR(400, "올바르지 않은 환전 현금입니다."),
+    USED_BUDGET_ERROR(400, "올바르지 않은 사용예산입니다."),
+    CURRENCY_ERROR(400, "올바르지 않은 통화입니다."),
+    FIXED_RATE_ERROR(400, "올바르지 않은 환율입니다."),
+    START_DATE_ERROR(400, "올바르지 않은 시작 날짜입니다."),
+    END_DATE_ERROR(400, "올바르지 않은 종료 날짜입니다."),
+    USER_ID_NOT_FOUND(401, "회원 정보를 찾을 수 없습니다."),
     TRIP_ID_NOT_FOUND(401, "프로젝트를 찾을 수 없습니다."),
     DAILY_ID_NOT_FOUND(401, "일일 세부정보를 찾을 수 없습니다."),
 

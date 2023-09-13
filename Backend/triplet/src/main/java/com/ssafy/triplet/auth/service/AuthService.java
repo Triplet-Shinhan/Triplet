@@ -17,7 +17,7 @@ public class AuthService {
 	public void sendOne(OneTransferRequestDto request, String memo) {
 		AuthRequestDto authRequestDto = new AuthRequestDto();
 		authRequestDto.setBankCode(SHINHAN_BANKCODE);
-		authRequestDto.setAccountNum(request.getAccount());
+		authRequestDto.setAccountNum(request.getAccountNum());
 		authRequestDto.setMemo(memo);
 		webClientUtil.checkAccount(authRequestDto);
 	}
