@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 public class PaymentReqDto {
 
 
-    private long tripId;
+    private Long tripId;
 
-    private long dailyId;
+    private Long dailyId;
 
     private String item;
 
-    private long cost;
+    private Long cost;
 
     private String foreignCurrency;
 
