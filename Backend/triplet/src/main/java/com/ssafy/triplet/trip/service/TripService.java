@@ -56,13 +56,13 @@ public class TripService {
 		LocalDate startDate = tripDto.getStartDate().toLocalDate();
 		LocalDate endDate = tripDto.getEndDate().toLocalDate();
 		while (!startDate.isAfter(endDate)) {
+			startDate = startDate.plusDays(1);// 날짜를 하루씩 증가시킴
 			Daily daily = new Daily();
 			daily.setUser(user);
 			daily.setTrip(trip);
 			daily.setDate(java.sql.Date.valueOf(startDate)); // LocalDate를 java.sql.Date로 변환
 			daily.setImageUrl(null); // 초기값으로 null 설정
 			dailyRepository.save(daily);
-			startDate = startDate.plusDays(1); // 날짜를 하루씩 증가시킴
 		}
 		return trip;
 	}
