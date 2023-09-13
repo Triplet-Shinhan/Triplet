@@ -95,6 +95,7 @@ export default function DiarySetUp() {
               value={tripInfo.currency}
               onChange={handleChange}
               required
+              selected
             >
               {budget.map((v, i) => (
                 <option key={i} value={v}>

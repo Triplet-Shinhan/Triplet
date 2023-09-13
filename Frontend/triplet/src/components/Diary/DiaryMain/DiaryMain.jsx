@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
 
 export default function Diary() {
@@ -7,7 +7,8 @@ export default function Diary() {
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   const navigate = useNavigate();
-  // props로 시작 날짜, 끝 날짜 가져오기
+  const { tripId } = useParams(); // /trips/:tripsId/dailies
+  const tripInfo = useLocation().state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ export default function Diary() {
                 src="../../../assets/icons/setting.png"
                 width="30vw"
                 alt="환경설정"
-                onClick={() => navigate('/trips/dailies/setting')}
+                onClick={() => navigate(`/trips/${tripId}/dailies/setting`)}
               />
             </button>
           </section>
