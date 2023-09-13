@@ -28,6 +28,7 @@ public class DailyController {
 		//기록 조회 때마다 총지출 합산 로직
 		List<DailyDto> dailies = dailyService.toDailyDtoList(tripId);
 		return ResponseEntity.ok(new DailiesResponse(tripId, dailies));
+		//리턴 시 남은예산 및 계산 로직 구현해서 DailiesResponse 에 담아서 리턴하기!
 	}
 
 	@GetMapping("/{tripId}/dailies/{dailyId}")
