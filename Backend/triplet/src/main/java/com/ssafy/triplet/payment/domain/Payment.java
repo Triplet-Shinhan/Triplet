@@ -1,6 +1,6 @@
 package com.ssafy.triplet.payment.domain;
 
-import com.ssafy.triplet.trip.domain.Daily;
+import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.user.domain.User;
 import jakarta.persistence.*;
@@ -21,9 +21,6 @@ public class Payment {
     @Column(name = "payment_Id")
     private Long paymentId;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;//Payment조회시
 
     @ManyToOne
     @JoinColumn(name="trip_id")

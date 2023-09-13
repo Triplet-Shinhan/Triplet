@@ -23,7 +23,6 @@ public class PaymentService {
 
         //payment 객체 생성
         Payment payment = Payment.builder()
-                .user(user)
                 .trip(trip)
                 //.daily(daily)
                 .item(reqDto.getItem())
@@ -45,7 +44,6 @@ public class PaymentService {
 
         //payment 객체 생성
         Payment payment = Payment.builder()
-                .user(user)
                 .trip(trip)
                 //.daily(daily)
                 .item(reqDto.getItem())
