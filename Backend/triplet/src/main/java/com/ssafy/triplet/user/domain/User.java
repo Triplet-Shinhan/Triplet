@@ -10,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Builder
-@Table(name = "users")
+@Table(name = "user")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @ToString
@@ -52,7 +51,6 @@ public class User {
 	private String accountNum;
 
 	@OneToMany(mappedBy = "user")
-	@JoinColumn(name = "trip_id")
 	private List<Trip> trips;
 
 	public User toUserEntity(UserDto userDto) {

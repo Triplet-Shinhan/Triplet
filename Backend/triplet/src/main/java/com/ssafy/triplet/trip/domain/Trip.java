@@ -32,7 +32,7 @@ public class Trip {
 	private Long tripId;
 
 	@ManyToOne// N : 1 관계
-	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
+	@JoinColumn(name = "user_id")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
 
 	@Column(nullable = false)
@@ -63,8 +63,4 @@ public class Trip {
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
-
-	@OneToMany(mappedBy = "trip")
-	@JoinColumn(name = "daily_id")
-	private List<Daily> dailies;
 }
