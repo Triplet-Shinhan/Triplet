@@ -18,7 +18,6 @@ public class PaymentController {
     private final UserUtility userUtility;
     @PostMapping
     public ResponseEntity createPayment(@RequestBody PaymentReqDto paymentReqDto, HttpServletRequest request){
-        HttpSession session = request.getSession();
         User user = userUtility.getUserFromCookie(request);
 
         paymentService.createPayment(paymentReqDto,user);
@@ -28,10 +27,10 @@ public class PaymentController {
 
     @PutMapping("/{paymentId}")
     public ResponseEntity updatePayment(@PathVariable Long paymentId,@RequestBody PaymentReqDto paymentReqDto, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        User user = userUtility.getUserFromCookie(request);
+        userUtility.getUserFromCookie(request);
 
-        paymentService.updatePayment(paymentReqDto,user,paymentId);
+        paymentService.updatePayment(paymentReqDto,paymentId);
+
         return ResponseEntity.ok(200);
     }
 

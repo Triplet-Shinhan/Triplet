@@ -1,5 +1,8 @@
 package com.ssafy.triplet.payment.service;
 
+import com.ssafy.triplet.daily.domain.Daily;
+import com.ssafy.triplet.daily.repository.DailyRepository;
+import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.payment.domain.Payment;
 import com.ssafy.triplet.payment.dto.PaymentReqDto;
 import com.ssafy.triplet.payment.repository.PaymentRepository;
@@ -10,21 +13,25 @@ import com.ssafy.triplet.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.ssafy.triplet.exception.ErrorCode.*;
+
 @Transactional
 @RequiredArgsConstructor
 @Service
 public class PaymentService {
     private final TripRepository tripRepository;
     private final PaymentRepository paymentRepository;
-
+    private final DailyRepository dailyRepository;
     //private final DailyRepository;
     public String createPayment(PaymentReqDto reqDto, User user){
-        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow();
+        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
 
         //payment 객체 생성
         Payment payment = Payment.builder()
                 .trip(trip)
-                //.daily(daily)
+                .daily(daily)
                 .item(reqDto.getItem())
                 .cost(reqDto.getCost())
                 .foreignCurrency(reqDto.getForeignCurrency())
@@ -38,14 +45,15 @@ public class PaymentService {
         return "success";
     }
 
-    public String updatePayment(PaymentReqDto reqDto, User user,Long paymentId) {
-        paymentRepository.findById(paymentId).orElseThrow();//존재하지 않는 paymentId 에러
-        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow();//존재하지 않는 여행 ID 에러
+    public String updatePayment(PaymentReqDto reqDto, Long paymentId) {
+        paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(DAILY_ID_NOT_FOUND));
+        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
 
         //payment 객체 생성
         Payment payment = Payment.builder()
                 .trip(trip)
-                //.daily(daily)
+                .daily(daily)
                 .item(reqDto.getItem())
                 .cost(reqDto.getCost())
                 .foreignCurrency(reqDto.getForeignCurrency())
@@ -53,7 +61,7 @@ public class PaymentService {
                 .method("cash")
                 .build();
 
-        //
+
         paymentRepository.save(payment);
 
         return "success";
