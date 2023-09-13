@@ -162,9 +162,7 @@ export default function DiarySetUp() {
               required
             />
           </section>
-          <button>
-            <section className="makeDiary">생성하기</section>
-          </button>
+          <button className="makeDiary">생성하기</button>
           <section className="boardingArea">boarding pass</section>
         </form>
         <section className="backgroundForm">
