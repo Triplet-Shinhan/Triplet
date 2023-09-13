@@ -17,15 +17,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @Builder
 @Table(name = "trip")
+@Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Trip {
@@ -66,6 +64,7 @@ public class Trip {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 
-	@OneToMany
-	private List<Daily> Dailies;
+	@OneToMany(mappedBy = "trip")
+	@JoinColumn(name = "daily_id")
+	private List<Daily> dailies;
 }
