@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getCookie } from '../../api/cookie';
 import './Exchange.scss';
 
 export default function Exchange() {
@@ -30,6 +31,9 @@ export default function Exchange() {
     phoneNum: '',
   });
 
+  // userName 가져오기
+  const userName = decodeURI(getCookie('name'));
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExchangeForm((info) => ({ ...info, [name]: value }));
@@ -49,7 +53,7 @@ export default function Exchange() {
           <section className="accountInfo">
             <section className="intro">
               <span>안녕하세요</span>
-              <span>신한 해커톤님</span>
+              <span>{userName}님</span>
               <img src="../../../assets/icons/sol.png" alt="sol logo" />
             </section>
             <section className="exRate">

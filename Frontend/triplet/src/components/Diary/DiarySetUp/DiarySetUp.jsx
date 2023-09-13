@@ -36,6 +36,9 @@ export default function DiarySetUp() {
     exchangedBudget: '',
   });
 
+  // 쿠키 가져오기
+  const userName = decodeURI(getCookie('name'));
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTripInfo((trip) => ({ ...trip, [name]: value }));
@@ -65,7 +68,7 @@ export default function DiarySetUp() {
     <>
       <main className="diarySetupMain">
         <h1>안녕하세요</h1>
-        <h2>신한 해커톤님</h2>
+        <h2>{userName}님</h2>
         <form className="diaryForm" action="POST" onSubmit={handleSubmit}>
           <figure className="logoArea">
             <img

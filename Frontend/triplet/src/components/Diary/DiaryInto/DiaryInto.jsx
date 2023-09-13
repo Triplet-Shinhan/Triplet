@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getCookie } from '../../../api/cookie';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import DiaryPreview from '../DiaryPreview/DiaryPreview';
@@ -7,6 +8,8 @@ import { useDiaryApi } from '../../../context/DiaryApiContext';
 import './DiaryInto.scss';
 
 export default function DiarySettings() {
+  // 쿠키 가져오기
+  const userName = decodeURI(getCookie('name'));
   const navigate = useNavigate();
   // 다이어리 API 사용하겠다는 의미
   const { diary } = useDiaryApi();
@@ -26,7 +29,7 @@ export default function DiarySettings() {
   return (
     <>
       <h1>안녕하세요</h1>
-      <h2>신한 해커톤님</h2>
+      <h2>{userName}님</h2>
       <ul className="tripInto">
         <li className="tripInfo">
           <nav>프로젝트</nav>
