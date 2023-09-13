@@ -3,6 +3,7 @@ package com.ssafy.triplet.user.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.triplet.user.domain.User;
 import com.ssafy.triplet.user.dto.LoginDto;
@@ -13,6 +14,7 @@ import com.ssafy.triplet.user.util.UserValidation;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 	private final UserRepository userRepository;
