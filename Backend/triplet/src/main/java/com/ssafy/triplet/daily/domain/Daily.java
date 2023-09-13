@@ -1,8 +1,10 @@
 package com.ssafy.triplet.daily.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.triplet.payment.domain.Payment;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.user.domain.User;
 

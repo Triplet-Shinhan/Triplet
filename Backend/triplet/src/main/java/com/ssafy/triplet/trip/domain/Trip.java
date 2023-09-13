@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ssafy.triplet.daily.domain.Daily;
+import com.ssafy.triplet.payment.domain.Payment;
 import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
@@ -35,6 +36,9 @@ public class Trip {
 	@ManyToOne// N : 1 관계
 	@JoinColumn(name = "user_id")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
+
+	@OneToMany(mappedBy = "trip")
+	private List<Payment> payments;
 
 	@Column(nullable = false)
 	private String prjName;
