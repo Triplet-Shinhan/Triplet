@@ -141,7 +141,7 @@ export default function Signup() {
     <div className="signupBackground">
       <main className="signupMainContainer">
         <h1>사용자 등록</h1>
-        <form action="POST" onSubmit={handleSubmit}>
+        <form id="signupForm" class="signupForm" action="POST" onSubmit={handleSubmit}>
           <div className="signupInputArea">
             <input
               type="email"
@@ -182,31 +182,44 @@ export default function Signup() {
           </div>
 
           {/* className={isChecked ? 'signAble' : 'signUnable'} */}
-          <button className="registerBtn">회원가입</button>
         </form>
 
-        {/* 계좌번호 확인 form */}
-        <form className="authForm" action="POST" onSubmit={handleAccount}>
-          <input
-            type="number"
-            name="accountNum"
-            placeholder="계좌번호(-제외)"
-            value={formData.accountNum}
-            onChange={handleChange}
-          />
-          <button className="authBtn">인증</button>
-        </form>
+        <div className="authArea">
+          {/* 계좌번호 확인 form */}
+          <div className="formArea">
+            <form id="authForm" className="authForm" action="POST" onSubmit={handleAccount}>
+              <input
+                type="number"
+                name="accountNum"
+                placeholder="계좌번호(-제외)"
+                value={formData.accountNum}
+                onChange={handleChange}
+              />
+            </form>
+            {/* 입금자명 확인 form */}
+            <form class="confirmForm" action="POST" onSubmit={checkSame}>
+              <input
+                type="text"
+                placeholder="인증코드(입금자명)을 입력해주세요."
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
+              />
+            </form>
+          </div>
 
-        {/* 입금자명 확인 form */}
-        <form class="confirmForm" action="POST" onSubmit={checkSame}>
-          <input
-            type="text"
-            placeholder="인증코드(입금자명)을 입력해주세요."
-            value={inputName}
-            onChange={(e) => setInputName(e.target.value)}
-          />
-          <button className="confirmBtn">확인</button>
-        </form>
+          <div className="btnArea">
+            <button className="authBtn" form="authForm">
+              인증
+            </button>
+            <button className="confirmBtn" form="confirmForm">
+              확인
+            </button>
+          </div>
+        </div>
+
+        <button className="registerBtn" form="">
+          회원가입
+        </button>
       </main>
     </div>
   );

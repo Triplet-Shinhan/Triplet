@@ -16,6 +16,7 @@
   border-radius: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 
 
   h1 {
@@ -29,60 +30,105 @@
     font-family: var(--font-logo);
   }
 
-  form {
+  .authArea {
+    display: flex;
+    flex-direction: row;
+    width: 35vw;
+    justify-content: space-between;
+    align-self: center;
+    // margin-top: 4vh;
+
+    .formArea {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      
+      margin-right: 1vw;
+      border: 1px solid var(--color-input-text);
+      border-radius: 0.3rem;
+
+      .authForm {
+        display: flex;
+
+        input {
+          width: 100%;
+          justify-content: flex-start;
+          border: 1px solid var(--color-input-text);
+          padding: 1vw;
+          font-weight: bold;
+        }
+
+      }
+
+      .confirmForm {
+        display: flex;
+        
+        input {
+          width: 100%;
+          justify-content: flex-start;
+          border: 1px solid var(--color-input-text);
+          padding: 1vw;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .btnArea {
+      display:  flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .authBtn {
+        height: 4vh;
+        width: 5vw;
+        border: 0;
+        border-radius: 0.3rem;
+        color: var(--color-text-white);
+        background-color: var(--color-bg);
+      }
+
+      .confirmBtn {
+        height: 4vh;
+        width: 5vw;
+        border: 0;
+        border-radius: 0.3rem;
+        color: var(--color-text-white);
+        background-color: var(--color-bg);
+      }
+    }
+  }
+
+  .signupForm {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 1rem;
 
     .signupInputArea {
       display: flex;
       flex-direction: column;
-      width: 40vw;
-
-      flex-direction: column;
+      width: 35vw;
       border: 1px solid var(--color-input-text);
       border-radius: 0.3rem;
 
-      input{
+      input {
         border: 1px solid var(--color-input-text);
-        width: 38vw;
-        padding : 1vw;
+        width: 33vw;
+        padding: 1vw;
         font-weight: bold;
-      }    
+      }
     }
+  }
 
-    .registerBtn{
-      height: 4.5vh;
-      border: 0;
-      border-radius: 0.3rem;
-      width: 40vw;
-      padding: 1vh;
-      color: var(--color-text-white);
-      background-color: var(--color-bg);
-      margin-top: 3vh;
-    }
-
-    .authBtn{
-      height: 4.5vh;
-      border: 0;
-      border-radius: 0.3rem;
-      width: 40vw;
-      padding: 1vh;
-      color: var(--color-text-white);
-      background-color: var(--color-bg);
-      margin-top: 3vh;
-    } 
-    
-    .authBtn{
-      height: 4.5vh;
-      width: 7vw;
-      border: 0;
-      border-radius: 0.3rem;
-      padding: 1vh;
-      color: var(--color-text-white);
-      background-color: var(--color-bg);
-      margin-top: 3vh;
-    }
+  .registerBtn {
+    height: 4.5vh;
+    border: 0;
+    border-radius: 0.3rem;
+    width: 35vw;
+    padding: 1vh;
+    color: var(--color-text-white);
+    align-self: center;
+    background-color: var(--color-bg);
+    // margin-top: 3vh;
   }
 }
