@@ -15,6 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MainPageTripDto {
+	@JsonProperty("tripId")
+	private Long tripId;
+
 	@JsonProperty("location")
 	private String location;
 

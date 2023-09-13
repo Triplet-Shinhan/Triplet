@@ -27,6 +27,7 @@ public class TripService {
         List<MainPageTripDto> mainPageTrips = new ArrayList<>();
         for (Trip trip : trips) {
             MainPageTripDto mainPageTripDto = new MainPageTripDto();
+            mainPageTripDto.setTripId(trip.getTripId());
             mainPageTripDto.setPrjName(trip.getPrjName());
             mainPageTripDto.setLocation(trip.getLocation());
             mainPageTripDto.setStartDate(trip.getStartDate());
@@ -37,12 +38,13 @@ public class TripService {
     }
 
     // 프로젝트 생성
-    public void saveTrip(TripDto tripDto, User user) {
+    public Trip saveTrip(TripDto tripDto, User user) {
         //유효성 검증
         tripValidation.checkCreateValid(tripDto);
         //생성
         Trip trip = toTripEntity(tripDto, user);
         tripRepository.save(trip);
+        return trip;
     }
 
     // 프로젝트 삭제
