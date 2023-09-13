@@ -11,7 +11,7 @@ export default function Diary() {
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
   let tripStart = '',
-    tripEnd = '';
+    tripEnd = 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +19,9 @@ export default function Diary() {
 
   // 요일 구하는 함수 (0이 일요일 6이 토요일)
   const getDayOfWeek = (startDate) => new Date(startDate).getDay();
+
+  // 쿠키 가져오기
+  const userName = decodeURI(getCookie('name'));
 
   // 주차 시작 날짜 구하기
   const startCal = () => {
@@ -47,12 +50,8 @@ export default function Diary() {
   };
 
   startCal();
-  console.log('tripStart : ' + tripStart.getDate());
-  console.log('tripEnd : ' + tripEnd.getDate());
-
-  // 쿠키 가져오기
-  const userName = decodeURI(getCookie('name'));
-  console.log(userName);
+  console.log('tripStart : ' + tripStart);
+  console.log('tripEnd : ' + tripEnd);
 
   return (
     <>
@@ -64,7 +63,7 @@ export default function Diary() {
           </section>
           <section className="settings">
             <form className="userInfo" action="POST" method={handleSubmit}>
-              <div>신한 해커톤</div>
+              <div>{userName}</div>
               <button>로그아웃</button>
             </form>
             <button>
