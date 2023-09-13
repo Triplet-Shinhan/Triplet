@@ -5,7 +5,7 @@ import './DiaryMain.scss';
 export default function Diary() {
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  const { tripStart, tripEnd } = {};
+  let { tripStart, tripEnd } = {};
 
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
