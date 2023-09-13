@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,11 +32,11 @@ public class Daily {
 	private Long dailyId;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
+	@JoinColumn(name = "user_id")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "trip_id", referencedColumnName = "tripId")//해당 유저의 tripId를 외래키로 가져온다.
+	@JoinColumn(name = "trip_id")//해당 유저의 tripId를 외래키로 가져온다.
 	private Trip trip;
 
 	@Column(nullable = false)
@@ -45,6 +46,6 @@ public class Daily {
 	@Column(nullable = false)
 	private String imageUrl;
 
-	// @OneToMany
-	// private List<Payment> payments;
+	@OneToMany(mappedBy = "daily")
+	private List<Payment> payments;
 }
