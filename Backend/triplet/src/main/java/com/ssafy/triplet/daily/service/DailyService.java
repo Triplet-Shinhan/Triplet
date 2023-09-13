@@ -1,4 +1,4 @@
 package com.ssafy.triplet.daily.service;
 
-public class dailyService {
+public class DailyService {
 }
