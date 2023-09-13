@@ -5,7 +5,8 @@ import './DiaryMain.scss';
 export default function Diary() {
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  let { tripStart, tripEnd } = {};
+  let tripStart = startCal(),
+    tripEnd = 0;
 
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
@@ -40,9 +41,7 @@ export default function Diary() {
     } else return tripInfo.startDate;
   };
 
-  tripStart = startCal();
   console.log(tripStart);
-
   return (
     <>
       <header>
