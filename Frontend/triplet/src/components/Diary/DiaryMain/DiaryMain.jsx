@@ -33,7 +33,7 @@ export default function Diary() {
         tripInfo.startDate,
         7 - startDate
       );
-      return adjustStartDate;
+      return adjustedStartDate;
     } else return tripInfo.startDate;
   };
 
