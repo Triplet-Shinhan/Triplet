@@ -45,7 +45,7 @@ public class Daily {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;
 
-	@Column(nullable = false)
+	@Column
 	private String imageUrl;
 
 	@OneToMany(mappedBy = "daily")
