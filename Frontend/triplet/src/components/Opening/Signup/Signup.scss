@@ -1,16 +1,25 @@
-.signupMain {
+.signupBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.signupMainContainer {
   width: 50vw;
   height: 80vh;
-  background-color: var(--color-bg-gray);
+  background-color: var(--color-text-white);
   margin: 0 auto;
   margin-top: 90px;
   text-align: center;
   border-radius: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 
   h1 {
-    font-size: 2.5rem; //16px
+    font-size: 2.5rem;
     font-weight: bold;
   }
 
@@ -19,8 +28,111 @@
     font-family: var(--font-logo);
   }
 
-  form {
+  .authArea {
+    display: flex;
+    flex-direction: row;
+    width: 35vw;
+    justify-content: space-between;
+    align-self: center;
+
+    .formArea {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-right: 1vw;
+
+      .authForm {
+        display: flex;
+
+        input {
+          width: 100%;
+          justify-content: flex-start;
+          padding: 1vw;
+          font-weight: bold;
+          border-radius: 5px 5px 0 0;
+        }
+      }
+
+      .confirmForm {
+        display: flex;
+
+        input {
+          width: 100%;
+          justify-content: flex-start;
+          border: 1px solid var(--color-divide);
+          padding: 1vw;
+          font-weight: bold;
+        }
+        .verifyCode {
+          border-top: none;
+          border-radius: 0 0 5px 5px;
+        }
+      }
+    }
+
+    .btnArea {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .authBtn {
+        height: 4vh;
+        width: 5vw;
+        border: 0;
+        border-radius: 0.3rem;
+        color: var(--color-text-white);
+        background-color: var(--color-bg);
+      }
+
+      .confirmBtn {
+        height: 4vh;
+        width: 5vw;
+        border: 0;
+        border-radius: 0.3rem;
+        color: var(--color-text-white);
+        background-color: var(--color-bg);
+      }
+    }
+  }
+
+  .signupForm {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    .signupInputArea {
+      display: flex;
+      flex-direction: column;
+      width: 35vw;
+      border-radius: 0.3rem;
+
+      input {
+        border: 1px solid var(--color-divide);
+        border-bottom: none;
+        width: 33vw;
+        padding: 1vw;
+        font-weight: bold;
+      }
+
+      .email {
+        border-radius: 5px 5px 0 0;
+      }
+      .passwordCo {
+        border-bottom: 1px solid var(--color-divide);
+        border-radius: 0 0 5px 5px;
+      }
+    }
+  }
+
+  .registerBtn {
+    height: 4.5vh;
+    border: 0;
+    border-radius: 0.3rem;
+    width: 35vw;
+    padding: 1vh;
+    color: var(--color-text-white);
+    align-self: center;
+    background-color: var(--color-bg);
   }
 }

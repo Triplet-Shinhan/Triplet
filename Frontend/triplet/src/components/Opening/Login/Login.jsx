@@ -48,29 +48,37 @@ export default function Login() {
   };
 
   return (
-    <main className="loginMain">
-      <h1>새로운 여행 플랫폼의 시작</h1>
-      <h2>Triplet</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          id="email"
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => handleChange(e, setEmail)}
-          required
-        />
-        <input
-          id="password"
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => handleChange(e, setPassword)}
-          required
-        />
-        <button>로그인</button>
-      </form>
-      <button onClick={() => navigate('/signup')}>아이디가 없다면?</button>
-    </main>
+    <div className="loginBackground">
+      <main className="loginMainContainer">
+        <h1 className="loginH1">새로운 여행 플랫폼의 시작</h1>
+        <h2 className="loginH2">Triplet</h2>
+        <form className="loginForm" onSubmit={handleSubmit}>
+          <div className="loginInputArea">
+            <input
+              id="email"
+              type="email"
+              placeholder="이메일"
+              className="email"
+              value={email}
+              onChange={(e) => handleChange(e, setEmail)}
+              required
+            />
+            <input
+              id="password"
+              type="password"
+              className="password"
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e) => handleChange(e, setPassword)}
+              required
+            />
+          </div>
+          <button className="loginBtn">로그인</button>
+        </form>
+        <button className="registerBtn" onClick={() => navigate('/signup')}>
+          아이디가 없다면?
+        </button>
+      </main>
+    </div>
   );
 }

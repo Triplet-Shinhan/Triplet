@@ -28,8 +28,8 @@ export default function DiarySettings() {
   console.log(tripList);
   return (
     <>
-      <h1>안녕하세요</h1>
-      <h2>{userName}님</h2>
+      <h1 className="diaryInH1">안녕하세요</h1>
+      <h2 className="diaryInH2">{userName}님</h2>
       <ul className="tripInto">
         <li className="tripInfo">
           <nav>프로젝트</nav>

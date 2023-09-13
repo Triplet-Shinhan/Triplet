@@ -7,12 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   let isChecked = false;
-  // (name = null),
-  //   (birth = null),
-  //   (email = null),
-  //   (password = null),
-  //   (phoneNum = null),
-  //   (accountNum = null);
   const [accountName, setAccountName] = useState(''); // 1원이체 계좌
   const [inputName, setInputName] = useState(''); // 입금자명
   const [formData, setFormData] = useState({
@@ -105,15 +99,6 @@ export default function Signup() {
       console.log('비밀번호 형식에 맞게 입력해주세요');
       return;
     }
-    // 폼 보내고 난 이후 초기화
-    // setFormData({
-    //   email: '',
-    //   name: '',
-    //   birth: '',
-    //   phoneNum: '',
-    //   password: '',
-    //   accountNum: '',
-    // });
   }; // handleSubmit 끝
 
   // 입력받은 입금자명과 1원계좌의 이름이 같은지 확인하는 함수
@@ -141,75 +126,98 @@ export default function Signup() {
   };
 
   return (
-    <main className="signupMain">
-      <h1>사용자 등록</h1>
-      <form action="POST" onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="이름"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="birth"
-          placeholder="생년월일 8글자"
-          value={formData.birth}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="phoneNum"
-          placeholder="전화번호(-제외)"
-          value={formData.phoneNum}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호 확인"
-          onChange={handleRight}
-        />
-        {/* className={isChecked ? 'signAble' : 'signUnable'} */}
-        <button>회원가입</button>
-      </form>
+    <div className="signupBackground">
+      <main className="signupMainContainer">
+        <h1>사용자 등록</h1>
+        <form
+          id="signupForm"
+          className="signupForm"
+          action="POST"
+          onSubmit={handleSubmit}
+        >
+          <div className="signupInputArea">
+            <input
+              type="email"
+              name="email"
+              className="email"
+              placeholder="이메일"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="이름"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="birth"
+              placeholder="생년월일 8글자"
+              value={formData.birth}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="phoneNum"
+              placeholder="전화번호(-제외)"
+              value={formData.phoneNum}
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="비밀번호"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              className="passwordCo"
+              placeholder="비밀번호 확인"
+              onChange={handleRight}
+            />
+          </div>
+        </form>
 
-      {/* 계좌번호 확인 form */}
-      <form action="POST" onSubmit={handleAccount}>
-        <input
-          type="number"
-          name="accountNum"
-          placeholder="계좌번호(-제외)"
-          value={formData.accountNum}
-          onChange={handleChange}
-        />
-        <button>인증</button>
-      </form>
+        {/* 계좌번호 확인 form */}
+        <div className="authArea">
+          <div className="formArea">
+            <form className="authForm" action="POST" onSubmit={handleAccount}>
+              <input
+                type="text"
+                name="accountNum"
+                placeholder="계좌번호(-제외)"
+                value={formData.accountNum}
+                onChange={handleChange}
+              />
+            </form>
 
-      {/* 입금자명 확인 form */}
-      <form action="POST" onSubmit={checkSame}>
-        <input
-          type="text"
-          placeholder="인증코드(입금자명)을 입력해주세요."
-          value={inputName}
-          onChange={(e) => setInputName(e.target.value)}
-        />
-        <button>확인</button>
-      </form>
-    </main>
+            {/* 입금자명 확인 form */}
+            <form className="confirmForm" action="POST" onSubmit={checkSame}>
+              <input
+                type="text"
+                className="verifyCode"
+                placeholder="인증코드(입금자명)을 입력해주세요."
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
+              />
+            </form>
+          </div>
+          <div className="btnArea">
+            <button className="authBtn" form="authForm">
+              인증
+            </button>
+            <button className="confirmBtn" form="confirmForm">
+              확인
+            </button>
+          </div>
+        </div>
+        <button className="registerBtn" form="signupForm">
+          회원가입
+        </button>
+      </main>
+    </div>
   );
 }
