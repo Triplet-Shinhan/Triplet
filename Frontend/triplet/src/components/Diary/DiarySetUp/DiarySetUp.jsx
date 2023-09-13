@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './DiarySetUp.scss';
+import { getCookie } from '../../../api/cookie';
 import { useMutation } from '@tanstack/react-query';
 import { makeNewTrip } from '../../../api/DiaryApis';
 
