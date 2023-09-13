@@ -1,9 +1,9 @@
 package com.ssafy.triplet.payment.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.ssafy.triplet.trip.domain.Daily;
+import com.ssafy.triplet.trip.domain.Trip;
+import com.ssafy.triplet.user.domain.User;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,17 +17,18 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "payment_Id")
     private Long paymentId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    private User user;//Payment조회시
 
-    @Column(name = "trip_id")
-    private Long tripId;
+    @ManyToOne
+    private Trip trip;
 
-    @Column(name = "daily_id")
-    private Long dailyId;
+    @ManyToOne
+    private Daily daily;
 
     @Column(name = "item")
     private String item;
@@ -40,9 +41,6 @@ public class Payment {
 
     @Column(name = "date")
     private LocalDateTime date;
-
-    @Column(name = "current_rate")
-    private Float currentRate;
 
     @Column(name = "method")
     private String method;
