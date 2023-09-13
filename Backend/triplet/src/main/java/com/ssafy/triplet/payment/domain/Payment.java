@@ -22,12 +22,15 @@ public class Payment {
     private Long paymentId;
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;//Payment조회시
 
     @ManyToOne
+    @JoinColumn(name="trip_id")
     private Trip trip;
 
     @ManyToOne
+    @JoinColumn(name="daily_id")
     private Daily daily;
 
     @Column(name = "item")
