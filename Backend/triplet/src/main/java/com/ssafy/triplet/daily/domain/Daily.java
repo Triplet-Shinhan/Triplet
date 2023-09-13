@@ -16,27 +16,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @Builder
+@Data
 @Table(name = "daily")
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Daily {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //MySQL의 AUTO_INCREMENT를 사용
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long dailyId;
 
-	@ManyToOne// N : 1 관계
+	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "userId")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
 
-	@ManyToOne// N : 1 관계
+	@ManyToOne
 	@JoinColumn(name = "trip_id", referencedColumnName = "tripId")//해당 유저의 tripId를 외래키로 가져온다.
 	private Trip trip;
 
@@ -46,4 +44,7 @@ public class Daily {
 
 	@Column(nullable = false)
 	private String imageUrl;
+
+	// @OneToMany
+	// private List<Payment> payments;
 }
