@@ -5,14 +5,43 @@ import './DiaryMain.scss';
 export default function Diary() {
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const { tripStart, tripEnd } = {};
 
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
 
+  console.log(tripInfo);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  // 요일 구하는 함수 (0이 일요일 6이 토요일)
+  const getDayOfWeek = (startDate) => new Date(startDate).getDay();
+
+  // 주차 시작 날짜 구하기
+  const startCal = () => {
+    const startDate = getDayOfWeek(tripInfo.startDate);
+    const endDate = getDayOfWeek(tripInfo.endDate);
+
+    const adjustStartDate = (date, daysToDelete) => {
+      const adjustedDate = new Date(date);
+      adjustedDate.setDate(adjustedDate.getDate() - daysToDelete);
+      return adjustedDate;
+    };
+
+    if (startDate !== 0) {
+      const adjustedStartDate = adjustStartDate(
+        tripInfo.startDate,
+        7 - startDate
+      );
+      return adjustStartDate;
+    } else return tripInfo.startDate;
+  };
+
+  tripStart = startCal();
+  console.log(tripStart);
 
   return (
     <>
@@ -41,8 +70,8 @@ export default function Diary() {
       <main>
         <section className="moneyArea">
           <section className="infoArea">
-            <h1>여행지 이름</h1>
-            <h2>프로젝트 이름</h2>
+            <h1>{tripInfo.location}</h1>
+            <h2>{tripInfo.prjName}</h2>
           </section>
           <section className="dashboard">
             <div className="dashText">Dashboard</div>
