@@ -53,6 +53,11 @@ public class UserController {
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
 
+        Cookie nameCookie = new Cookie("name", loginUser.getName());
+        nameCookie.setMaxAge(86400);
+        nameCookie.setPath("/");
+        response.addCookie(nameCookie);
+
         logger.debug("login success");
 
         return ResponseEntity.ok().build();
@@ -71,6 +76,11 @@ public class UserController {
         sessionCookie.setMaxAge(0);
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
+
+        Cookie nameCookie = new Cookie("name", null);
+        nameCookie.setMaxAge(0);
+        nameCookie.setPath("/");
+        response.addCookie(nameCookie);
 
         logger.debug("logout request success");
 
