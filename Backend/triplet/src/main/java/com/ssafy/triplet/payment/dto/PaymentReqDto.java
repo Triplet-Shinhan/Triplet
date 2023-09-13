@@ -1,26 +1,37 @@
 package com.ssafy.triplet.payment.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Builder
-@Getter
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentReqDto {
 
+	@JsonProperty("tripId")
+	private Long tripId;
 
-    private Long tripId;
+	@JsonProperty("dailyId")
+	private Long dailyId;
 
-    private Long dailyId;
+	@JsonProperty("item")
+	private String item;
 
-    private String item;
+	@JsonProperty("cost")
+	private Long cost;
 
-    private Long cost;
+	@JsonProperty("foreignCurrency")
+	private String foreignCurrency;
 
-    private String foreignCurrency;
-
-    private LocalDateTime date;
+	@JsonProperty("date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime date;
 }
