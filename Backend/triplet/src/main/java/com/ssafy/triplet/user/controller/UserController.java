@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -53,7 +56,7 @@ public class UserController {
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
 
-        Cookie nameCookie = new Cookie("name", loginUser.getName());
+        Cookie nameCookie = new Cookie("name", URLEncoder.encode(loginUser.getName(), StandardCharsets.UTF_8));
         nameCookie.setMaxAge(86400);
         nameCookie.setPath("/");
         response.addCookie(nameCookie);
