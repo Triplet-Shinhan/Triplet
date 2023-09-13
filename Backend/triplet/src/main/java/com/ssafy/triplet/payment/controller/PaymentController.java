@@ -22,7 +22,7 @@ public class PaymentController {
 
         paymentService.createPayment(paymentReqDto,user);
 
-        return ResponseEntity.ok(200);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{paymentId}")
@@ -31,15 +31,14 @@ public class PaymentController {
 
         paymentService.updatePayment(paymentReqDto,paymentId);
 
-        return ResponseEntity.ok(200);
+        return ResponseEntity.ok().build();
     }
 
-//    @DeleteMapping("/{paymentId}")
-//    public ResponseEntity deletePayment(@PathVariable Long paymentId,@RequestBody PaymentReqDto paymentReqDto,HttpServletRequest request){
-//        HttpSession session = request.getSession();
-//        User user = userUtility.getUserFromCookie(request);
-//
-//        paymentService.deletePayment(paymentReqDto,user);
-//        return ResponseEntity.ok(200);
-//    }
+    @DeleteMapping("/{paymentId}")
+    public ResponseEntity deletePayment(@PathVariable Long paymentId,@RequestBody PaymentReqDto paymentReqDto,HttpServletRequest request){
+        User user = userUtility.getUserFromCookie(request);
+
+        paymentService.deletePayment(paymentReqDto,user,paymentId);
+        return ResponseEntity.ok().build();
+    }
 }

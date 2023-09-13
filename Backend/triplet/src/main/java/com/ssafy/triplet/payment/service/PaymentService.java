@@ -23,8 +23,8 @@ public class PaymentService {
     private final TripRepository tripRepository;
     private final PaymentRepository paymentRepository;
     private final DailyRepository dailyRepository;
-    //private final DailyRepository;
-    public String createPayment(PaymentReqDto reqDto, User user){
+
+    public void createPayment(PaymentReqDto reqDto, User user){
         Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
 
@@ -39,13 +39,10 @@ public class PaymentService {
                 .method("cash")
                 .build();
 
-        //
         paymentRepository.save(payment);
-
-        return "success";
     }
 
-    public String updatePayment(PaymentReqDto reqDto, Long paymentId) {
+    public void updatePayment(PaymentReqDto reqDto, Long paymentId) {
         paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(DAILY_ID_NOT_FOUND));
         Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
@@ -63,7 +60,18 @@ public class PaymentService {
 
 
         paymentRepository.save(payment);
+    }
 
-        return "success";
+    public void deletePayment(PaymentReqDto paymentReqDto, User user, Long paymentId) {
+        //id존재확인
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
+
+        Trip trip = tripRepository.findById(paymentReqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        //본인지출 확인
+        if(trip.getUser().getUserId()!=user.getUserId()){
+            throw new BaseException(NOT_AUTHORIZED);
+        }
+
+        paymentRepository.deleteById(payment.getPaymentId());
     }
 }
