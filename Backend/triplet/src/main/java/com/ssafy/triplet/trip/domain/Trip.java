@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.user.domain.User;
 
 import jakarta.persistence.Column;
