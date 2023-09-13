@@ -39,6 +39,7 @@ public class DailyService {
 				}
 			}
 			dailyDto.setSum(sum);
+			dtoList.add(dailyDto);
 		}
 		return dtoList;
 	}
