@@ -58,7 +58,7 @@ export default function DiaryMain() {
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
       console.log(data);
-      navigate('/login');
+      navigate('/');
     },
   });
 
