@@ -93,75 +93,84 @@ export default function DiaryMain() {
 
   return (
     <>
-      <header>
-        <nav className="diaryLogo">
-          <section className="logoArea">
-            <img src="../../../assets/icons/shinhan-symbol.png" alt="신한" />
-            <div>Triplet</div>
-          </section>
-          <section className="settings">
-            <form className="userInfo" action="POST" method={handleSubmit}>
-              <div>{userName}님</div>
-              <button onClick={() => userLogout.mutate()}>로그아웃</button>
-            </form>
-            <button>
-              <img
-                src="../../../assets/icons/setting.png"
-                width="30vw"
-                alt="환경설정"
-                onClick={() => navigate(`/trips/${tripId}/dailies/setting`)}
-              />
-            </button>
-          </section>
-        </nav>
-      </header>
-      <main>
-        <section className="moneyArea">
-          <section className="infoArea">
-            <h1 className="infoH1">{tripInfo.location}</h1>
-            <h2 className="infoH2">{tripInfo.prjName}</h2>
-          </section>
-          <section className="dashboard">
-            <div className="dashText">Dashboard</div>
-            <section className="boardArea">
-              <section className="spentMoney">
-                <div className="viewCurrency">₩</div>
-                <article>
-                  <div className="moneyPart">
-                    {tripData.dashboard.sumExpenditure}
-                  </div>
-                  <div className="moneyDesc">총 지출</div>
-                </article>
+      {tripData && (
+        <div>
+          <header>
+            <nav className="diaryLogo">
+              <section className="logoArea">
+                <img
+                  src="../../../assets/icons/shinhan-symbol.png"
+                  alt="신한"
+                />
+                <div>Triplet</div>
               </section>
-              <section className="restMoney">
-                <div className="viewCurrency">₩</div>
-                <article>
-                  <div className="moneyPart">{tripData.dashboard.budget}</div>
-                  <div className="moneyDesc">남은 예산</div>
-                </article>
+              <section className="settings">
+                <form className="userInfo" action="POST" method={handleSubmit}>
+                  <div>{userName}님</div>
+                  <button onClick={() => userLogout.mutate()}>로그아웃</button>
+                </form>
+                <button>
+                  <img
+                    src="../../../assets/icons/setting.png"
+                    width="30vw"
+                    alt="환경설정"
+                    onClick={() => navigate(`/trips/${tripId}/dailies/setting`)}
+                  />
+                </button>
               </section>
-              <section className="restCash">
-                <div className="viewCurrency">$</div>
-                <article>
-                  <div className="moneyPart">{tripData.dashboard.cash}</div>
-                  <div className="moneyDesc">남은 현금</div>
-                </article>
+            </nav>
+          </header>
+          <main>
+            <section className="moneyArea">
+              <section className="infoArea">
+                <h1 className="infoH1">{tripInfo.location}</h1>
+                <h2 className="infoH2">{tripInfo.prjName}</h2>
+              </section>
+              <section className="dashboard">
+                <div className="dashText">Dashboard</div>
+                <section className="boardArea">
+                  <section className="spentMoney">
+                    <div className="viewCurrency">₩</div>
+                    <article>
+                      <div className="moneyPart">
+                        {tripData.dashboard.sumExpenditure}
+                      </div>
+                      <div className="moneyDesc">총 지출</div>
+                    </article>
+                  </section>
+                  <section className="restMoney">
+                    <div className="viewCurrency">₩</div>
+                    <article>
+                      <div className="moneyPart">
+                        {tripData.dashboard.budget}
+                      </div>
+                      <div className="moneyDesc">남은 예산</div>
+                    </article>
+                  </section>
+                  <section className="restCash">
+                    <div className="viewCurrency">$</div>
+                    <article>
+                      <div className="moneyPart">{tripData.dashboard.cash}</div>
+                      <div className="moneyDesc">남은 현금</div>
+                    </article>
+                  </section>
+                </section>
               </section>
             </section>
-          </section>
-        </section>
-        <section className="calArea">
-          <ul className="calHeader">
-            {day.map((v) => (
-              <li className={'calLi' + v} key={v}>
-                {v}
-              </li>
-            ))}
-          </ul>
-          {/* 반복문 개수만큼 fractal 만들기 */}
-          <ul className="calSelection">{diaryFractals}</ul>
-        </section>
-      </main>
+            <section className="calArea">
+              <ul className="calHeader">
+                {day.map((v) => (
+                  <li className={'calLi' + v} key={v}>
+                    {v}
+                  </li>
+                ))}
+              </ul>
+              {/* 반복문 개수만큼 fractal 만들기 */}
+              <ul className="calSelection">{diaryFractals}</ul>
+            </section>
+          </main>
+        </div>
+      )}
     </>
   );
 }
