@@ -14,6 +14,12 @@ export default class Diary {
   async viewProject() {
     return this.httpClient.get('/api/trips').then((res) => res.data);
   }
+
+  async viewDiaryDetail({ tripId }) {
+    return this.httpClient
+      .get(`/api/trips/${tripId}/dailies`)
+      .then((res) => res.data);
+  }
 }
 
 export const makeNewTrip = ({ tripInfo }) => {

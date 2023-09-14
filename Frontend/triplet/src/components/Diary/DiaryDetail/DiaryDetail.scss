@@ -22,3 +22,20 @@
     font-family: var(--color-logo);
   }
 }
+
+.detailMain {
+  display: flex;
+
+  .expendSec {
+    display: flex;
+    flex-grow: 1.5;
+    flex-direction: column;
+  }
+
+  .imgSec {
+    .imgSrc {
+      flex-grow: 0.5;
+      border-radius: 70px;
+    }
+  }
+}

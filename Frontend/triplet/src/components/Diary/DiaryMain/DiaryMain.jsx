@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
 import { getCookie, removeCookie } from '../../../api/cookie';
 import { logoutUser } from '../../../api/AccountApis';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import DiaryFractal from '../DiaryFractal/DiaryFractal';
 
 export default function DiaryMain() {
@@ -13,7 +13,18 @@ export default function DiaryMain() {
 
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
+  const { diary } = useDiaryApi();
   const tripInfo = useLocation().state;
+
+  // 서버에서 trip에 관련한거 전부 가져오기
+  const {
+    isLoading,
+    error,
+    data: tripData,
+  } = useQuery(['diaryMain'], ({ tripId }) => {
+    return diary.viewDiaryDetail({ tripId });
+  });
+
   let tripStart = '',
     tripEnd = '';
   let spaceDate = 0;
@@ -28,7 +39,6 @@ export default function DiaryMain() {
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
-    console.log(spaceDate);
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
       <DiaryFractal
         key={index}
@@ -36,7 +46,7 @@ export default function DiaryMain() {
         isValid={isValid}
       />
     ));
-
+    console.log(tripData.dailies);
     setDiaryFractals(fractals);
   }, []);
 
@@ -63,8 +73,8 @@ export default function DiaryMain() {
     const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
     const day = String(wantedWeek.getDate()).padStart(2, '0');
     isValid =
-      wantedWeek.getDate() >= new Date(tripInfo.startDate).getDate() &&
-      wantedWeek.getDate() <= new Date(tripInfo.endDate).getDate();
+      wantedWeek.getTime() >= new Date(tripInfo.startDate).getTime() &&
+      wantedWeek.getTime() <= new Date(tripInfo.endDate).getTime();
 
     return `${month}.${day}`;
   };
@@ -116,22 +126,23 @@ export default function DiaryMain() {
               <section className="spentMoney">
                 <div className="viewCurrency">₩</div>
                 <article>
-                  <div className="moneyPart">276490</div>
+                  <div className="moneyPart">
+                    {tripData.dashboard.sumExpenditure}
+                  </div>
                   <div className="moneyDesc">총 지출</div>
                 </article>
               </section>
               <section className="restMoney">
                 <div className="viewCurrency">₩</div>
                 <article>
-                  <div className="moneyPart">573510</div>
+                  <div className="moneyPart">{tripData.dashboard.budget}</div>
                   <div className="moneyDesc">남은 예산</div>
                 </article>
               </section>
               <section className="restCash">
-                {/* 고정 아님 */}
                 <div className="viewCurrency">$</div>
                 <article>
-                  <div className="moneyPart">400</div>
+                  <div className="moneyPart">{tripData.dashboard.cash}</div>
                   <div className="moneyDesc">남은 현금</div>
                 </article>
               </section>
