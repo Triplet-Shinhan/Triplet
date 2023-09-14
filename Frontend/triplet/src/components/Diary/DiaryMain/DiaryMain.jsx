@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
 import { getCookie, removeCookie } from '../../../api/cookie';
@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import DiaryFractal from '../DiaryFractal/DiaryFractal';
 
 export default function DiaryMain() {
+  const [diaryFractals, setDiaryFractals] = useState([]);
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -22,34 +23,35 @@ export default function DiaryMain() {
   };
 
   useEffect(() => {
+    // 주차 시작 및 끝 날짜 구하기
+    const getWantedWeek = (dateString, isStart) => {
+      const date = new Date(dateString);
+      const dayOfWeek = date.getDay();
+      const wantedWeek = new Date(date);
+      if (isStart) wantedWeek.setDate(date.getDate() - dayOfWeek);
+      else wantedWeek.setDate(date.getDate() + (6 - dayOfWeek));
+
+      const year = wantedWeek.getFullYear();
+      const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
+      const day = String(wantedWeek.getDate()).padStart(2, '0');
+
+      console.log(`wantedWeek : ${wantedWeek}`);
+      console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
+    };
+
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripStart) - new Date(tripEnd)) / (1000 * 60 * 60 * 24);
-  }, []);
+    const fractals = Array.from({ length: spaceDate }, (_, index) => (
+      <DiaryFractal key={index} />
+    ));
+
+    setDiaryFractals(fractals);
+  }, [tripInfo.startDate, tripInfo.endDate]);
 
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
-
-  const diaryFractals = Array.from({ length: spaceDate }, (_, index) => (
-    <DiaryFractal key={index} />
-  ));
-
-  // 주차 시작 및 끝 날짜 구하기
-  const getWantedWeek = (dateString, isStart) => {
-    const date = new Date(dateString);
-    const dayOfWeek = date.getDay();
-    const wantedWeek = new Date(date);
-    if (isStart) wantedWeek.setDate(date.getDate() - dayOfWeek);
-    else wantedWeek.setDate(date.getDate() + (6 - dayOfWeek));
-
-    const year = wantedWeek.getFullYear();
-    const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
-    const day = String(wantedWeek.getDate()).padStart(2, '0');
-
-    console.log(`wantedWeek : ${wantedWeek}`);
-    console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
-  };
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
