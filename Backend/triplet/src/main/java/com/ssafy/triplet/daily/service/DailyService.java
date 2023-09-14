@@ -54,6 +54,6 @@ public class DailyService {
     public List<Payment> getPayments(Long dailyId) {
         Daily daily = dailyRepository.findById(dailyId)
                 .orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
-        return daily.getPayments();
+        return new ArrayList<>(daily.getPayments());//지연로딩 이슈 해결
     }
 }
