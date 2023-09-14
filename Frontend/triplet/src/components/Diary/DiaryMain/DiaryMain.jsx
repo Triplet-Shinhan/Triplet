@@ -54,7 +54,7 @@ export default function DiaryMain() {
     ));
     console.log(tripData);
     setDiaryFractals(fractals);
-  }, []);
+  }, [tripId]);
 
   // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
@@ -93,7 +93,7 @@ export default function DiaryMain() {
     },
   });
 
-  if (isLoading || !tripId) {
+  if (isLoading || tripId === undefined) {
     return <div>loading...</div>;
   }
   return (
@@ -133,7 +133,7 @@ export default function DiaryMain() {
                 <div className="viewCurrency">₩</div>
                 <article>
                   <div className="moneyPart">
-                    {/* {tripData.dashboard.sumExpenditure} */}
+                    {tripData.dashboard.sumExpenditure}
                   </div>
                   <div className="moneyDesc">총 지출</div>
                 </article>
@@ -141,18 +141,14 @@ export default function DiaryMain() {
               <section className="restMoney">
                 <div className="viewCurrency">₩</div>
                 <article>
-                  <div className="moneyPart">
-                    {/* { tripData.dashboard.budget} */}
-                  </div>
+                  <div className="moneyPart">{tripData.dashboard.budget}</div>
                   <div className="moneyDesc">남은 예산</div>
                 </article>
               </section>
               <section className="restCash">
                 <div className="viewCurrency">$</div>
                 <article>
-                  <div className="moneyPart">
-                    {/* {tripData.dashboard.cash} */}
-                  </div>
+                  <div className="moneyPart">{tripData.dashboard.cash}</div>
                   <div className="moneyDesc">남은 현금</div>
                 </article>
               </section>
