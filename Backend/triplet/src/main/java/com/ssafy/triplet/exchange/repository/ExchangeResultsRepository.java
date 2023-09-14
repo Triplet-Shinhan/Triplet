@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ssafy.triplet.exchange.domain.ExchangeRecord;
 
-public interface ExchangeResultsRepository extends JpaRepository<ExchangeRecord, Integer> {
+public interface ExchangeResultsRepository extends JpaRepository<ExchangeRecord, Long> {
     List<ExchangeRecord> findByNameAndPhoneNumAndBirth(String name, String phoneNum, String birth);
 }
