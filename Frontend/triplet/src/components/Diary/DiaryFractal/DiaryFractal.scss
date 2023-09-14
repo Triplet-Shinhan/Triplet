@@ -6,4 +6,9 @@
   padding: 0.5vw;
   margin-top: 0.5vh;
   background-color: var(--color-text-white);
+
+  .tripDate {
+    font-weight: 600;
+    align-self: flex-end;
+  }
 }
