@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
 import { getCookie, removeCookie } from '../../../api/cookie';
 import { logoutUser } from '../../../api/AccountApis';
 import { useMutation } from '@tanstack/react-query';
+import DiaryFractal from '../DiaryFractal/DiaryFractal';
 
 export default function DiaryMain() {
   // 날짜 넣기 위한 Day 배열
@@ -13,17 +14,28 @@ export default function DiaryMain() {
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
   let tripStart = '',
-    tripEnd = '';
+    tripEnd = '',
+    spaceDate = '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    tripStart = getWantedWeek(tripInfo.startDate, true);
+    tripEnd = getWantedWeek(tripInfo.endDate, false);
+    spaceDate =
+      (new Date(tripStart) - new Date(tripEnd)) / (1000 * 60 * 60 * 24);
+  }, []);
+
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
 
-  // 주차 시작 및 끝 날짜 구하기
+  const diaryFractals = Array.from({ length: spaceDate }, (_, index) => (
+    <DiaryFractal key={index} />
+  ));
 
+  // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
     const date = new Date(dateString);
     const dayOfWeek = date.getDay();
@@ -38,9 +50,6 @@ export default function DiaryMain() {
     console.log(`wantedWeek : ${wantedWeek}`);
     console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
   };
-
-  getWantedWeek(tripInfo.startDate, true);
-  getWantedWeek(tripInfo.endDate, false);
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
@@ -117,7 +126,7 @@ export default function DiaryMain() {
             ))}
           </ul>
           {/* 반복문 개수만큼 fractal 만들기 */}
-          <ul className="calSection">{}</ul>
+          <ul className="calSection">{diaryFractals}</ul>
         </section>
       </main>
     </>
