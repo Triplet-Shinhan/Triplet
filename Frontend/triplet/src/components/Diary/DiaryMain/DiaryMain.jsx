@@ -16,15 +16,18 @@ export default function DiaryMain() {
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const { diary } = useDiaryApi();
   const tripInfo = useLocation().state;
+  let isGet = false;
 
   // 서버에서 trip에 관련한거 전부 가져오기
   const {
     isLoading,
     error,
     data: tripData,
-  } = useQuery(['diaryMain'], ({ tripId }) => {
-    return diary.viewDiaryDetail({ tripId });
-  });
+  } = useQuery(
+    ['diaryMain'],
+    ({ tripId }) => diary.viewDiaryDetail({ tripId }),
+    { enabled: isGet }
+  );
 
   let tripStart = '',
     tripEnd = '';
@@ -48,6 +51,7 @@ export default function DiaryMain() {
       />
     ));
     setDiaryFractals(fractals);
+    isGet = true;
   }, []);
 
   // 주차 시작 및 끝 날짜 구하기
