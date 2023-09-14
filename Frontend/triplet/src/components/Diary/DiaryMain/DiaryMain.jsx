@@ -4,6 +4,7 @@ import './DiaryMain.scss';
 import { getCookie, removeCookie } from '../../../api/cookie';
 import { logoutUser } from '../../../api/AccountApis';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDiaryApi } from '../../../context/DiaryApiContext';
 import DiaryFractal from '../DiaryFractal/DiaryFractal';
 
 export default function DiaryMain() {
