@@ -21,5 +21,5 @@ export const signupUser = ({ formData }) => {
 };
 
 export const logoutUser = () => {
-  return axios.post(`${PROXY}/users/logout`);
+  return axios.post(`${PROXY}/users/logout`, {});
 };
