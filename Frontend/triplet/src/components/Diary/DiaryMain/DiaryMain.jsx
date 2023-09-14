@@ -27,9 +27,14 @@ export default function DiaryMain() {
     isLoading,
     error,
     data: tripData,
-  } = useQuery(['diaryMain', tripId], () => diary.viewDiaryDetail({ tripId }), {
-    enabled: !!tripId,
-  });
+  } = useQuery(
+    ['diaryMain', tripId],
+    () => diary.viewDiaryDetail({ tripId }),
+    {
+      enabled: !!tripId,
+    },
+    { staleTime: 1000 * 6 * 5 }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +93,7 @@ export default function DiaryMain() {
     },
   });
 
-  if (isLoading) {
+  if (isLoading || !tripId) {
     return <div>loading...</div>;
   }
   return (
