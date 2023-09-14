@@ -49,7 +49,7 @@ export default function Exchange() {
         <nav className="exchangeName">환전</nav>
       </header>
       <main>
-        <form action="POST" className="exchangeForm">
+        <form action="POST" className="exchangeForm" onSubmit={handleSubmit}>
           <section className="accountInfo">
             <section className="intro">
               <span>안녕하세요</span>
@@ -135,6 +135,7 @@ export default function Exchange() {
               />
             </section>
           </section>
+          <button>제출</button>
         </form>
       </main>
     </div>
