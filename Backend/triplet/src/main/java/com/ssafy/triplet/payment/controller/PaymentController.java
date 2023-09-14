@@ -39,6 +39,7 @@ public class PaymentController {
         User user = userUtility.getUserFromCookie(request);
 
         paymentService.deletePayment(user,paymentId);
+
         return ResponseEntity.ok().build();
     }
 }
