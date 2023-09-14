@@ -29,7 +29,7 @@ export default function DiaryMain() {
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     console.log(spaceDate);
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
-      <DiaryFractal key={index} date={tripStart + index} />
+      <DiaryFractal key={index} date={putDate(tripStart, index)} />
     ));
 
     setDiaryFractals(fractals);
@@ -48,6 +48,16 @@ export default function DiaryMain() {
     const day = String(wantedWeek.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+  };
+
+  const putDate = (dateString, start) => {
+    const date = new Date(dateString);
+    const wantedWeek = new Date(date);
+    wantedWeek.setDate(date.getDate() + start);
+    const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
+    const day = String(wantedWeek.getDate() + 1).padStart(2, '0');
+
+    return `${month}.${day}`;
   };
 
   // 쿠키 가져오기
