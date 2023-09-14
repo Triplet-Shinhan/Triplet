@@ -12,6 +12,7 @@ import Exchange from './components/Exchange/Exchange';
 import DiaryMain from './components/Diary/DiaryMain/DiaryMain';
 import DiarySetting from './components/Diary/DiarySetting/DiarySetting';
 import DiaryDetail from './components/Diary/DiaryDetail/DiaryDetail';
+import { ExchangeApiProvider } from './context/ExchangeApiContext';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       { path: '/trips/setup', element: <DiarySetUp /> },
       { path: '/trips/:tripId/dailies', element: <DiaryMain /> },
       { path: '/exchange', element: <Exchange /> },
-      { path: '/trips/dailies/detail', element: <DiaryDetail /> },
+      { path: '/trips/:tripId/dailies/detail', element: <DiaryDetail /> },
       { path: '/trips/:tripId/dailies/setting', element: <DiarySetting /> },
     ],
   },
@@ -37,9 +38,11 @@ function App() {
     <CookiesProvider>
       <BankAccountProvider>
         <DiaryApiProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
+          <ExchangeApiProvider>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
+          </ExchangeApiProvider>
         </DiaryApiProvider>
       </BankAccountProvider>
     </CookiesProvider>

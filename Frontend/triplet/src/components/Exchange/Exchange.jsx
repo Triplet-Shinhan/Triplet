@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../api/cookie';
 import './Exchange.scss';
+import { useExchangeApi } from '../../context/ExchangeApiContext';
 
 export default function Exchange() {
   const budget = [
@@ -33,6 +34,8 @@ export default function Exchange() {
 
   // userName 가져오기
   const userName = decodeURI(getCookie('name'));
+
+  const exchange = useExchangeApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
