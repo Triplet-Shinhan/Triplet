@@ -88,6 +88,9 @@ export default function DiaryMain() {
     },
   });
 
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
   return (
     <>
       <header>
