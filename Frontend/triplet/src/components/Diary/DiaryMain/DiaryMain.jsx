@@ -23,32 +23,34 @@ export default function DiaryMain() {
   };
 
   useEffect(() => {
-    // 주차 시작 및 끝 날짜 구하기
-    const getWantedWeek = (dateString, isStart) => {
-      const date = new Date(dateString);
-      const dayOfWeek = date.getDay();
-      const wantedWeek = new Date(date);
-      if (isStart) wantedWeek.setDate(date.getDate() - dayOfWeek);
-      else wantedWeek.setDate(date.getDate() + (6 - dayOfWeek));
-
-      const year = wantedWeek.getFullYear();
-      const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
-      const day = String(wantedWeek.getDate()).padStart(2, '0');
-
-      console.log(`wantedWeek : ${wantedWeek}`);
-      console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
-    };
-
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
-    const fractals = Array.from({ length: spaceDate }, (_, index) => (
+    const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
       <DiaryFractal key={index} />
     ));
 
+    console.log(diaryFractals);
+
     setDiaryFractals(fractals);
   }, [tripInfo.startDate, tripInfo.endDate]);
+
+  // 주차 시작 및 끝 날짜 구하기
+  const getWantedWeek = (dateString, isStart) => {
+    const date = new Date(dateString);
+    const dayOfWeek = date.getDay();
+    const wantedWeek = new Date(date);
+    if (isStart) wantedWeek.setDate(date.getDate() - dayOfWeek);
+    else wantedWeek.setDate(date.getDate() + (6 - dayOfWeek));
+
+    const year = wantedWeek.getFullYear();
+    const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
+    const day = String(wantedWeek.getDate()).padStart(2, '0');
+
+    console.log(`wantedWeek : ${wantedWeek}`);
+    console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
+  };
 
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
@@ -128,7 +130,7 @@ export default function DiaryMain() {
             ))}
           </ul>
           {/* 반복문 개수만큼 fractal 만들기 */}
-          <ul className="calSection">{diaryFractals}</ul>
+          <ul className="calSection"></ul>
         </section>
       </main>
     </>
