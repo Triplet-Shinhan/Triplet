@@ -1,5 +1,12 @@
 import React from 'react';
 
 export default function DiaryDetail() {
-  return <div>다이어리 디테일 페이지</div>;
+  return (
+    <div className="diaryDetailPage">
+      <header className="detailHeader">
+        <nav className="detailName">Triplet</nav>
+      </header>
+      <main></main>
+    </div>
+  );
 }

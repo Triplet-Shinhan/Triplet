@@ -1,0 +1,24 @@
+.diaryDetailPage {
+  display: flex;
+  justify-content: space-around;
+}
+
+.detailHeader {
+  width: 10vw;
+  height: 94vh;
+  margin-top: 3vh;
+  margin-left: 1.5vw;
+  background-color: var(--color-bg);
+  border-radius: 50px 20px 20px 50px;
+
+  .detailName {
+    font-size: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    color: var(--color-text-white);
+    margin-top: 6vh;
+    font-family: var(--color-logo);
+  }
+}
