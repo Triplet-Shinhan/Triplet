@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
-import { getCookie } from '../../../api/cookie';
+import { getCookie, removeCookie } from '../../../api/cookie';
 import { logoutUser } from '../../../api/AccountApis';
 import { useMutation } from '@tanstack/react-query';
 
@@ -13,7 +13,7 @@ export default function DiaryMain() {
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
   let tripStart = '',
-    tripEnd = 0;
+    tripEnd = '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +29,8 @@ export default function DiaryMain() {
   const startCal = () => {
     const startDate = getDayOfWeek(tripInfo.startDate);
     const endDate = getDayOfWeek(tripInfo.endDate);
+
+    console.log(`startDate: ${startDate}, endDate: ${endDate}`);
 
     const adjustDate = (date, daysToDelete) => {
       const adjustedDate = new Date(date);
@@ -49,6 +51,8 @@ export default function DiaryMain() {
       const adjustedEndDate = adjustDate(tripInfo.endDate, tripInfo.endDate);
       tripEnd = adjustedEndDate;
     } else tripEnd = tripInfo.endDate;
+
+    console.log(`tripEnd: ${tripStart}, endDate: ${tripEnd}`);
   };
 
   startCal();
@@ -57,8 +61,9 @@ export default function DiaryMain() {
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
-      console.log(data);
-      navigate('/');
+      removeCookie('name');
+      removeCookie('JSESSIONID');
+      window.location.href = '/';
     },
   });
 

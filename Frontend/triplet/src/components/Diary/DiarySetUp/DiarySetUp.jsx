@@ -3,6 +3,7 @@ import './DiarySetUp.scss';
 import { getCookie } from '../../../api/cookie';
 import { useMutation } from '@tanstack/react-query';
 import { makeNewTrip } from '../../../api/DiaryApis';
+import { useNavigate } from 'react-router-dom';
 
 export default function DiarySetUp() {
   const budget = [
@@ -39,6 +40,7 @@ export default function DiarySetUp() {
 
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +59,7 @@ export default function DiarySetUp() {
       onSuccess: () => {
         console.log('success');
         alert('생성');
-        // Diary 달력페이지로 이동
+        navigate(`/trip/${tripInfo.tripId}/dailies`);
       },
       onError: () => {
         console.log('생성이 되지 않았습니다.');
