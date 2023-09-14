@@ -81,7 +81,7 @@ export default function DiaryMain() {
           </section>
           <section className="settings">
             <form className="userInfo" action="POST" method={handleSubmit}>
-              <div>{userName}</div>
+              <div>{userName}님</div>
               <button onClick={() => userLogout.mutate()}>로그아웃</button>
             </form>
             <button>

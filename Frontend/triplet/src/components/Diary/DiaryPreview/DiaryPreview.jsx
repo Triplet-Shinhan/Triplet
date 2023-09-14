@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function DiaryPreview({ diaryInfo }) {
   const navigate = useNavigate();
-  // 여기 다이어리 아이디도 같이 들어올거
 
+  console.log(diaryInfo);
   return (
     <ul
       className="diaryPreview"
