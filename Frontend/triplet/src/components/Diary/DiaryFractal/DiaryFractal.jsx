@@ -3,12 +3,12 @@ import './DiaryFractal.scss';
 import { useNavigate } from 'react-router-dom';
 
 // 다이어리 조각 작은거
-export default function DiaryFractal({ date }) {
+export default function DiaryFractal({ date, isValid }) {
   const navigate = useNavigate();
 
   return (
     <li
-      className="diaryFractal"
+      className={`diaryFractal ${isValid ? '' : 'blocked'}`}
       onClick={() => navigate('/trips/dailies/detail')}
     >
       <div className="tripDate">{date}</div>

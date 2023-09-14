@@ -17,6 +17,7 @@ export default function DiaryMain() {
   let tripStart = '',
     tripEnd = '';
   let spaceDate = 0;
+  let isValid = false;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +30,11 @@ export default function DiaryMain() {
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     console.log(spaceDate);
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
-      <DiaryFractal key={index} date={putDate(tripStart, index)} />
+      <DiaryFractal
+        key={index}
+        date={putDate(tripStart, index)}
+        isValid={isValid}
+      />
     ));
 
     setDiaryFractals(fractals);
@@ -50,12 +55,16 @@ export default function DiaryMain() {
     return `${year}-${month}-${day}`;
   };
 
+  // 다이어리 조각 만들기
   const putDate = (dateString, start) => {
     const date = new Date(dateString);
     const wantedWeek = new Date(date);
     wantedWeek.setDate(date.getDate() + start);
     const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
-    const day = String(wantedWeek.getDate() + 1).padStart(2, '0');
+    const day = String(wantedWeek.getDate()).padStart(2, '0');
+    isValid =
+      wantedWeek.getDate() >= new Date(tripInfo.startDate).getDate() &&
+      wantedWeek.getDate() <= new Date(tripInfo.endDate).getDate();
 
     return `${month}.${day}`;
   };

@@ -12,3 +12,8 @@
     align-self: flex-end;
   }
 }
+
+.blocked {
+  background-color: var(--color-bg-gray);
+  pointer-events: none;
+}
