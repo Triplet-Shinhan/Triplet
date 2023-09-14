@@ -11,6 +11,7 @@ import DiarySetUp from './components/Diary/DiarySetUp/DiarySetUp';
 import Exchange from './components/Exchange/Exchange';
 import DiaryMain from './components/Diary/DiaryMain/DiaryMain';
 import DiarySetting from './components/Diary/DiarySetting/DiarySetting';
+import DiaryDetail from './components/Diary/DiaryDetail/DiaryDetail';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: '/trips/setup', element: <DiarySetUp /> },
       { path: '/trips/:tripId/dailies', element: <DiaryMain /> },
       { path: '/exchange', element: <Exchange /> },
+      { path: '/trips/dailies/detail', element: <DiaryDetail /> },
       { path: '/trips/:tripId/dailies/setting', element: <DiarySetting /> },
     ],
   },

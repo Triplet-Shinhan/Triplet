@@ -28,8 +28,8 @@ export default function DiaryMain() {
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     console.log(spaceDate);
-    const fractals = Array.from({ length: spaceDate + 1 }, (value, index) => (
-      <DiaryFractal key={index} />
+    const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
+      <DiaryFractal key={index} date={tripStart + index} />
     ));
 
     setDiaryFractals(fractals);
@@ -128,7 +128,7 @@ export default function DiaryMain() {
             ))}
           </ul>
           {/* 반복문 개수만큼 fractal 만들기 */}
-          <ul className="calSection">{diaryFractals}</ul>
+          <ul className="calSelection">{diaryFractals}</ul>
         </section>
       </main>
     </>
