@@ -48,7 +48,6 @@ export default function DiaryMain() {
       />
     ));
     setDiaryFractals(fractals);
-    isGet = true;
   }, []);
 
   // 주차 시작 및 끝 날짜 구하기
