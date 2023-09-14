@@ -1,39 +1,49 @@
-import React, { useState } from 'react';
-import { getCookie } from '../../api/cookie';
-import './Exchange.scss';
-import { useExchangeApi } from '../../context/ExchangeApiContext';
+import React, { useState } from "react";
+import { getCookie } from "../../api/cookie";
+import { useExchangeApi } from "../../../context/ExchangeApiContext";
+import "./Exchange.scss";
 
 export default function Exchange() {
   const budget = [
-    'USD',
-    'JPY',
-    'EUR',
-    'CNY',
-    'HKD',
-    'THB',
-    'AUD',
-    'CAD',
-    'GBP',
-    'SGD',
-    'TWD',
-    'CHF',
-    'MYR',
-    'PHP',
-    'VND',
-    'NZD',
-    'IDR',
-    'INR',
-    'AED',
+    "USD",
+    "JPY",
+    "EUR",
+    "CNY",
+    "HKD",
+    "THB",
+    "AUD",
+    "CAD",
+    "GBP",
+    "SGD",
+    "TWD",
+    "CHF",
+    "MYR",
+    "PHP",
+    "VND",
+    "NZD",
+    "IDR",
+    "INR",
+    "AED",
   ];
+
+  // 서버에서 환전 메인화면 가져오기
+  const {
+    isLoading,
+    error,
+    data: rateData,
+  } = useQuery(["ExchangeMain"], () => useExchangeApi.viewExchangeMain(), {
+    staleTime: 1000 * 6 * 5,
+  });
+
   const [exchangeForm, setExchangeForm] = useState({
-    exchangeRate: '',
-    expectedMoney: '',
-    getDate: '',
-    phoneNum: '',
+    exchangeRate: "",
+    expectedMoney: "",
+    getDate: "",
+    phoneNum: "",
   });
 
   // userName 가져오기
-  const userName = decodeURI(getCookie('name'));
+  const userName = decodeURI(getCookie("name"));
 
   const exchange = useExchangeApi();
 
@@ -94,8 +104,8 @@ export default function Exchange() {
                 <span className="koreaMoney">KWD</span>
                 {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
                 <span className="changedMoney">
-                  {exchangeForm.expectedMoney === ''
-                    ? '원화 예상 금액'
+                  {exchangeForm.expectedMoney === ""
+                    ? "원화 예상 금액"
                     : exchangeForm.exchangeMoney}
                 </span>
               </section>
