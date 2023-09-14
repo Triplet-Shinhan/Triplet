@@ -70,8 +70,8 @@ export default function DiarySetUp() {
   return (
     <>
       <main className="diarySetupMain">
-        <h1>안녕하세요</h1>
-        <h2>{userName}님</h2>
+        <h1 className="diaryH1">안녕하세요</h1>
+        <h2 className="diaryH2">{userName}님</h2>
         <form className="diaryForm" action="POST" onSubmit={handleSubmit}>
           <figure className="logoArea">
             <img

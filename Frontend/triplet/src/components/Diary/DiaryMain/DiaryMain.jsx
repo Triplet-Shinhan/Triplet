@@ -98,8 +98,8 @@ export default function DiaryMain() {
       <main>
         <section className="moneyArea">
           <section className="infoArea">
-            <h1>{tripInfo.location}</h1>
-            <h2>{tripInfo.prjName}</h2>
+            <h1 className="infoH1">{tripInfo.location}</h1>
+            <h2 className="infoH2">{tripInfo.prjName}</h2>
           </section>
           <section className="dashboard">
             <div className="dashText">Dashboard</div>
