@@ -1,4 +1,5 @@
 import React from 'react';
+import './DiaryDetail.scss';
 
 export default function DiaryDetail() {
   return (
