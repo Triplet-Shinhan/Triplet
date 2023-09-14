@@ -11,28 +11,25 @@ export default function DiaryMain() {
   const [diaryFractals, setDiaryFractals] = useState([]);
   // 날짜 넣기 위한 Day 배열
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
   const navigate = useNavigate();
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const { diary } = useDiaryApi();
   const tripInfo = useLocation().state;
-  let isGet = false;
+  let tripStart = '',
+    tripEnd = '';
+  let spaceDate = 0;
+  let isValid = false;
+  // 쿠키 가져오기
+  const userName = decodeURI(getCookie('name'));
 
   // 서버에서 trip에 관련한거 전부 가져오기
   const {
     isLoading,
     error,
     data: tripData,
-  } = useQuery(
-    ['diaryMain'],
-    ({ tripId }) => diary.viewDiaryDetail({ tripId }),
-    { enabled: isGet }
-  );
-
-  let tripStart = '',
-    tripEnd = '';
-  let spaceDate = 0;
-  let isValid = false;
+  } = useQuery(['diaryMain', tripId], () => diary.viewDiaryDetail({ tripId }), {
+    enabled: !!tripId,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,9 +80,6 @@ export default function DiaryMain() {
     return `${month}.${day}`;
   };
 
-  // 쿠키 가져오기
-  const userName = decodeURI(getCookie('name'));
-
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
       removeCookie('name');
@@ -96,84 +90,75 @@ export default function DiaryMain() {
 
   return (
     <>
-      {tripData && (
-        <div>
-          <header>
-            <nav className="diaryLogo">
-              <section className="logoArea">
-                <img
-                  src="../../../assets/icons/shinhan-symbol.png"
-                  alt="신한"
-                />
-                <div>Triplet</div>
+      <header>
+        <nav className="diaryLogo">
+          <section className="logoArea">
+            <img src="../../../assets/icons/shinhan-symbol.png" alt="신한" />
+            <div>Triplet</div>
+          </section>
+          <section className="settings">
+            <form className="userInfo" action="POST" method={handleSubmit}>
+              <div>{userName}님</div>
+              <button onClick={() => userLogout.mutate()}>로그아웃</button>
+            </form>
+            <button>
+              <img
+                src="../../../assets/icons/setting.png"
+                width="30vw"
+                alt="환경설정"
+                onClick={() => navigate(`/trips/${tripId}/dailies/setting`)}
+              />
+            </button>
+          </section>
+        </nav>
+      </header>
+      <main>
+        <section className="moneyArea">
+          <section className="infoArea">
+            <h1 className="infoH1">{tripInfo.location}</h1>
+            <h2 className="infoH2">{tripInfo.prjName}</h2>
+          </section>
+          <section className="dashboard">
+            <div className="dashText">Dashboard</div>
+            <section className="boardArea">
+              <section className="spentMoney">
+                <div className="viewCurrency">₩</div>
+                <article>
+                  <div className="moneyPart">
+                    {tripData.dashboard.sumExpenditure}
+                  </div>
+                  <div className="moneyDesc">총 지출</div>
+                </article>
               </section>
-              <section className="settings">
-                <form className="userInfo" action="POST" method={handleSubmit}>
-                  <div>{userName}님</div>
-                  <button onClick={() => userLogout.mutate()}>로그아웃</button>
-                </form>
-                <button>
-                  <img
-                    src="../../../assets/icons/setting.png"
-                    width="30vw"
-                    alt="환경설정"
-                    onClick={() => navigate(`/trips/${tripId}/dailies/setting`)}
-                  />
-                </button>
+              <section className="restMoney">
+                <div className="viewCurrency">₩</div>
+                <article>
+                  <div className="moneyPart">{tripData.dashboard.budget}</div>
+                  <div className="moneyDesc">남은 예산</div>
+                </article>
               </section>
-            </nav>
-          </header>
-          <main>
-            <section className="moneyArea">
-              <section className="infoArea">
-                <h1 className="infoH1">{tripInfo.location}</h1>
-                <h2 className="infoH2">{tripInfo.prjName}</h2>
-              </section>
-              <section className="dashboard">
-                <div className="dashText">Dashboard</div>
-                <section className="boardArea">
-                  <section className="spentMoney">
-                    <div className="viewCurrency">₩</div>
-                    <article>
-                      <div className="moneyPart">
-                        {tripData.dashboard.sumExpenditure}
-                      </div>
-                      <div className="moneyDesc">총 지출</div>
-                    </article>
-                  </section>
-                  <section className="restMoney">
-                    <div className="viewCurrency">₩</div>
-                    <article>
-                      <div className="moneyPart">
-                        {tripData.dashboard.budget}
-                      </div>
-                      <div className="moneyDesc">남은 예산</div>
-                    </article>
-                  </section>
-                  <section className="restCash">
-                    <div className="viewCurrency">$</div>
-                    <article>
-                      <div className="moneyPart">{tripData.dashboard.cash}</div>
-                      <div className="moneyDesc">남은 현금</div>
-                    </article>
-                  </section>
-                </section>
+              <section className="restCash">
+                <div className="viewCurrency">$</div>
+                <article>
+                  <div className="moneyPart">{tripData.dashboard.cash}</div>
+                  <div className="moneyDesc">남은 현금</div>
+                </article>
               </section>
             </section>
-            <section className="calArea">
-              <ul className="calHeader">
-                {day.map((v) => (
-                  <li className={'calLi' + v} key={v}>
-                    {v}
-                  </li>
-                ))}
-              </ul>
-              {/* 반복문 개수만큼 fractal 만들기 */}
-              <ul className="calSelection">{diaryFractals}</ul>
-            </section>
-          </main>
-        </div>
-      )}
+          </section>
+        </section>
+        <section className="calArea">
+          <ul className="calHeader">
+            {day.map((v) => (
+              <li className={'calLi' + v} key={v}>
+                {v}
+              </li>
+            ))}
+          </ul>
+          {/* 반복문 개수만큼 fractal 만들기 */}
+          <ul className="calSelection">{diaryFractals}</ul>
+        </section>
+      </main>
     </>
   );
 }
