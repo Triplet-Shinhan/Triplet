@@ -39,6 +39,10 @@ public enum ErrorCode {
     TRIP_ID_NOT_FOUND(401, "프로젝트를 찾을 수 없습니다."),
     DAILY_ID_NOT_FOUND(401, "일일 세부정보를 찾을 수 없습니다."),
 
+    //일일
+    IMAGE_TYPE_ERROR(400, "이미지 파일이 아닙니다."),
+    SIZE_ERROR(400, "파일의 용량이 너무 큽니다."),
+
     //지출
     COST_INPUT_ERROR(400, "올바르지 않은 금액입니다."),
     PAYMENT_ID_NOT_FOUND(401, "결제정보를 찾을 수 없습니다."),
