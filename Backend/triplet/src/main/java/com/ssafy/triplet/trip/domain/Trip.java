@@ -68,4 +68,7 @@ public class Trip {
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
+
+	@OneToMany(mappedBy = "trip")
+	private List<Daily> dailies;
 }
