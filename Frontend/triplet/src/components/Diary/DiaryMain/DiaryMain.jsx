@@ -28,14 +28,14 @@ export default function DiaryMain() {
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     console.log(spaceDate);
-    const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
+    const fractals = Array.from({ length: spaceDate + 1 }, (value, index) => (
       <DiaryFractal key={index} />
     ));
 
     setDiaryFractals(fractals);
     console.log('-------------------------');
-    console.log(diaryFractals);
-  }, []);
+    console.log(fractals);
+  }, [diaryFractals]);
 
   // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
@@ -130,7 +130,7 @@ export default function DiaryMain() {
             ))}
           </ul>
           {/* 반복문 개수만큼 fractal 만들기 */}
-          <ul className="calSection"></ul>
+          <ul className="calSection">{diaryFractals}</ul>
         </section>
       </main>
     </>
