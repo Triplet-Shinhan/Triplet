@@ -62,11 +62,11 @@ public class PaymentService {
         paymentRepository.save(payment);
     }
 
-    public void deletePayment(PaymentReqDto paymentReqDto, User user, Long paymentId) {
+    public void deletePayment(User user, Long paymentId) {
         //id존재확인
         Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
 
-        Trip trip = tripRepository.findById(paymentReqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        Trip trip = tripRepository.findById(payment.getTrip().getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         //본인지출 확인
         if(trip.getUser().getUserId()!=user.getUserId()){
             throw new BaseException(NOT_AUTHORIZED);

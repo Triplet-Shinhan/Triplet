@@ -35,10 +35,10 @@ public class PaymentController {
     }
 
     @DeleteMapping("/{paymentId}")
-    public ResponseEntity deletePayment(@PathVariable Long paymentId,@RequestBody PaymentReqDto paymentReqDto,HttpServletRequest request){
+    public ResponseEntity deletePayment(@PathVariable Long paymentId,HttpServletRequest request){
         User user = userUtility.getUserFromCookie(request);
 
-        paymentService.deletePayment(paymentReqDto,user,paymentId);
+        paymentService.deletePayment(user,paymentId);
         return ResponseEntity.ok().build();
     }
 }
