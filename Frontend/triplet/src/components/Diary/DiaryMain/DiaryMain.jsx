@@ -15,8 +15,8 @@ export default function DiaryMain() {
   const { tripId } = useParams(); // /trips/:tripsId/dailies
   const tripInfo = useLocation().state;
   let tripStart = '',
-    tripEnd = '',
-    spaceDate = '';
+    tripEnd = '';
+  let spaceDate = 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,8 +49,7 @@ export default function DiaryMain() {
     const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
     const day = String(wantedWeek.getDate()).padStart(2, '0');
 
-    console.log(`wantedWeek : ${wantedWeek}`);
-    console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
   };
 
   // 쿠키 가져오기
