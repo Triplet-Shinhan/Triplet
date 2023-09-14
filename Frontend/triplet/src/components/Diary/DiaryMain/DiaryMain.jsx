@@ -27,14 +27,15 @@ export default function DiaryMain() {
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
+    console.log(spaceDate);
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
       <DiaryFractal key={index} />
     ));
 
-    console.log(diaryFractals);
-
     setDiaryFractals(fractals);
-  }, [tripInfo.startDate, tripInfo.endDate]);
+    console.log('-------------------------');
+    console.log(diaryFractals);
+  }, []);
 
   // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
@@ -74,7 +75,7 @@ export default function DiaryMain() {
           <section className="settings">
             <form className="userInfo" action="POST" method={handleSubmit}>
               <div>{userName}</div>
-              <button onClick={userLogout.mutate()}>로그아웃</button>
+              <button onClick={() => userLogout.mutate()}>로그아웃</button>
             </form>
             <button>
               <img
