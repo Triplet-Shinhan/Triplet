@@ -19,51 +19,34 @@ export default function DiaryMain() {
     e.preventDefault();
   };
 
-  // 요일 구하는 함수 (0이 일요일 6이 토요일)
-  const getDayOfWeek = (startDate) => new Date(startDate).getDay();
-
   // 쿠키 가져오기
   const userName = decodeURI(getCookie('name'));
 
-  // 주차 시작 날짜 구하기
-  const startCal = () => {
-    const startDate = getDayOfWeek(tripInfo.startDate);
-    const endDate = getDayOfWeek(tripInfo.endDate);
+  // 주차 시작 및 끝 날짜 구하기
 
-    console.log(`startDate: ${startDate}, endDate: ${endDate}`);
+  const getWantedWeek = (dateString, isStart) => {
+    const date = new Date(dateString);
+    const dayOfWeek = date.getDay();
+    const wantedWeek = new Date(date);
+    if (isStart) wantedWeek.setDate(date.getDate() - dayOfWeek);
+    else wantedWeek.setDate(date.getDate() + (6 - dayOfWeek));
 
-    const adjustDate = (date, daysToDelete) => {
-      const adjustedDate = new Date(date);
-      adjustedDate.setDate(adjustedDate.getDate() + daysToDelete);
-      return adjustedDate;
-    };
+    const year = wantedWeek.getFullYear();
+    const month = String(wantedWeek.getMonth() + 1).padStart(2, '0');
+    const day = String(wantedWeek.getDate()).padStart(2, '0');
 
-    if (startDate !== 0) {
-      const adjustedStartDate = adjustDate(
-        tripInfo.startDate,
-        -tripInfo.startDate
-      );
-
-      tripStart = adjustedStartDate;
-    } else tripStart = tripInfo.startDate;
-
-    if (endDate !== 6) {
-      const adjustedEndDate = adjustDate(tripInfo.endDate, tripInfo.endDate);
-      tripEnd = adjustedEndDate;
-    } else tripEnd = tripInfo.endDate;
-
-    console.log(`tripEnd: ${tripStart}, endDate: ${tripEnd}`);
+    console.log(`wantedWeek : ${wantedWeek}`);
+    console.log(`wantedWeek의 연월일 : ${year}-${month}-${day}`);
   };
 
-  startCal();
-  console.log('tripStart : ' + tripStart);
-  console.log('tripEnd : ' + tripEnd);
+  getWantedWeek(tripInfo.startDate, true);
+  getWantedWeek(tripInfo.endDate, false);
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: (data) => {
       removeCookie('name');
       removeCookie('JSESSIONID');
-      window.location.href = '/';
+      navigate('/');
     },
   });
 
@@ -78,7 +61,7 @@ export default function DiaryMain() {
           <section className="settings">
             <form className="userInfo" action="POST" method={handleSubmit}>
               <div>{userName}</div>
-              <button onClick={() => userLogout.mutate()}>로그아웃</button>
+              <button onClick={userLogout.mutate()}>로그아웃</button>
             </form>
             <button>
               <img
