@@ -42,7 +42,7 @@ export default function DiaryMain() {
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
-      (new Date(tripStart) - new Date(tripEnd)) / (1000 * 60 * 60 * 24);
+      (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     const fractals = Array.from({ length: spaceDate }, (_, index) => (
       <DiaryFractal key={index} />
     ));
