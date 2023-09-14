@@ -47,7 +47,6 @@ export default function DiaryMain() {
         isValid={isValid}
       />
     ));
-    console.log(tripData.dailies);
     setDiaryFractals(fractals);
   }, []);
 
