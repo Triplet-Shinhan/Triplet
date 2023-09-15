@@ -53,8 +53,8 @@ public class TripService {
 		Trip trip = toTripEntity(tripDto, user);
 		tripRepository.save(trip);
 		//일일 생성
-		LocalDate startDate = tripDto.getStartDate().toLocalDate();
-		LocalDate endDate = tripDto.getEndDate().toLocalDate();
+		LocalDate startDate = tripDto.getStartDate();
+		LocalDate endDate = tripDto.getEndDate();
 		while (!startDate.isAfter(endDate)) {
 			startDate = startDate.plusDays(1);// 날짜를 하루씩 증가시킴
 			Daily daily = new Daily();
