@@ -52,7 +52,11 @@ export default function DiaryMain() {
         date={putDate(tripStart, index)}
         tripId={tripId}
         isValid={isValid}
-        dailyInfo={isValid ? tripData.dailies[dayNum++] : dayNum}
+        dailyInfo={
+          isValid && tripData !== undefined
+            ? tripData.dailies[dayNum++]
+            : dayNum
+        }
       />
     ));
     console.log(tripData);
