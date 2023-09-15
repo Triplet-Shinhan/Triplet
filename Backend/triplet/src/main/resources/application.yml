@@ -48,3 +48,5 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+
+daily-path: "daily"

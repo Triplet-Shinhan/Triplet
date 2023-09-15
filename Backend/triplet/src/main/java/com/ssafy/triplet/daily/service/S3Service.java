@@ -34,7 +34,7 @@ public class S3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String S3Bucket; // Bucket 이름
 
-	@Value("${profile-path}")
+	@Value("${daily-path}")
 	private String imageDir; // 저장할 폴더 이름
 
 	private final DailyRepository dailyRepository;
