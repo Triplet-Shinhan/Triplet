@@ -56,7 +56,7 @@ export default function DiaryDetail() {
             <div>{dailyInfo.sum}</div>
           </section>
           <section className="eachSec">
-            {expendList == []
+            {expendList == undefined
               ? ''
               : expendList.map((expend) => <Expend expendInfo={expend} />)}
           </section>
