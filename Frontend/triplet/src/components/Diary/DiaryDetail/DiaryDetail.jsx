@@ -66,7 +66,15 @@ export default function DiaryDetail() {
             <img className="modifyImg" src="../../../assets/icons/modify.png" />
           </button>
         </section>
-        <div>{imgModalOpen && <ImgModal setModalOpen={setImgModalOpen} />}</div>
+        <div>
+          {imgModalOpen && (
+            <ImgModal
+              setModalOpen={setImgModalOpen}
+              tripId={tripId}
+              dailyId={dailyId}
+            />
+          )}
+        </div>
         <div>
           {expendModalOpen && <ExpendModal setModalOpen={setExpendModalOpen} />}
         </div>

@@ -33,3 +33,11 @@ export const makeNewTrip = ({ tripInfo }) => {
   console.log({ tripInfo });
   return axios.post(`${PROXY}/api/trips`, tripInfo);
 };
+
+// 이미지 업로드
+export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
+  return axios.post(
+    `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,
+    imageSrc
+  );
+};

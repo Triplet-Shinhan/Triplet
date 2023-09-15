@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import './ImgModal.scss';
+import { useMutation } from '@tanstack/react-query';
+import { uploadImage } from '../../../api/DiaryApis';
 
-export const ImgModal = ({ setModalOpen }) => {
+export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
   const [imageSrc, setImageSrc] = useState(null);
 
   const closeModal = () => {
@@ -24,6 +26,22 @@ export const ImgModal = ({ setModalOpen }) => {
     };
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateImg.mutate({ imageSrc, tripId, dailyId });
+  };
+
+  const updateImg = useMutation(
+    ({ imageSrc, tripId, dailyId }) =>
+      uploadImage({ imageSrc, tripId, dailyId }),
+    {
+      onSuccess: (data) => {
+        alert('업로드 완료');
+        console.log(data);
+      },
+    }
+  );
+
   const onUpload = (e) => {
     const file = e.target.files[0];
     const render = new FileReader();
@@ -45,7 +63,12 @@ export const ImgModal = ({ setModalOpen }) => {
           X
         </button>
       </nav>
-      <form className="imgForm" method="POST" encType="multipart/form-data">
+      <form
+        className="imgForm"
+        method="POST"
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+      >
         <section className="imgSec">
           <input
             type="file"

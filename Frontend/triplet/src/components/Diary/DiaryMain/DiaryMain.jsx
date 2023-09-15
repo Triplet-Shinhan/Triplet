@@ -100,6 +100,9 @@ export default function DiaryMain() {
       removeCookie('name');
       removeCookie('JSESSIONID');
     },
+    onError: () => {
+      console.log(error);
+    },
   });
 
   if (isLoading) {
