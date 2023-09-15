@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import './Signup.scss';
-import { checkAccount, signupUser } from '../../../api/AccountApis';
+import { checkAccount, signupUser } from '../../../api/BankAccountApis';
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

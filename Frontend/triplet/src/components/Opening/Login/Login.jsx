@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AxiosInstance } from '../../../api/AccountApis';
 import './Login.scss';
-import BankAccount from '../../../api/BankAccountApis';
+import { loginUser } from '../../../api/BankAccountApis';
+import { useMutation } from '@tanstack/react-query';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  // 로그인
+  const goLogin = useMutation(
+    ({ email, password }) => loginUser({ email, password }),
+    {
+      onSuccess: (data) => {
+        if ((data.email = email)) {
+          sessionStorage.setItem('user_id', email);
+        }
+        navigate('/trips');
+      },
+    }
+  );
 
   // form 제출했을 때
   const handleSubmit = (e) => {
@@ -19,21 +32,7 @@ export default function Login() {
     // 정규식 기준에 올바른지 테스트
     if (emailReg.test(email)) {
       // 백으로 쿼리 보내기
-
-      AxiosInstance.post('/users/login', {
-        email,
-        password,
-      }).then((res) => {
-        console.log(res);
-
-        if (res.data.email === email) {
-          sessionStorage.setItem('user_id', email);
-        }
-        navigate('/trips');
-      });
-    } else {
-      console.log('이메일 형식에 맞게 입력해주세요.');
-      return;
+      goLogin.mutate({ email, password });
     }
   };
 
@@ -49,6 +48,7 @@ export default function Login() {
           <img
             className="logoImg"
             src="../../../assets/icons/shinhan-symbol.png"
+            alt="logo"
           />
           <div className="logo">Triplet</div>
         </section>
