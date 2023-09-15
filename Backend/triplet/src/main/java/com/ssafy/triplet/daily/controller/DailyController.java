@@ -2,6 +2,10 @@ package com.ssafy.triplet.daily.controller;
 
 import java.util.List;
 
+import com.ssafy.triplet.user.domain.User;
+import com.ssafy.triplet.user.util.UserUtility;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +26,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/trips")
 public class DailyController {
 	private final DailyService dailyService;
+	private final UserUtility userUtility;
 
 	@GetMapping("/{tripId}/dailies")
-	public ResponseEntity<DailiesResponse> readDailies(@PathVariable Long tripId) {
-		List<DailyDto> dailies = dailyService.toDailyDtoList(tripId);
+	public ResponseEntity<DailiesResponse> readDailies(@PathVariable Long tripId, HttpServletRequest request){
+		User user = userUtility.getUserFromCookie(request);
+		List<DailyDto> dailies = dailyService.toDailyDtoList(user,tripId);
 		return ResponseEntity.ok(new DailiesResponse(tripId, dailyService.getDashboard(tripId), dailies));
 	}
 

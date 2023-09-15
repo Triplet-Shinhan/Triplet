@@ -3,6 +3,8 @@ package com.ssafy.triplet.daily.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ssafy.triplet.payment.service.PaymentService;
+import com.ssafy.triplet.user.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,7 @@ public class DailyService {
 	private final TripRepository tripRepository;
 	private final DailyRepository dailyRepository;
 	private final DailyUtility dailyUtility;
+	private final PaymentService paymentService;
 
 	public DashboardDto getDashboard(Long tripId) {
 		Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
@@ -39,7 +42,8 @@ public class DailyService {
 		return dashboardDto;
 	}
 
-	public List<DailyDto> toDailyDtoList(Long tripId) {
+	public List<DailyDto> toDailyDtoList(User user,Long tripId) {
+		paymentService.updatePaymentList(user,tripId);
 		List<Daily> dailies = tripRepository.findById(tripId)
 			.orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND))
 			.getDailies();
