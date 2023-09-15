@@ -31,7 +31,7 @@ export default function DiarySetUp() {
   const [tripInfo, setTripInfo] = useState({
     prjName: '',
     location: '',
-    currency: '',
+    currency: '미국달러(USD)',
     budget: '',
     startDate: '',
     endDate: '',
