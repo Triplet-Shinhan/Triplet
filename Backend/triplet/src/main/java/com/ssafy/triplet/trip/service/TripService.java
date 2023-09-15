@@ -4,6 +4,7 @@ import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.daily.repository.DailyRepository;
 import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.exception.ErrorCode;
+import com.ssafy.triplet.exchange.util.ExchangeUtil;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.dto.MainPageTripDto;
 import com.ssafy.triplet.trip.dto.TripDto;
@@ -26,6 +27,7 @@ public class TripService {
     private final TripRepository tripRepository;
     private final TripValidation tripValidation;
     private final DailyRepository dailyRepository;
+    private final ExchangeUtil exchangeUtil;
 
     // 메인화면 프로젝트 조회
     public List<MainPageTripDto> getAllTrips(Long userId) {
@@ -94,9 +96,9 @@ public class TripService {
         trip.setBudget(tripDto.getBudget());
         trip.setExchangedBudget(tripDto.getExchangedBudget());
         trip.setUsedBudget(0L);
-        trip.setCurrency(tripDto.getCurrency());
-        // trip.setFixedRate(tripDto.getFixedRate());//현재 환율 가져오기
-        trip.setFixedRate(1000F);//환전 에서 가져와야하는데 일단 테스트용으로 100으로 지정한다.
+        String currency = tripDto.getCurrency().substring(0, 3);//환율
+        trip.setCurrency(currency);
+        trip.setFixedRate(exchangeUtil.getExchangeRateByCurrencyCode(currency));//현재 환율 가져오기
         trip.setStartDate(tripDto.getStartDate());
         trip.setEndDate(tripDto.getEndDate());
         return trip;
