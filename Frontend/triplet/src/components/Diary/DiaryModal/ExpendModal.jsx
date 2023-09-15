@@ -33,6 +33,7 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(payment);
     updatePayment.mutate({ payment, tripId, dailyId });
   };
 

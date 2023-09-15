@@ -101,11 +101,7 @@ export default function DiarySetUp() {
             >
               {budget.map((v, i) => (
                 // selected 옵션
-                <option
-                  key={i}
-                  value={v}
-                  selected={`${i === 0 ? true : false}`}
-                >
+                <option key={i} value={v} selected={i === 0}>
                   {v}
                 </option>
               ))}
