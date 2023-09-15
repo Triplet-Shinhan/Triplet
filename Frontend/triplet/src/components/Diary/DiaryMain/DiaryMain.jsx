@@ -41,6 +41,8 @@ export default function DiaryMain() {
   };
 
   useEffect(() => {
+    sessionStorage.getItem('user_id');
+
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
@@ -93,7 +95,8 @@ export default function DiaryMain() {
   };
 
   const userLogout = useMutation(() => logoutUser(), {
-    onSuccess: (data) => {
+    onSuccess: () => {
+      sessionStorage.removeItem('user_id');
       removeCookie('name');
       removeCookie('JSESSIONID');
     },

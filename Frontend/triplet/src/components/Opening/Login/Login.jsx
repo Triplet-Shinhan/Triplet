@@ -8,14 +8,12 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
   // 로그인
   const goLogin = useMutation(
     ({ email, password }) => loginUser({ email, password }),
     {
       onSuccess: (data) => {
         if ((data.email = email)) {
-          sessionStorage.setItem('user_id', email);
         }
         navigate('/trips');
       },
