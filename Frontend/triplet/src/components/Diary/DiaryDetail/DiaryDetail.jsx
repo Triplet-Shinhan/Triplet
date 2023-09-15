@@ -76,7 +76,13 @@ export default function DiaryDetail() {
           )}
         </div>
         <div>
-          {expendModalOpen && <ExpendModal setModalOpen={setExpendModalOpen} />}
+          {expendModalOpen && (
+            <ExpendModal
+              setModalOpen={setExpendModalOpen}
+              tripId={tripId}
+              dailyId={dailyId}
+            />
+          )}
         </div>
       </main>
     </div>

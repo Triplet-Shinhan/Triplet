@@ -34,7 +34,7 @@ export const makeNewTrip = ({ tripInfo }) => {
   return axios.post(`${PROXY}/api/trips`, tripInfo);
 };
 
-// 이미지 업로드
+// 이미지 업로드 // 500에러?
 export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
   return axios.post(
     `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,

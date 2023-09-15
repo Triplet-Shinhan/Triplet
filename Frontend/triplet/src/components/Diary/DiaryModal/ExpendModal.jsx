@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import './ExpendModal.scss';
 
-export const ExpendModal = ({ setModalOpen }) => {
+export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
   const [imageSrc, setImageSrc] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
+  const [payment, setPayment] = useState({
+    item: '',
+    cost: '',
+    foreignCurrency: '',
+    date: '',
+  });
   const modalRef = useRef(null);
 
   useEffect(() => {
