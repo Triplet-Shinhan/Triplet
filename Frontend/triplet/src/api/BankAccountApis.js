@@ -50,6 +50,7 @@ export const signupUser = ({ formData }) => {
 
 // 로그아웃
 export const logoutUser = () => {
+  console.log(PROXY);
   return axios.post(`${PROXY}/users/logout`);
 };
 
