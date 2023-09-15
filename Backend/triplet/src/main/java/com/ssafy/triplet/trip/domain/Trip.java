@@ -1,6 +1,7 @@
 package com.ssafy.triplet.trip.domain;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -63,11 +64,11 @@ public class Trip {
 
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date startDate;
+	private LocalDate startDate;
 
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date endDate;
+	private LocalDate endDate;
 
 	@OneToMany(mappedBy = "trip")
 	private List<Daily> dailies;

@@ -1,5 +1,10 @@
 package com.ssafy.triplet.daily.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ssafy.triplet.payment.service.PaymentService;
+import com.ssafy.triplet.user.domain.User;
 import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.daily.dto.DailyDto;
 import com.ssafy.triplet.daily.dto.DashboardDto;
@@ -15,16 +20,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class DailyService {
-    private final TripRepository tripRepository;
-    private final DailyRepository dailyRepository;
-    private final DailyUtility dailyUtility;
+
+	private final TripRepository tripRepository;
+	private final DailyRepository dailyRepository;
+	private final DailyUtility dailyUtility;
+	private final PaymentService paymentService;
 
     public DashboardDto getDashboard(Long tripId) {
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
@@ -37,21 +41,23 @@ public class DailyService {
         return dashboardDto;
     }
 
-    public List<DailyDto> toDailyDtoList(Long tripId) {
-        List<Daily> dailies = tripRepository.findById(tripId)
-                .orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND))
-                .getDailies();
-        List<DailyDto> dtoList = new ArrayList<>();
-        for (Daily daily : dailies) {
-            DailyDto dailyDto = new DailyDto();
-            dailyDto.setDailyId(daily.getDailyId());
-            dailyDto.setDate(daily.getDate());
-            dailyDto.setImageUrl(null);//S3 활용하기
-            dailyDto.setSum(dailyUtility.getDailyExpenditure(daily));
-            dtoList.add(dailyDto);
-        }
-        return dtoList;
-    }
+   
+	public List<DailyDto> toDailyDtoList(User user,Long tripId) {
+		paymentService.updatePaymentList(user,tripId);
+		List<Daily> dailies = tripRepository.findById(tripId)
+			.orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND))
+			.getDailies();
+		List<DailyDto> dtoList = new ArrayList<>();
+		for (Daily daily : dailies) {
+			DailyDto dailyDto = new DailyDto();
+			dailyDto.setDailyId(daily.getDailyId());
+			dailyDto.setDate(daily.getDate());
+			dailyDto.setImageUrl(null);//S3 활용하기
+			dailyDto.setSum(dailyUtility.getDailyExpenditure(daily));
+			dtoList.add(dailyDto);
+		}
+		return dtoList;
+	}
 
     public List<PaymentDto> getPayments(Long dailyId) {
         Daily daily = dailyRepository.findById(dailyId)

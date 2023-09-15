@@ -1,5 +1,9 @@
 package com.ssafy.triplet.daily.controller;
 
+import com.ssafy.triplet.user.domain.User;
+import com.ssafy.triplet.user.util.UserUtility;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpCookie;
 import com.ssafy.triplet.daily.dto.DailyDto;
 import com.ssafy.triplet.daily.dto.PaymentDto;
 import com.ssafy.triplet.daily.response.DailiesResponse;
@@ -19,11 +23,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/trips")
 public class DailyController {
+
     private final DailyService dailyService;
     private final S3Service s3Service;
 
     @GetMapping("/{tripId}/dailies")
-    public ResponseEntity<DailiesResponse> readDailies(@PathVariable Long tripId) {
+    public ResponseEntity<DailiesResponse> readDailies(@PathVariable Long tripId, HttpServletRequest request) {
+      User user = userUtility.getUserFromCookie(request);
         List<DailyDto> dailies = dailyService.toDailyDtoList(tripId);
         return ResponseEntity.ok(new DailiesResponse(tripId, dailyService.getDashboard(tripId), dailies));
     }

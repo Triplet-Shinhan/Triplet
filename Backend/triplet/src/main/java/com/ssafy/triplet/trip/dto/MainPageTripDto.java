@@ -1,6 +1,6 @@
 package com.ssafy.triplet.trip.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,9 +26,9 @@ public class MainPageTripDto {
 
 	@JsonProperty("startDate")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date startDate;
+	private LocalDate startDate;
 
 	@JsonProperty("endDate")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date endDate;
+	private LocalDate endDate;
 }

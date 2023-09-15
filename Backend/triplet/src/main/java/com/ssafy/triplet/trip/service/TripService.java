@@ -45,6 +45,7 @@ public class TripService {
         return mainPageTrips;
     }
 
+
     // 프로젝트 생성
     public Trip saveTrip(TripDto tripDto, User user) {
         //유효성 검증
@@ -53,19 +54,20 @@ public class TripService {
         Trip trip = toTripEntity(tripDto, user);
         tripRepository.save(trip);
         //일일 생성
-        LocalDate startDate = tripDto.getStartDate().toLocalDate();
-        LocalDate endDate = tripDto.getEndDate().toLocalDate();
+        LocalDate startDate = tripDto.getStartDate();
+        LocalDate endDate = tripDto.getEndDate();
         while (!startDate.isAfter(endDate)) {
             startDate = startDate.plusDays(1);// 날짜를 하루씩 증가시킴
             Daily daily = new Daily();
             daily.setUser(user);
             daily.setTrip(trip);
-            daily.setDate(java.sql.Date.valueOf(startDate)); // LocalDate를 java.sql.Date로 변환
+            daily.setDate(startDate); 
             daily.setImageUrl(null); // 초기값으로 null 설정
             dailyRepository.save(daily);
         }
         return trip;
     }
+
 
     // 프로젝트 삭제
     public void removeTrip(Long tripId) {

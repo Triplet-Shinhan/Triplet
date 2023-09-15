@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PaymentReqDto {
 
-	@JsonProperty("tripId")
-	private Long tripId;
+    @JsonProperty("tripId")
+    private Long tripId;
 
-	@JsonProperty("dailyId")
-	private Long dailyId;
+    @JsonProperty("dailyId")
+    private Long dailyId;
 
-	@JsonProperty("item")
-	private String item;
+    @JsonProperty("item")
+    private String item;
 
-	@JsonProperty("cost")
-	private Long cost;
+    @JsonProperty("cost")
+    private Long cost;
 
-	@JsonProperty("foreignCurrency")
-	private String foreignCurrency;
+    @JsonProperty("foreignCurrency")
+    private String foreignCurrency;
 
-	@JsonProperty("date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime date;
+    @JsonProperty("date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
 }
