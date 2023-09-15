@@ -59,10 +59,17 @@ export default function DiaryDetail() {
               <Expend expendInfo={expend} />
             ))} */}
           </section>
-          <button onCanPlay={showExpendModal}>+</button>
+          <button onClick={showExpendModal}>+</button>
         </section>
         <section className="imgSec">
-          <img className="imgSrc" src={dailyInfo.imageUrl} />
+          <img
+            className="imgSrc"
+            src={
+              dailyInfo.imageUrl === ''
+                ? '../../../assets/icons/sample.JPG'
+                : dailyInfo.imageUrl
+            }
+          />
           <button onClick={showImgModal}>수정</button>
         </section>
         <div>{imgModalOpen && <ImgModal setModalOpen={setImgModalOpen} />}</div>
