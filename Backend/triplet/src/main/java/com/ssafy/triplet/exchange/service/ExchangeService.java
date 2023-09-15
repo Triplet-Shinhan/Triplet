@@ -5,10 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.ssafy.triplet.exchange.domain.ExchangeRecord;
 import com.ssafy.triplet.exchange.dto.BranchInfo;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyRequestDto;
 import com.ssafy.triplet.exchange.dto.ExchangeApplyResponseDto;
@@ -17,10 +20,12 @@ import com.ssafy.triplet.exchange.dto.ExchangeResponseDataBody;
 import com.ssafy.triplet.exchange.dto.ExchangeResponseDto;
 import com.ssafy.triplet.exchange.dto.NearBranchRequestDto;
 import com.ssafy.triplet.exchange.dto.NearBranchResponseDto;
+import com.ssafy.triplet.exchange.repository.ExchangeResultsRepository;
 import com.ssafy.triplet.exchange.util.ExchangeUtil;
 import com.ssafy.triplet.parser.WebClientUtil;
 import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeDataBody;
 import com.ssafy.triplet.parser.dto.checkExchange.CheckExchangeReqDataBody;
+import com.ssafy.triplet.parser.dto.checkExchange.ExchangeResult;
 import com.ssafy.triplet.parser.dto.currency.Currency;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeDataBody;
 import com.ssafy.triplet.parser.dto.exchange.ExchangeReqDataBody;
@@ -37,6 +42,7 @@ import lombok.RequiredArgsConstructor;
 public class ExchangeService {
     private final WebClientUtil webClientUtil;
     private final ExchangeUtil exchangeUtil;
+    private final ExchangeResultsRepository exchangeResultsRepository;
 
     // 환전 메인 페이지를 위한 정보 불러오기 메소드
     public ExchangeResponseDto getRate() {
@@ -53,7 +59,7 @@ public class ExchangeService {
         // 고시 환율 API 활용하여 가져오기
         LocalDate now = LocalDate.now();
         List<ExchangeRate> exchangeRateDatas = webClientUtil
-                .getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))); // 미완
+                .getExchangeRate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // api 성공했으면 200
         exchangeResponseDto.setResultCode(200);
@@ -162,11 +168,43 @@ public class ExchangeService {
     public CheckExchangeDataBody getExchangeResults(User user) {
         CheckExchangeDataBody erRes = new CheckExchangeDataBody();
 
-        // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다.
+        // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다. - 신한 API
         CheckExchangeReqDataBody erReq = new CheckExchangeReqDataBody(user.getName(), user.getPhoneNum(),
                 user.getBirth()); // 신한 api 요청 dto
         erReq.setServiceCode("T0512");
         erRes = webClientUtil.getExchangeResult(erReq);
+
+        // 목업
+        // 가져온 사용자 정보를 가지고 환전 기록을 가지고 온다(DB) - repository 이용
+        List<ExchangeRecord> exchangeRecords = exchangeResultsRepository.findByNameAndPhoneNumAndBirth(user.getName(),
+                user.getPhoneNum(), user.getBirth());
+        List<ExchangeResult> erResBody = new ArrayList<ExchangeResult>();
+
+        // 데이터 복사하기 - Entity -> DTO 변환
+        for (ExchangeRecord record : exchangeRecords) {
+            ExchangeResult er = new ExchangeResult();
+            er.setState(record.getState());
+            er.setName(record.getName());
+            er.setPhoneNum(record.getPhoneNum());
+            er.setBirth(record.getBirth());
+            er.setApplicationDate(record.getApplicationDate());
+            er.setReceiptDate(record.getReceiptDate());
+            er.setReceiptLocation(record.getReceiptLocation());
+            er.setVirtualAccountDepositDate(record.getVirtualAccountDepositDate());
+            er.setVirtualDepositAccount(record.getVirtualDepositAccount());
+            er.setVirtualAccountDepositAmount(record.getVirtualAccountDepositAmount());
+            er.setDeadlineDate(record.getDeadlineDate());
+            er.setDeadlineTime(record.getDeadlineTime());
+            er.setExchangeType(record.getExchangeType());
+            er.setCurrency(record.getCurrency());
+            er.setExchangeAmount(record.getExchangeAmount());
+            er.setPreferentialRate(record.getPreferentialRate());
+            er.setKRWAmount(record.getKRWAmount());
+            erResBody.add(er);
+        }
+
+        erRes.setListNum((long) erResBody.size());
+        erRes.setList(erResBody);
 
         // 가지고 온 환전 기록을 반환 한다.
         return erRes;
@@ -208,6 +246,31 @@ public class ExchangeService {
         tReqBody.setWithdrawalAccountMemo(exchangeApplyRequestDto.getCurrency() + "_환전 신청");
 
         webClientUtil.createTransfer(tReqBody); // 계좌 이체 API 호출
+
+        LocalDate now = LocalDate.now();
+
+        // DB에 기록하기
+        ExchangeRecord er = ExchangeRecord.builder()
+                .state("이체 완료")
+                .name(user.getName())
+                .phoneNum(user.getPhoneNum())
+                .birth(user.getBirth())
+                .applicationDate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+                .receiptDate(exchange.getReceiveDate())
+                .receiptLocation(exchange.getLocation())
+                .deadlineDate(edb.getVirtualDepositDeadlineDate())
+                .deadlineTime(edb.getVirtualDepositDeadlineTime())
+                .virtualAccountDepositDate(now.plusDays(3).format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+                .virtualDepositAccount(edb.getVirtualAccountNumber())
+                .virtualAccountDepositAmount(edb.getVirtualAccountDepositAmount())
+                .exchangeType("지폐")
+                .currency(exchange.getCurrency())
+                .exchangeAmount(exchange.getExchangeAmount())
+                .preferentialRate(edb.getPreferentialRate())
+                .KRWAmount(edb.getConvertedKRWAmount())
+                .build();
+
+        exchangeResultsRepository.save(er); // DB에 저장하기
 
         // 성공
         eaRes.setResultCode("200");
