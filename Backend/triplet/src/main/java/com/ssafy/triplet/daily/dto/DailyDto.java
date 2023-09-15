@@ -1,6 +1,6 @@
 package com.ssafy.triplet.daily.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +18,7 @@ public class DailyDto {
 
 	@JsonProperty("date")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date date;
+	private LocalDate date;
 
 	@JsonProperty("imageUrl")
 	private String imageUrl;

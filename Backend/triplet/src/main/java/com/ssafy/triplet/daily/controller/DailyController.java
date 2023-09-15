@@ -26,11 +26,12 @@ public class DailyController {
 
     private final DailyService dailyService;
     private final S3Service s3Service;
+    private final UserUtility userUtility;
 
     @GetMapping("/{tripId}/dailies")
     public ResponseEntity<DailiesResponse> readDailies(@PathVariable Long tripId, HttpServletRequest request) {
-      User user = userUtility.getUserFromCookie(request);
-        List<DailyDto> dailies = dailyService.toDailyDtoList(tripId);
+        User user = userUtility.getUserFromCookie(request);
+        List<DailyDto> dailies = dailyService.toDailyDtoList(user, tripId);
         return ResponseEntity.ok(new DailiesResponse(tripId, dailyService.getDashboard(tripId), dailies));
     }
 
