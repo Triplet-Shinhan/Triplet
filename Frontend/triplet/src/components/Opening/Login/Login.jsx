@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosInstance } from '../../../api/AccountApis';
 import './Login.scss';
-import axios from 'axios';
+import BankAccount from '../../../api/BankAccountApis';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
 
   // form 제출했을 때
@@ -27,7 +26,7 @@ export default function Login() {
       }).then((res) => {
         console.log(res);
 
-        if (res.data.email == email) {
+        if (res.data.email === email) {
           sessionStorage.setItem('user_id', email);
         }
         navigate('/trips');
@@ -36,10 +35,6 @@ export default function Login() {
       console.log('이메일 형식에 맞게 입력해주세요.');
       return;
     }
-
-    // 폼 보내고 난 후 초기화
-    // setEmail('');
-    // setPassword('');
   };
 
   // 값이 변할 때 추적하기 위한 함수
@@ -50,34 +45,43 @@ export default function Login() {
   return (
     <div className="loginBackground">
       <main className="loginMainContainer">
-        <h1 className="loginH1">새로운 여행 플랫폼의 시작</h1>
-        <h2 className="loginH2">Triplet</h2>
-        <form className="loginForm" onSubmit={handleSubmit}>
-          <div className="loginInputArea">
-            <input
-              id="email"
-              type="email"
-              placeholder="이메일"
-              className="email"
-              value={email}
-              onChange={(e) => handleChange(e, setEmail)}
-              required
-            />
-            <input
-              id="password"
-              type="password"
-              className="password"
-              placeholder="비밀번호"
-              value={password}
-              onChange={(e) => handleChange(e, setPassword)}
-              required
-            />
-          </div>
-          <button className="loginBtn">로그인</button>
-        </form>
-        <button className="registerBtn" onClick={() => navigate('/signup')}>
-          아이디가 없다면?
-        </button>
+        <section className="logoArea">
+          <img
+            className="logoImg"
+            src="../../../assets/icons/shinhan-symbol.png"
+          />
+          <div className="logo">Triplet</div>
+        </section>
+        <secion className="loginMainSec">
+          <h1 className="loginH1">새로운 여행 플랫폼의 시작</h1>
+          <h2 className="loginH2">Triplet</h2>
+          <form className="loginForm" onSubmit={handleSubmit}>
+            <div className="loginInputArea">
+              <input
+                id="email"
+                type="email"
+                placeholder="이메일"
+                className="email"
+                value={email}
+                onChange={(e) => handleChange(e, setEmail)}
+                required
+              />
+              <input
+                id="password"
+                type="password"
+                className="password"
+                placeholder="비밀번호"
+                value={password}
+                onChange={(e) => handleChange(e, setPassword)}
+                required
+              />
+            </div>
+            <button className="loginBtn">로그인</button>
+          </form>
+          <button className="registerBtn" onClick={() => navigate('/signup')}>
+            아이디가 없다면?
+          </button>
+        </secion>
       </main>
     </div>
   );

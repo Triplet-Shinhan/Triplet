@@ -143,6 +143,7 @@ export default function Signup() {
               placeholder="이메일"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             <input
               type="text"
@@ -150,6 +151,7 @@ export default function Signup() {
               placeholder="이름"
               value={formData.name}
               onChange={handleChange}
+              required
             />
             <input
               type="text"
@@ -157,6 +159,7 @@ export default function Signup() {
               placeholder="생년월일 8글자"
               value={formData.birth}
               onChange={handleChange}
+              required
             />
             <input
               type="text"
@@ -164,6 +167,7 @@ export default function Signup() {
               placeholder="전화번호(-제외)"
               value={formData.phoneNum}
               onChange={handleChange}
+              required
             />
             <input
               type="password"
@@ -171,12 +175,14 @@ export default function Signup() {
               placeholder="비밀번호"
               value={formData.password}
               onChange={handleChange}
+              required
             />
             <input
               type="password"
               className="passwordCo"
               placeholder="비밀번호 확인"
               onChange={handleRight}
+              required
             />
           </div>
         </form>
@@ -192,10 +198,12 @@ export default function Signup() {
             >
               <input
                 type="text"
+                className="accArea"
                 name="accountNum"
                 placeholder="계좌번호(-제외)"
                 value={formData.accountNum}
                 onChange={handleChange}
+                required
               />
             </form>
 

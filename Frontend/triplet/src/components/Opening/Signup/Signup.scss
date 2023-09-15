@@ -15,14 +15,18 @@
   background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
+  background-image: url('../../../../public/assets/airplane.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .signupMainContainer {
   width: 50vw;
-  height: 80vh;
+  height: 85vh;
   background-color: var(--color-text-white);
   margin: 0 auto;
-  margin-top: 90px;
+  margin-top: 60px;
   text-align: center;
   border-radius: 2%;
   display: flex;
@@ -56,13 +60,12 @@
       .authForm {
         display: flex;
 
-        input {
+        .accArea {
           width: 100%;
           font-size: 1.2rem;
           justify-content: flex-start;
           padding: 1vw;
           font-weight: bold;
-          border-radius: 5px 5px 0 0;
         }
       }
 

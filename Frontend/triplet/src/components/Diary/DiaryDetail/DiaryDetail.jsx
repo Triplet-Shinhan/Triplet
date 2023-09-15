@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './DiaryDetail.scss';
 import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useDiaryApi } from '../../../context/DiaryApiContext';
+import { ImgModal } from '../../Diary/DiaryModal/ImgModal';
+import Expend from '../Expend/Expend';
+import { ExpendModal } from '../DiaryModal/ExpendModal';
 
 export default function DiaryDetail() {
   const { diary } = useDiaryApi();
@@ -11,6 +14,12 @@ export default function DiaryDetail() {
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const dateInfo = dailyInfo.date.substr(5).split('-').join('.');
   const weekInfo = day[new Date(dailyInfo.date).getDay()];
+
+  // 이미지 모달, 지출 내역 모달
+  const [imgModalOpen, setImgModalOpen] = useState(false);
+  const showImgModal = () => setImgModalOpen(true);
+  const [expendModalOpen, setExpendModalOpen] = useState(false);
+  const showExpendModal = () => setExpendModalOpen(true);
 
   const {
     isLoading,
@@ -21,6 +30,14 @@ export default function DiaryDetail() {
     () => diary.getExpendList({ tripId, dailyId }),
     { staleTime: 1000 * 6 * 5 }
   );
+
+  //   {
+  // 		"paymentId": "1",
+  // 		"item" : "McDonald",
+  // 		"cost" : "150000",
+  // 		"foreignCurrency" : "USD",
+  // 		"date" : "2023-09-03 12:30:00"
+  // },
 
   return (
     <div className="diaryDetailPage">
@@ -36,11 +53,21 @@ export default function DiaryDetail() {
             <div>{weekInfo}</div>
             <div>{dailyInfo.sum}</div>
           </section>
-          <section className="eachSec"></section>
+          <section className="eachSec">
+            {expendList.map((expend) => (
+              <Expend expendInfo={expend} />
+            ))}
+          </section>
+          <button onCanPlay={showExpendModal}>+</button>
         </section>
         <section className="imgSec">
           <img className="imgSrc" src={dailyInfo.imageUrl} />
+          <button onClick={showImgModal}>수정</button>
         </section>
+        <div>{imgModalOpen && <ImgModal setModalOpen={setImgModalOpen} />}</div>
+        <div>
+          {expendModalOpen && <ExpendModal setModalOpen={setExpendModalOpen} />}
+        </div>
       </main>
     </div>
   );
