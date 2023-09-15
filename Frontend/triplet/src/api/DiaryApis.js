@@ -15,9 +15,16 @@ export default class Diary {
     return this.httpClient.get('/api/trips').then((res) => res.data);
   }
 
+  // 다이어리 생성할 때 넣었던 정보 확인하기
   async viewDiaryDetail({ tripId }) {
     return this.httpClient
       .get(`/api/trips/${tripId}/dailies`)
+      .then((res) => res.data);
+  }
+
+  async getExpendList({ tripId, dailyId }) {
+    return this.httpClient
+      .get(`/api/trips/${tripId}/dailies/${dailyId}`)
       .then((res) => res.data);
   }
 }

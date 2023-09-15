@@ -45,16 +45,21 @@ export default function DiaryMain() {
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
+    let dayNum = 1;
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
       <DiaryFractal
         key={index}
         date={putDate(tripStart, index)}
+        tripId={tripId}
         isValid={isValid}
+        dailyInfo={isValid ? tripData.dailies[dayNum++] : dayNum}
       />
     ));
     console.log(tripData);
     setDiaryFractals(fractals);
   }, [tripId]);
+
+  new Date(tripInfo.startDate).getDay();
 
   // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
@@ -89,11 +94,10 @@ export default function DiaryMain() {
     onSuccess: (data) => {
       removeCookie('name');
       removeCookie('JSESSIONID');
-      navigate('/');
     },
   });
 
-  if (isLoading || tripId === undefined) {
+  if (isLoading) {
     return <div>loading...</div>;
   }
   return (

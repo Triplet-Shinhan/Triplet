@@ -49,23 +49,20 @@ export default function DiarySetUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    makeTripDiary.mutate({ tripInfo });
+    makeTripDiary.mutate();
   };
 
   // 프로젝트 정보 넘기기
-  const makeTripDiary = useMutation(
-    ({ tripInfo }) => makeNewTrip({ tripInfo }),
-    {
-      onSuccess: () => {
-        console.log('success');
-        alert('생성');
-        navigate(`/trip/${tripInfo.tripId}/dailies`);
-      },
-      onError: () => {
-        console.log('생성이 되지 않았습니다.');
-      },
-    }
-  );
+  const makeTripDiary = useMutation(() => makeNewTrip({ tripInfo }), {
+    onSuccess: (data) => {
+      console.log(data);
+      alert('생성');
+      navigate(`/trip/${tripInfo.tripId}/dailies`);
+    },
+    onError: () => {
+      console.log('생성이 되지 않았습니다.');
+    },
+  });
 
   return (
     <>
