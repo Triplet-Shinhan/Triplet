@@ -31,14 +31,6 @@ export default function DiaryDetail() {
     { staleTime: 1000 * 6 * 5 }
   );
 
-  //   {
-  // 		"paymentId": "1",
-  // 		"item" : "McDonald",
-  // 		"cost" : "150000",
-  // 		"foreignCurrency" : "USD",
-  // 		"date" : "2023-09-03 12:30:00"
-  // },
-
   return (
     <div className="diaryDetailPage">
       <header className="detailHeader">
@@ -48,9 +40,9 @@ export default function DiaryDetail() {
         <section className="expendSec">
           <section className="loginSec"></section>
           <section className="viewSec">
-            <div>
-              <div>DAY1</div>
-              <div>{dateInfo}</div>
+            <div className="viewDate">
+              <div className="viewStart">DAY1</div>
+              <div className="viewDay">{dateInfo}</div>
               <div>{weekInfo}</div>
             </div>
             <div>{dailyInfo.sum}</div>

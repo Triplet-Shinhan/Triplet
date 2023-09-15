@@ -1,6 +1,6 @@
 .diaryDetailPage {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .detailHeader {
@@ -25,44 +25,66 @@
 
 .detailMain {
   display: flex;
+  width: 85vw;
 
   .expendSec {
     display: flex;
-    width: 45vh;
+    width: 96vh;
     flex-direction: column;
+    margin-top: 3vh;
 
     .viewSec {
       display: flex;
       justify-content: space-between;
+      font-size: 2.5rem;
+      font-weight: 600;
+
+      .viewDate {
+        display: flex;
+        .viewStart {
+          margin-right: 3vw;
+        }
+        .viewDay {
+          margin-right: 1vw;
+        }
+      }
     }
     .eachSec {
       background-color: var(--color-text-white);
       border-radius: 40px;
+      width: 45vw;
+      height: 60vh;
     }
     .addModify {
+      position: absolute;
       width: 3vw;
-      height: 4vh;
+      height: 6vh;
       border-radius: 50%;
       font-size: 3rem;
       font-weight: 600;
+      line-height: 7vh;
       color: var(--color-text-white);
       background-color: var(--color-bg);
+      top: 90%;
+      left: 57%;
     }
   }
 
   .imgSec {
     .imgSrc {
       flex-grow: 0.5;
-      border-radius: 70px;
+      border-radius: 50px;
       width: 35vw;
       height: 94vh;
       margin-top: 3vh;
+      margin-right: 2vw;
     }
 
     .modifyBtn {
       position: absolute;
-      top: 3%;
-      left: 95%;
+      top: 5%;
+      left: 94%;
+      background: none;
       .modifyImg {
         width: 3vw;
       }
