@@ -1,8 +1,6 @@
 import React from 'react';
 import './DiaryFractal.scss';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { useDiaryApi } from '../../../context/DiaryApiContext';
 
 // 다이어리 조각 작은거
 export default function DiaryFractal({ date, tripId, isValid, dailyInfo }) {

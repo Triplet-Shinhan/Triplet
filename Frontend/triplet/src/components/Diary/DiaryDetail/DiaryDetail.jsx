@@ -54,9 +54,10 @@ export default function DiaryDetail() {
             <div>{dailyInfo.sum}</div>
           </section>
           <section className="eachSec">
-            {expendList.map((expend) => (
+            {console.log(expendList)}
+            {/* {expendList.map((expend) => (
               <Expend expendInfo={expend} />
-            ))}
+            ))} */}
           </section>
           <button onCanPlay={showExpendModal}>+</button>
         </section>
