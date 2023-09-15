@@ -48,22 +48,31 @@ export default function DiaryDetail() {
         <section className="expendSec">
           <section className="loginSec"></section>
           <section className="viewSec">
-            <div>DAY1</div>
-            <div>{dateInfo}</div>
-            <div>{weekInfo}</div>
+            <div>
+              <div>DAY1</div>
+              <div>{dateInfo}</div>
+              <div>{weekInfo}</div>
+            </div>
             <div>{dailyInfo.sum}</div>
           </section>
           <section className="eachSec">
-            {console.log(expendList)}
-            {/* {expendList.map((expend) => (
-              <Expend expendInfo={expend} />
-            ))} */}
+            {expendList == []
+              ? ''
+              : expendList.map((expend) => <Expend expendInfo={expend} />)}
           </section>
-          <button onClick={showExpendModal}>+</button>
+          <button className="addModify" onClick={showExpendModal}>
+            +
+          </button>
         </section>
         <section className="imgSec">
-          <img className="imgSrc" src="../../../assets/sample.JPG" alt="" />
-          <button onClick={showImgModal}>수정</button>
+          <img
+            className="imgSrc"
+            src="../../../assets/sample.JPG"
+            alt="사진이미지"
+          />
+          <button className="modifyBtn" onClick={showImgModal}>
+            <img className="modifyImg" src="../../../assets/icons/modify.png" />
+          </button>
         </section>
         <div>{imgModalOpen && <ImgModal setModalOpen={setImgModalOpen} />}</div>
         <div>

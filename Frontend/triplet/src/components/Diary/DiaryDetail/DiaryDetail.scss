@@ -28,14 +28,44 @@
 
   .expendSec {
     display: flex;
-    flex-grow: 1.5;
+    width: 45vh;
     flex-direction: column;
+
+    .viewSec {
+      display: flex;
+      justify-content: space-between;
+    }
+    .eachSec {
+      background-color: var(--color-text-white);
+      border-radius: 40px;
+    }
+    .addModify {
+      width: 3vw;
+      height: 4vh;
+      border-radius: 50%;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--color-text-white);
+      background-color: var(--color-bg);
+    }
   }
 
   .imgSec {
     .imgSrc {
       flex-grow: 0.5;
       border-radius: 70px;
+      width: 35vw;
+      height: 94vh;
+      margin-top: 3vh;
+    }
+
+    .modifyBtn {
+      position: absolute;
+      top: 3%;
+      left: 95%;
+      .modifyImg {
+        width: 3vw;
+      }
     }
   }
 }
