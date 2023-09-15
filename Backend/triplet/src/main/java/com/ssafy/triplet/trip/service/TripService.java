@@ -60,7 +60,7 @@ public class TripService {
 			Daily daily = new Daily();
 			daily.setUser(user);
 			daily.setTrip(trip);
-			daily.setDate(java.sql.Date.valueOf(startDate)); // LocalDate를 java.sql.Date로 변환
+			daily.setDate(startDate); // LocalDate를 java.sql.Date로 변환
 			daily.setImageUrl(null); // 초기값으로 null 설정
 			dailyRepository.save(daily);
 		}
