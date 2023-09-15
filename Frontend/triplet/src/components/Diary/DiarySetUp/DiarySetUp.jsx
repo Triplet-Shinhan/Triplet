@@ -95,13 +95,13 @@ export default function DiarySetUp() {
             <select
               name="currency"
               id="currency"
-              value={tripInfo.currency}
+              value={tripInfo.currency !== '' ? tripInfo.currency : budget[0]}
               onChange={handleChange}
               required
             >
               {budget.map((v, i) => (
                 // selected 옵션
-                <option key={i} value={v} selected={i === 0}>
+                <option key={i} value={v}>
                   {v}
                 </option>
               ))}
