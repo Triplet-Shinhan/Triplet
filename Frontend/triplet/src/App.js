@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: '/trips/:tripId/dailies', element: <DiaryMain /> },
       { path: '/exchange', element: <Exchange /> },
       {
-        path: '/trips/:tripId/dailies/detail/:dailyId',
+        path: '/trips/:tripId/dailies/:dailyId',
         element: <DiaryDetail />,
       },
       { path: '/trips/:tripId/dailies/setting', element: <DiarySetting /> },

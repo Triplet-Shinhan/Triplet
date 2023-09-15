@@ -53,9 +53,7 @@ export default function DiaryMain() {
         tripId={tripId}
         isValid={isValid}
         dailyInfo={
-          isValid && tripData !== undefined
-            ? tripData.dailies[dayNum++]
-            : dayNum
+          isValid && tripData !== undefined && tripData.dailies[dayNum++]
         }
       />
     ));
