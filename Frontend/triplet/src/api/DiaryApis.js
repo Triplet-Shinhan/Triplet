@@ -41,3 +41,7 @@ export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
     imageSrc
   );
 };
+
+export const uploadPayment = ({ payment, tripId, dailyId }) => {
+  return axios.post(`${PROXY}/api/payment`, { payment, tripId, dailyId });
+};

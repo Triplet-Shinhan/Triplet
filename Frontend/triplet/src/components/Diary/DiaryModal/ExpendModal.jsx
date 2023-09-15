@@ -1,19 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import './ExpendModal.scss';
+import { useMutation } from '@tanstack/react-query';
+import { uploadPayment } from '../../../api/DiaryApis';
 
 export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
-  const [imageSrc, setImageSrc] = useState(null);
-
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  const [payment, setPayment] = useState({
-    item: '',
-    cost: '',
-    foreignCurrency: '',
-    date: '',
-  });
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -29,6 +23,37 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
       document.removeEventListener('mousedown', handler);
     };
   });
+
+  const [payment, setPayment] = useState({
+    item: '',
+    cost: '',
+    foreignCurrency: '',
+    date: '',
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updatePayment.mutate({ payment, tripId, dailyId });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPayment((pay) => ({ ...pay, [name]: value }));
+  };
+
+  const updatePayment = useMutation(
+    ({ payment, tripId, dailyId }) =>
+      uploadPayment({ payment, tripId, dailyId }),
+    {
+      onSuccess: (data) => {
+        alert('지출내역 추가 완료');
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
   return (
     <section className="expendContainer" ref={modalRef}>
       <nav className="expendNav">
@@ -37,11 +62,22 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           X
         </button>
       </nav>
-      <form method="POST" action="" className="expendMain">
+      <form
+        method="POST"
+        action=""
+        className="expendMain"
+        onSubmit={handleSubmit}
+      >
         <label className="expendLabel" htmlFor="expendTime">
           지출 시간
         </label>
-        <input className="expendInput" type="time" id="expendTime" />
+        <input
+          className="expendInput"
+          type="time"
+          id="expendTime"
+          value={payment.date}
+          onChange={handleChange}
+        />
         <label className="expendLabel" htmlFor="expendPlace">
           지출 장소
         </label>
@@ -50,11 +86,19 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           type="text"
           id="expendPlace"
           placeholder="장소를 입력해주세요."
+          value={payment.item}
+          onChange={handleChange}
         />
         <label className="expendLabel" htmlFor="expendMoney" placeholder="금액">
           지출 금액
         </label>
-        <input className="expendInput" type="text" id="expendMoney" />
+        <input
+          className="expendInput"
+          type="text"
+          id="expendMoney"
+          value={payment.cost}
+          onChange={handleChange}
+        />
         <label className="expendLabel">지출 방법</label>
         <div className="cashOpt">현금</div>
         <button className="addBtn">추가</button>
