@@ -62,14 +62,7 @@ export default function DiaryDetail() {
           <button onClick={showExpendModal}>+</button>
         </section>
         <section className="imgSec">
-          <img
-            className="imgSrc"
-            src={
-              dailyInfo.imageUrl === ''
-                ? '../../../assets/icons/sample.JPG'
-                : dailyInfo.imageUrl
-            }
-          />
+          <img className="imgSrc" src="../../../assets/sample.JPG" alt="" />
           <button onClick={showImgModal}>수정</button>
         </section>
         <div>{imgModalOpen && <ImgModal setModalOpen={setImgModalOpen} />}</div>
