@@ -274,7 +274,7 @@ public class ExchangeService {
                 .build();
 
         exchangeResultsRepository.save(er); // DB에 저장하기
-
+        webClientUtil.solPush(String.valueOf(er.getId()),"환전이 성공하였습니다.");//solpushapp
         // 성공
         eaRes.setResultCode("200");
         eaRes.setConvertedKRWAmount(edb.getConvertedKRWAmount());
