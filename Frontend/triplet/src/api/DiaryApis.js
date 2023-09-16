@@ -38,7 +38,12 @@ export const makeNewTrip = ({ tripInfo }) => {
 export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
   return axios.post(
     `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,
-    imageSrc
+    imageSrc,
+    {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    }
   );
 };
 

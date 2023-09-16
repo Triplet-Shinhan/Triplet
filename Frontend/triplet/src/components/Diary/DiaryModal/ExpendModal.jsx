@@ -63,12 +63,7 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           X
         </button>
       </nav>
-      <form
-        method="POST"
-        action=""
-        className="expendMain"
-        onSubmit={handleSubmit}
-      >
+      <form method="POST" className="expendMain" onSubmit={handleSubmit}>
         <label className="expendLabel" htmlFor="expendTime">
           지출 시간
         </label>
@@ -76,6 +71,7 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           className="expendInput"
           type="time"
           id="expendTime"
+          name="date"
           value={payment.date}
           onChange={handleChange}
         />
@@ -86,6 +82,7 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           className="expendInput"
           type="text"
           id="expendPlace"
+          name="item"
           placeholder="장소를 입력해주세요."
           value={payment.item}
           onChange={handleChange}
@@ -97,6 +94,7 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
           className="expendInput"
           type="text"
           id="expendMoney"
+          name="cost"
           value={payment.cost}
           onChange={handleChange}
         />
