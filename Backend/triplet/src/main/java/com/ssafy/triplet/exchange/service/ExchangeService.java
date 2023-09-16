@@ -1,5 +1,6 @@
 package com.ssafy.triplet.exchange.service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 import com.ssafy.triplet.parser.dto.transfer.TransferReqDataBody;
 import com.ssafy.triplet.user.domain.User;
 
+import io.netty.handler.codec.DateFormatter;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -223,7 +225,7 @@ public class ExchangeService {
 
         exchange.setExchangeAmount(exchangeApplyRequestDto.getAmount());
         exchange.setLocation(exchangeApplyRequestDto.getLocation());
-        exchange.setReceiveDate(exchangeApplyRequestDto.getReceiptDate());
+        exchange.setReceiveDate(String.join("", exchangeApplyRequestDto.getReceiptDate().split("-")));
         exchange.setReceiverName(user.getName()); // 수령자 이름
         exchange.setBirth(user.getBirth()); // 생일
         exchange.setPhoneNum(user.getPhoneNum()); // 전화번호
