@@ -38,6 +38,7 @@ export default function DiaryMain() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    logoutUser.mutate();
   };
 
   useEffect(() => {
@@ -115,9 +116,9 @@ export default function DiaryMain() {
             <div>Triplet</div>
           </section>
           <section className="settings">
-            <form className="userInfo">
+            <form className="userInfo" onSubmit={handleSubmit}>
               <div>{userName}님</div>
-              <button onClick={() => userLogout.mutate()}>로그아웃</button>
+              <button>로그아웃</button>
             </form>
             <button>
               <img
