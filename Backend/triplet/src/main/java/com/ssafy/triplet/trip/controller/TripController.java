@@ -11,8 +11,6 @@ import com.ssafy.triplet.user.util.UserUtility;
 import com.ssafy.triplet.user.util.UserValidation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +25,9 @@ public class TripController {
     private final TripService tripService;
     private final UserUtility userUtility;
     private final UserValidation userValidation;
-    private final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @GetMapping
     public ResponseEntity<List<MainPageTripDto>> readTrips(HttpServletRequest request) {
-        logger.debug("readTrips request success");
         User loginUser = userUtility.getUserFromCookie(request);//검증
         return ResponseEntity.ok(tripService.getAllTrips(loginUser.getUserId()));
     }
@@ -39,28 +35,22 @@ public class TripController {
     @PostMapping
     public ResponseEntity<TripResponse> createTrip(@RequestBody TripDto tripDto,
                                                    HttpServletRequest request) {
-        logger.debug("createTrip request success");
         User loginUser = userUtility.getUserFromCookie(request);//검증
         Trip savedTrip = tripService.saveTrip(tripDto, loginUser);
-        logger.debug("createTrip success");
         return ResponseEntity.ok(new TripResponse(savedTrip.getTripId()));
     }
 
     @DeleteMapping("/{tripId}")
     public ResponseEntity<TripResponse> deleteTrip(@PathVariable Long tripId, HttpServletRequest request) {
-        logger.debug("deleteTrip request success");
         userValidation.checkTripValid(tripId, request);//검증
         tripService.removeTrip(tripId);
-        logger.debug("deleteTrip success");
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{tripId}")
     public ResponseEntity<TripResponse> updateTrip(@PathVariable Long tripId, @RequestBody TripEditDto tripEditDto, HttpServletRequest request) {
-        logger.debug("editTrip request success");
         userValidation.checkTripValid(tripId, request);//검증
         tripService.editTrip(tripId, tripEditDto);
-        logger.debug("editTrip success");
         return ResponseEntity.ok(new TripResponse(tripId));
     }
 }

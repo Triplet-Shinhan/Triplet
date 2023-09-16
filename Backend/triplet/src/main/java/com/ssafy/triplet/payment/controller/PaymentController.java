@@ -31,7 +31,6 @@ public class PaymentController {
 
     @PutMapping("/{paymentId}")
     public ResponseEntity updatePayment(@PathVariable Long paymentId, @RequestBody PaymentReqDto paymentReqDto, HttpServletRequest request) {
-//        userUtility.getUserFromCookie(request);
 
         userValidation.checkPaymentValid(paymentId, request);
 
