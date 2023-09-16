@@ -47,6 +47,14 @@ export default function Exchange() {
     staleTime: 1000 * 6 * 5,
   });
 
+  const {
+    isloaingPlace,
+    errorPlace,
+    data: locations,
+  } = useQuery(['ExchangePlace'], () => exchange.viewNearLocations(), {
+    staleTime: 1000 * 6 * 5,
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExchangeForm((info) => ({ ...info, [name]: value }));
