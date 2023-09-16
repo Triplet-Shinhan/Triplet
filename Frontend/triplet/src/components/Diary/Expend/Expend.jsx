@@ -2,11 +2,12 @@ import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { deletePayment } from '../../../api/DiaryApis';
 import { ExpendModifyModal } from '../DiaryModal/ExpendModifyModal';
+import './Expend.scss';
 import { useState } from 'react';
 
 export default function Expend({ expendInfo, tripId, dailyId }) {
-  const { item, cost, date, method, paymentId } = expendInfo.expend;
-  const sum = expendInfo.dailyInfo.sum;
+  console.log(expendInfo);
+  const { item, cost, date, method, paymentId } = expendInfo;
 
   const [expendModifyModalOpen, setExpendModifyModalOpen] = useState(false);
   const showExpendModifyModal = () => setExpendModifyModalOpen(true);
@@ -18,19 +19,25 @@ export default function Expend({ expendInfo, tripId, dailyId }) {
   const removePayment = useMutation(({ paymentId }) =>
     deletePayment({ paymentId })
   );
+
+  // 3개 콤마
+  const makedot = (text) =>
+    text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+
   return (
-    <section onClick={showExpendModifyModal}>
+    <section className="expendForm">
       <section className="timeInfo">
-        <div>{date.substr(11)}</div> | <div>{method}</div>
+        <div>{`${date.substr(11)}  |  ${method}`}</div>
       </section>
       <section className="placeInfo">
         <div>{item}</div>
-        <button onClick={handleDelete}>삭제하기</button>
+        <div className="placeCost" onClick={showExpendModifyModal}>
+          ₩{makedot(cost)}
+        </div>
       </section>
-      <section className="expendInfo">
-        <div>{cost}</div>
-        <div>{sum}</div>
-      </section>
+      <button className="delBtn" onClick={handleDelete}>
+        삭제하기
+      </button>
       <div>
         {expendModifyModalOpen && (
           <ExpendModifyModal
@@ -44,6 +51,7 @@ export default function Expend({ expendInfo, tripId, dailyId }) {
           />
         )}
       </div>
+      <hr />
     </section>
   );
 }

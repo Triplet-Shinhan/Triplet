@@ -56,6 +56,9 @@ export default function DiaryDetail() {
     }
   );
 
+  const makedot = (text) =>
+    text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+
   useEffect(() => {
     console.log(`isChecked` + isChecked);
     if (!isChecked) {
@@ -64,7 +67,7 @@ export default function DiaryDetail() {
       } else setTempImg(dailyInfo.imageData);
     }
     console.log(tempImg);
-  }, [isChecked, isLoading]);
+  }, [isChecked, expendList]);
 
   return (
     dailyInfo && (
@@ -86,14 +89,15 @@ export default function DiaryDetail() {
                 <div className="viewDay">{dateInfo}</div>
                 <div>{weekInfo}</div>
               </div>
-              <div>{dailyInfo.sum}</div>
+              <div>₩{makedot(dailyInfo.sum)}</div>
             </section>
             <section className="eachSec">
               {console.log(expendList !== undefined && expendList)}
               {expendList !== undefined
                 ? expendList.map((expend) => (
                     <Expend
-                      expendInfo={(expend, dailyInfo.sum)}
+                      expendInfo={expend}
+                      sum={dailyInfo.sum}
                       tripId={tripId}
                       dailyId={dailyId}
                     />

@@ -97,6 +97,10 @@ export default function DiaryMain() {
     },
   });
 
+  // 3개 콤마
+  const makedot = (text) =>
+    text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+
   if (isLoading) {
     return <div>loading...</div>;
   }
@@ -141,7 +145,7 @@ export default function DiaryMain() {
                 <div className="viewCurrency">₩</div>
                 <article>
                   <div className="moneyPart">
-                    {tripData.dashboard.sumExpenditure}
+                    {makedot(tripData.dashboard.sumExpenditure)}
                   </div>
                   <div className="moneyDesc">총 지출</div>
                 </article>
@@ -149,14 +153,18 @@ export default function DiaryMain() {
               <section className="restMoney">
                 <div className="viewCurrency">₩</div>
                 <article>
-                  <div className="moneyPart">{tripData.dashboard.budget}</div>
+                  <div className="moneyPart">
+                    {makedot(tripData.dashboard.budget)}
+                  </div>
                   <div className="moneyDesc">남은 예산</div>
                 </article>
               </section>
               <section className="restCash">
                 <div className="viewCurrency">$</div>
                 <article>
-                  <div className="moneyPart">{tripData.dashboard.cash}</div>
+                  <div className="moneyPart">
+                    {makedot(tripData.dashboard.cash)}
+                  </div>
                   <div className="moneyDesc">남은 현금</div>
                 </article>
               </section>
