@@ -56,8 +56,7 @@ export default function DiarySetUp() {
   const makeTripDiary = useMutation(() => makeNewTrip({ tripInfo }), {
     onSuccess: (data) => {
       alert('생성');
-      console.log(data);
-      navigate(`/trips/${data.data.tripId}/dailies`);
+      navigate(`/trips/${data.data.tripId}/dailies`, { state: tripInfo });
     },
     onError: () => {
       console.log('생성이 되지 않았습니다.');
