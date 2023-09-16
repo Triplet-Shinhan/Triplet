@@ -70,30 +70,14 @@ public class TripService {
 
 
     // 프로젝트 삭제
-    public void removeTrip(User loginUser, Long tripId) {
-        //유효성 검증
-        //프로젝트 ID를 찾을 수 없을 경우 에러
-        Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
-        Long userId = trip.getUser().getUserId();
-        //접근 권한 확인
-        if (!loginUser.getUserId().equals(userId)) {
-            throw new BaseException(ErrorCode.NOT_AUTHORIZED);
-        }
-        //삭제
+    public void removeTrip(Long tripId) {
         tripRepository.deleteById(tripId);
     }
 
     // 프로젝트 수정
-    public void editTrip(User loginUser, Long tripId, TripEditDto tripEditDto) {// 여행 시작날짜, 여행 종료날짜, 환율 변경
-        //유효성 검증
-        tripValidation.checkEditValid(tripEditDto);
+    public void editTrip(Long tripId, TripEditDto tripEditDto) {// 여행 시작날짜, 여행 종료날짜, 환율 변경
         // DB에서 해당 ID의 Trip 찾기
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
-        Long userId = trip.getUser().getUserId();
-        //접근 권한 확인
-        if (!loginUser.getUserId().equals(userId)) {
-            throw new BaseException(ErrorCode.NOT_AUTHORIZED);
-        }
         //수정
         trip.setStartDate(tripEditDto.getStartDate());
         trip.setEndDate(tripEditDto.getEndDate());
