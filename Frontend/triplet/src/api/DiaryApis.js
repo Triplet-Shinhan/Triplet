@@ -51,7 +51,7 @@ export const uploadPayment = ({ payment, tripId, dailyId }) => {
 // 다이어리 날짜 수정
 export const modifyDate = ({ tripId, tripDate }) => {
   const { startDate, endDate } = tripDate;
-  return axios.post(`${PROXY}/api/trips/${tripId}`, { startDate, endDate });
+  return axios.patch(`${PROXY}/api/trips/${tripId}`, { startDate, endDate });
 };
 
 // 다이어리 삭제
