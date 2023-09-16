@@ -55,7 +55,7 @@ export default function Exchange() {
 
   useEffect(() => {
     console.log(rateData);
-  });
+  }, [rateData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
