@@ -86,4 +86,9 @@ public class DailyService {
         daily.setImageUrl(url);
         dailyRepository.save(daily);
     }
+
+    public void deleteImageUrlFromDb(Long dailyId){
+        Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
+        daily.setImageUrl(null);
+    }
 }

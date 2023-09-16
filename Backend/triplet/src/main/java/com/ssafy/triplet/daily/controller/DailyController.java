@@ -50,7 +50,8 @@ public class DailyController {
 
     @DeleteMapping("/{tripId}/dailies/{dailyId}/images")
     public ResponseEntity<DailyResponse> deleteImage(@PathVariable Long tripId, @PathVariable Long dailyId) {
-        s3Service.deleteImage(s3Service.getImageUrl(dailyId));
+        dailyService.deleteImageUrlFromDb(dailyId);
+        s3Service.deleteImageFromS3(s3Service.getImageUrl(dailyId));
         return ResponseEntity.ok().build();
     }
 }

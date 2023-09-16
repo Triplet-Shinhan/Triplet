@@ -58,7 +58,7 @@ public class S3Service {
 
 	}
 
-	public void deleteImage(String url) {
+	public void deleteImageFromS3(String url) {
 		try {
 			String key = url.substring(url.indexOf("profile"));
 			amazonS3Client.deleteObject(new DeleteObjectRequest(S3Bucket, key));
