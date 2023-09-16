@@ -165,11 +165,18 @@ export default function DiarySetUp() {
             />
           </section>
           <button className="makeDiary">생성하기</button>
-          <section className="boardingArea">boarding pass</section>
+          <section className="boardingArea">
+            <span className="boardingArea">boarding pass</span>
+          </section>
         </form>
         <section className="backgroundForm">
           <section className="backgroundFooter">Boarding Pass</section>
         </section>
+        <img
+          className="airplaneLogo"
+          src="../../../assets/airplane.png"
+          alt="airplane"
+        />
       </main>
     </>
   );

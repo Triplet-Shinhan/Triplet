@@ -33,6 +33,14 @@
     margin-left: 5vw;
     margin-top: 2vh;
   }
+  .airplaneLogo {
+    position: absolute;
+    z-index: 600;
+    width: 6vw;
+    height: 5vh;
+    top: 69%;
+    left: 29%;
+  }
 }
 .diaryForm {
   @include diaryForm;

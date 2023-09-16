@@ -38,7 +38,7 @@ export default function Exchange() {
   });
 
   const [rateInfo, setRateInfo] = useState({
-    preferentialRate: 0.0,
+    preferentialRate: '90',
     exchangeRate: '',
   });
 

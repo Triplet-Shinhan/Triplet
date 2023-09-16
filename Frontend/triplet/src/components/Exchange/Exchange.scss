@@ -72,6 +72,7 @@
         width: 3vw;
         align-self: flex-end;
         font-size: 3rem;
+        margin-right: 4vw;
       }
     }
 
@@ -161,9 +162,8 @@
     }
 
     .pickPlace {
-      // flex-grow: 1;
       .locations {
-        height: 20vw;
+        height: 3vw;
         margin-top: 3vh;
         margin-bottom: 31vh;
 
