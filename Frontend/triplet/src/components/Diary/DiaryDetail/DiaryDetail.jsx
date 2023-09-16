@@ -89,9 +89,10 @@ export default function DiaryDetail() {
               <div>{dailyInfo.sum}</div>
             </section>
             <section className="eachSec">
-              {expendList == undefined
+              {console.log(expendList !== undefined && expendList)}
+              {/* {expendList === undefined
                 ? ''
-                : expendList.map((expend) => <Expend expendInfo={expend} />)}
+                : expendList.map((expend) => <Expend expendInfo={expend} />)} */}
             </section>
             <button className="addModify" onClick={showExpendModal}>
               +
