@@ -72,7 +72,6 @@ public class DailyService {
                     .paymentId(payment.getPaymentId())
                     .item(payment.getItem())
                     .cost(payment.getCost())
-                    .foreignCurrency(payment.getForeignCurrency())
                     .date(payment.getDate())
                     .method(payment.getMethod())
                     .build();

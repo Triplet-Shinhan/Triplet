@@ -38,15 +38,15 @@ public class PaymentService {
     public void createPayment(PaymentReqDto reqDto, User user) {
         Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
-
+        Long cost = (long)(Math.ceil(trip.getFixedRate()*reqDto.getCost()));
+        LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
         //payment 객체 생성
         Payment payment = Payment.builder()
                 .trip(trip)
                 .daily(daily)
                 .item(reqDto.getItem())
-                .cost(reqDto.getCost())
-                .foreignCurrency(reqDto.getForeignCurrency())
-                .date(reqDto.getDate())
+                .cost(cost)
+                .date(paymentTime)
                 .method("cash")
                 .build();
 
@@ -54,21 +54,16 @@ public class PaymentService {
     }
 
     public void updatePayment(PaymentReqDto reqDto, Long paymentId) {
-        paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(DAILY_ID_NOT_FOUND));
-        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
-        Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(DAILY_ID_NOT_FOUND));
+        Trip trip = payment.getTrip();
+        Daily daily = payment.getDaily();
+        LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
+        Long cost = (long)(Math.ceil(trip.getFixedRate()*reqDto.getCost()));
 
         //payment 객체 생성
-        Payment payment = Payment.builder()
-                .trip(trip)
-                .daily(daily)
-                .item(reqDto.getItem())
-                .cost(reqDto.getCost())
-                .foreignCurrency(reqDto.getForeignCurrency())
-                .date(reqDto.getDate())
-                .method("cash")
-                .build();
-
+        payment.setCost(cost);
+        payment.setDate(paymentTime);
+        payment.setItem(reqDto.getItem());
 
         paymentRepository.save(payment);
     }
@@ -101,9 +96,6 @@ public class PaymentService {
         List<Daily> dailies = trip.getDailies();
         dailies.get(0).getDailyId();//가장 첫번째
 
-        if (payments != null) {//날짜 해당하는 지출 db에 추가
-
-        }
 
         LocalDateTime lastDateTime = startDate;//카드지출중최신값
 
@@ -139,7 +131,7 @@ public class PaymentService {
                         .daily(now)
                         .trip(trip)
                         .method("Card")
-                        .foreignCurrency("WON")
+                        //.foreignCurrency("WON")
                         .item(data.getContent())
                         .build();
                 System.out.println(startDate + " ~ " + endDate);
@@ -159,5 +151,24 @@ public class PaymentService {
         LocalDateTime lastDateTime = LocalDateTime.parse(ldtStr, dateFormat);
 
         return lastDateTime;
+    }
+
+    public void createPaymentForCard(PaymentReqDto reqDto) {
+        Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
+        LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
+
+        //payment 객체 생성
+        Payment payment = Payment.builder()
+                .trip(trip)
+                .daily(daily)
+                .item(reqDto.getItem())
+                .cost(reqDto.getCost())
+                //.foreignCurrency(reqDto.getForeignCurrency())
+                .date(paymentTime)
+                .method("card")
+                .build();
+
+        paymentRepository.save(payment);
     }
 }

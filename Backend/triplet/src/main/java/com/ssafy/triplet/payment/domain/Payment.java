@@ -47,9 +47,6 @@ public class Payment {
     @Column(name = "cost")
     private Long cost;
 
-    @Column(name = "foreign_currency")
-    private String foreignCurrency;
-
     @Column(name = "date")
     private LocalDateTime date;
 
