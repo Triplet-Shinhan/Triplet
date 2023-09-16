@@ -15,6 +15,8 @@ export default function DiaryDetail() {
   const { tripId, dailyId } = useParams();
   const dailyInfo = useLocation().state[0]; // dailies 하나의 정보가 들어있음
   const dayNum = useLocation().state[1];
+  const dayImage = useLocation().state[2];
+
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const dateInfo =
     dailyInfo.date !== undefined
@@ -67,12 +69,11 @@ export default function DiaryDetail() {
 
   useEffect(() => {
     if (!isChecked) {
-      console.log(dailyInfo.imageData);
-      if (dailyInfo.imageData === undefined) {
+      if (dayImage === undefined) {
         setTempImg('');
-      } else setTempImg(dailyInfo.imageData);
+      } else setTempImg(dayImage);
     }
-  }, [isChecked, expendList, dailyInfo]);
+  }, [isChecked, isLoading, expendList, dailyInfo]);
 
   return (
     dailyInfo && (
@@ -97,7 +98,6 @@ export default function DiaryDetail() {
               <div>₩{makedot(dailyInfo.sum)}</div>
             </section>
             <section className="eachSec">
-              {console.log(expendList !== undefined && expendList)}
               {expendList !== undefined
                 ? expendList.map((expend, index) => (
                     <Expend

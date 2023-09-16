@@ -53,6 +53,9 @@ export default function DiaryMain() {
         tripId={tripId}
         isValid={isValid}
         day={dayNum + 1}
+        image={
+          isValid && tripData !== undefined && tripData.dailies[dayNum].imageUrl
+        }
         dailyInfo={
           isValid && tripData !== undefined && tripData.dailies[dayNum++]
         }

@@ -8,6 +8,7 @@ export default function DiaryFractal({
   tripId,
   isValid,
   day,
+  image,
   dailyInfo,
 }) {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function DiaryFractal({
       className={`diaryFractal ${isValid ? '' : 'blocked'}`}
       onClick={() =>
         navigate(`/trips/${tripId}/dailies/${dailyInfo.dailyId}`, {
-          state: [dailyInfo, day],
+          state: [dailyInfo, day, image],
         })
       }
     >
