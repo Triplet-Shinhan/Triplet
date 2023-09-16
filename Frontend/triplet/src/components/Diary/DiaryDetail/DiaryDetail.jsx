@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DiaryDetail.scss";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -49,16 +49,6 @@ export default function DiaryDetail() {
   } = useQuery(["diaryDetail"], () => diary.getExpendList({ tripId, dailyId }), {
     staleTime: 1000 * 6 * 5,
   });
-
-  useEffect(() => {
-    console.log(`isChecked` + isChecked);
-    if (!isChecked) {
-      if (dailyInfo.imageData === undefined) {
-        setTempImg("");
-      } else setTempImg(dailyInfo.imageData);
-    }
-    console.log(tempImg);
-  }, [isChecked]);
 
   useEffect(() => {
     console.log(`isChecked` + isChecked);
