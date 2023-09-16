@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DiaryDetail.scss';
 import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -18,12 +18,14 @@ export default function DiaryDetail() {
       ? dailyInfo.date.substr(5).split('-').join('.')
       : '';
   const weekInfo = day[new Date(dailyInfo.date).getDay()];
+  const [tempImg, setTempImg] = useState('');
 
   // 이미지 모달, 지출 내역 모달
   const [imgModalOpen, setImgModalOpen] = useState(false);
   const showImgModal = () => setImgModalOpen(true);
   const [expendModalOpen, setExpendModalOpen] = useState(false);
   const showExpendModal = () => setExpendModalOpen(true);
+  let [isChecked, setChecked] = useState(false);
 
   const {
     isLoading,
@@ -34,6 +36,16 @@ export default function DiaryDetail() {
     () => diary.getExpendList({ tripId, dailyId }),
     { staleTime: 1000 * 6 * 5 }
   );
+
+  useEffect(() => {
+    console.log(`isChecked` + isChecked);
+    if (!isChecked) {
+      if (dailyInfo.imageData === undefined) {
+        setTempImg('');
+      } else setTempImg(dailyInfo.imageData);
+    }
+    console.log(tempImg);
+  }, [isChecked]);
 
   return (
     dailyInfo && (
@@ -62,7 +74,11 @@ export default function DiaryDetail() {
             </button>
           </section>
           <section className="imgSec">
-            <img className="imgSrc" src={dailyInfo.imageUrl} alt="사진이미지" />
+            {tempImg === '' ? (
+              <div className="noImage">업로드된 이미지가 없습니다.</div>
+            ) : (
+              <img className="imgSrc" src={tempImg} />
+            )}
             <button className="modifyBtn" onClick={showImgModal}>
               <img
                 className="modifyImg"
@@ -76,6 +92,10 @@ export default function DiaryDetail() {
                 setModalOpen={setImgModalOpen}
                 tripId={tripId}
                 dailyId={dailyId}
+                onImageUpload={(imageData) => {
+                  setChecked(true);
+                  setTempImg(imageData.data.url);
+                }}
               />
             )}
           </div>

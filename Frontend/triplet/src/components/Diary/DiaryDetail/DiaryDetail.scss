@@ -71,6 +71,12 @@
   }
 
   .imgSec {
+    display: flex;
+    align-items: center;
+    .noImage {
+      font-weight: 600;
+      font-size: 2rem;
+    }
     .imgSrc {
       flex-grow: 0.5;
       border-radius: 50px;

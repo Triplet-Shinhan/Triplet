@@ -3,7 +3,7 @@ import './ImgModal.scss';
 import { useMutation } from '@tanstack/react-query';
 import { uploadImage } from '../../../api/DiaryApis';
 
-export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
+export const ImgModal = ({ setModalOpen, tripId, dailyId, onImageUpload }) => {
   const [image, setImageSrc] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
@@ -30,6 +30,7 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateImg.mutate({ imageFile, tripId, dailyId });
+    closeModal();
   };
 
   const updateImg = useMutation(
@@ -40,6 +41,8 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
         alert('업로드 완료');
         console.log(data);
         closeModal();
+
+        onImageUpload(data);
       },
     }
   );
