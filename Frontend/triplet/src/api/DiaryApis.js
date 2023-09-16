@@ -29,16 +29,17 @@ export default class Diary {
   }
 }
 
+// 새 프로젝트 만들기
 export const makeNewTrip = ({ tripInfo }) => {
   console.log({ tripInfo });
   return axios.post(`${PROXY}/api/trips`, tripInfo);
 };
 
-// 이미지 업로드 // 500에러?
-export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
+// 이미지 업로드
+export const uploadImage = ({ image, tripId, dailyId }) => {
   return axios.post(
     `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,
-    imageSrc,
+    image,
     {
       headers: {
         'Content-type': 'multipart/form-data',
@@ -47,6 +48,19 @@ export const uploadImage = ({ imageSrc, tripId, dailyId }) => {
   );
 };
 
+// 지출 내역 업로드
 export const uploadPayment = ({ payment, tripId, dailyId }) => {
   return axios.post(`${PROXY}/api/payment`, { payment, tripId, dailyId });
+};
+
+// 다이어리 날짜 수정
+export const modifyDate = ({ tripId, tripDate }) => {
+  return axios.post(`${PROXY}/api/trips/${tripId}`, {
+    tripDate,
+  });
+};
+
+// 다이어리 삭제
+export const deleteProject = ({ tripId }) => {
+  return axios.post(`${PROXY}/api/${tripId}`);
 };

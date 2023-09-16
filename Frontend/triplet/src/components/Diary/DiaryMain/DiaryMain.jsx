@@ -63,8 +63,6 @@ export default function DiaryMain() {
     setDiaryFractals(fractals);
   }, [tripId]);
 
-  new Date(tripInfo.startDate).getDay();
-
   // 주차 시작 및 끝 날짜 구하기
   const getWantedWeek = (dateString, isStart) => {
     const date = new Date(dateString);

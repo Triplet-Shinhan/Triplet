@@ -1,17 +1,52 @@
 import React, { useState } from 'react';
 import './DiarySetting.scss';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { modifyDate } from '../../../api/DiaryApis';
 
 export default function DiarySetting() {
   const [tripDate, setTripDate] = useState({ startDate: '', endDate: '' });
+  const navigate = useNavigate();
+  const { tripId } = useParams();
 
-  const handleSumbit = (e) => {
+  const handleDelete = (e) => {
     e.preventDefault();
+    deleteDiary.mutate({ tripId });
+  };
+
+  const handleChangeDate = (e) => {
+    e.preventDefault();
+    changeDiaryDate.mutate({ tripId, tripDate });
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTripDate((date) => ({ ...date, [name]: value }));
   };
+
+  const deleteDiary = useMutation(({ tripId }) => deleteDiary({ tripId }), {
+    onSuccess: () => {
+      alert('삭제되었습니다.');
+      navigate('/trips');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const changeDiaryDate = useMutation(
+    ({ tripId, tripDate }) => modifyDate({ tripId, tripDate }),
+    {
+      onSuccess: () => {
+        alert('변경되었습니다.');
+        navigate('/trips');
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
   return (
     <>
       <div className="settingPage">
@@ -23,7 +58,11 @@ export default function DiarySetting() {
         </header>
         <main className="settingMain">
           <section className="innerMain">
-            <form action="PATCH" onSubmit={handleSumbit} className="modifyForm">
+            <form
+              action="PATCH"
+              onSubmit={handleChangeDate}
+              className="modifyForm"
+            >
               <section className="modifyTrip">
                 <div>여행기간 수정</div>
                 <p>여행 기간 변경을 할 수 있습니다.</p>
@@ -54,7 +93,7 @@ export default function DiarySetting() {
               </div>
             </form>
             <hr />
-            <form action="DELETE" className="deleteForm">
+            <form action="DELETE" className="deleteForm" onClick={handleDelete}>
               <div>프로젝트 삭제</div>
               <button>삭제하기</button>
             </form>

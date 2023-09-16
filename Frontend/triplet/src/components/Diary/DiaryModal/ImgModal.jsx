@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { uploadImage } from '../../../api/DiaryApis';
 
 export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
-  const [imageSrc, setImageSrc] = useState(null);
+  const [image, setImageSrc] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -28,15 +28,11 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      `imageSrc: ${imageSrc}, tripId: ${tripId}, dailyId: ${dailyId}`
-    );
-    updateImg.mutate({ imageSrc, tripId, dailyId });
+    updateImg.mutate({ image, tripId, dailyId });
   };
 
   const updateImg = useMutation(
-    ({ imageSrc, tripId, dailyId }) =>
-      uploadImage({ imageSrc, tripId, dailyId }),
+    ({ image, tripId, dailyId }) => uploadImage({ image, tripId, dailyId }),
     {
       onSuccess: (data) => {
         alert('업로드 완료');
@@ -86,7 +82,7 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
         </section>
         <section className="imgPreview">
           <div className="imgText">미리보기</div>
-          <img className="imgView" src={imageSrc} />
+          <img className="imgView" src={image} />
           <button className="imgAdd">추가</button>
         </section>
       </form>
