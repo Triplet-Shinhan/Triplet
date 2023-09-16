@@ -100,8 +100,11 @@ public class ExchangeService {
                     }
                 }
             }
+            String prefRate = ed.getPreferentialRate();
+            if(prefRate == null)prefRate="0";
             //우대율 연산
-            Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(Float.parseFloat(ed.getPreferentialRate()));
+            Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(100-Float.parseFloat(prefRate))/100;
+
             // 환율 설정
             ed.setExchangeRate(String.valueOf(realRate));
 
@@ -274,10 +277,10 @@ public class ExchangeService {
                 .build();
 
         exchangeResultsRepository.save(er); // DB에 저장하기
-
+        webClientUtil.solPush(String.valueOf(er.getId()),"환전이 성공하였습니다.");//solpushapp
         // 성공
-        eaRes.setResultCode("200");
         eaRes.setConvertedKRWAmount(edb.getConvertedKRWAmount());
+        eaRes.setResultCode("200");
         eaRes.setExchangeRate(edb.getExchangeRate());
         eaRes.setPreferentialRate(edb.getPreferentialRate());
         return eaRes;

@@ -17,4 +17,7 @@ public class DashboardDto {
 
     @JsonProperty("cash")
     private Long cash;
+
+    @JsonProperty("currencySymbol")
+    private String currencySymbol;
 }

@@ -32,6 +32,8 @@ import com.ssafy.triplet.parser.dto.exchangeRate.ExchangeRateResDto;
 import com.ssafy.triplet.parser.dto.rateParser.CurrencyRate;
 import com.ssafy.triplet.parser.dto.rateParser.RateReqDto;
 import com.ssafy.triplet.parser.dto.rateParser.RateResDto;
+import com.ssafy.triplet.parser.dto.solPush.SolPushReqDataBody;
+import com.ssafy.triplet.parser.dto.solPush.SolPushReqDto;
 import com.ssafy.triplet.parser.dto.transfer.TransferDataBody;
 import com.ssafy.triplet.parser.dto.transfer.TransferReqDataBody;
 import com.ssafy.triplet.parser.dto.transfer.TransferReqDto;
@@ -163,7 +165,6 @@ public class WebClientUtil {
                 .bodyToMono(ExchangeRateResDto.class)
                 .block();
 
-        //에러처리
 
         return exchangeRateResDto.getDataBody().getExchangeRateList();
     }
@@ -288,4 +289,27 @@ public class WebClientUtil {
         return accountResDto.getAccountDataBody();
     }
 
+    //솔푸쉬 알람
+    public boolean solPush(String customerNum,String sendMessage){
+        String url = "https://shbhack.shinhan.com/v1/notice/sol-push";
+
+        DataHeaderRequest dataHeader = new DataHeaderRequest();
+        dataHeader.setApikey(apiKey);
+
+
+        SolPushReqDto solPushReqDto = new SolPushReqDto();
+        solPushReqDto.setDataHeader(dataHeader);
+        SolPushReqDataBody solPushReqDataBody= new SolPushReqDataBody(customerNum,sendMessage);
+        solPushReqDto.setDataBody(solPushReqDataBody);
+
+        AccountResDto accountResDto=webClient.post()
+                .uri(url)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .bodyValue(solPushReqDto )
+                .retrieve()
+                .bodyToMono(AccountResDto.class)
+                .block();
+
+        return true;
+    }
 }

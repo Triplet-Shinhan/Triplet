@@ -10,6 +10,7 @@ import com.ssafy.triplet.exception.BaseException;
 import com.ssafy.triplet.exception.ErrorCode;
 import com.ssafy.triplet.payment.domain.Payment;
 import com.ssafy.triplet.payment.service.PaymentService;
+import com.ssafy.triplet.payment.util.PaymentUtility;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.repository.TripRepository;
 import com.ssafy.triplet.user.domain.User;
@@ -31,6 +32,7 @@ public class DailyService {
     private final DailyUtility dailyUtility;
     private final S3Service s3Service;
     private final PaymentService paymentService;
+    private final PaymentUtility paymentUtility;
 
     public DashboardDto getDashboard(Long tripId) {
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
@@ -39,6 +41,8 @@ public class DailyService {
         dashboardDto.setSumExpenditure(sumExpenditure);
         dashboardDto.setBudget(trip.getBudget() - sumExpenditure);
         dashboardDto.setCash(dailyUtility.getDailiesCashLeft(tripId));
+        dashboardDto.setCurrencySymbol(paymentUtility.getCurrencySymbol(tripRepository.findById(tripId).orElseThrow(
+                () -> new BaseException(ErrorCode.CURRENCY_SYMBOL_NOT_FOUND)).getCurrency()));
         return dashboardDto;
     }
 
