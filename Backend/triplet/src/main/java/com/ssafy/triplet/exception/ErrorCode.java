@@ -44,6 +44,8 @@ public enum ErrorCode {
     SIZE_ERROR(400, "파일의 용량이 너무 큽니다."),
     IMAGE_DELETE_ERROR(401, "삭제할 이미지를 찾을 수 없습니다."),
 
+    CURRENCY_SYMBOL_NOT_FOUND(401, "통화 기호를 찾을 수 없습니다."),
+
     //지출
     COST_INPUT_ERROR(400, "올바르지 않은 금액입니다."),
     PAYMENT_ID_NOT_FOUND(401, "결제정보를 찾을 수 없습니다."),
