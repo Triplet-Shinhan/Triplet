@@ -18,22 +18,29 @@ public class DailyUtility {
     private final TripRepository tripRepository;
     private final DailyRepository dailyRepository;
 
-    public Long getDailyExpenditure(Daily daily) {//일일 총지출
+    public Long getDailyExpenditure(Float rate, Daily daily) {//일일 총지출
         Long sum = 0L;
         List<Payment> payments = daily.getPayments();
         if (payments != null) {
             for (Payment payment : payments) {
-                sum += payment.getCost();
+                String method = payment.getMethod();
+                if (method.equals("cash")) {
+                    sum += (long) (payment.getCost() * rate);
+                } else if (method.equals("card")) {
+                    sum += payment.getCost();
+                }
             }
         }
         return sum;
     }
 
     public Long getDailiesExpenditure(Long tripId) {//여행 총지출
+        Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
+        Float rate = trip.getFixedRate();
         List<Daily> dailies = dailyRepository.findAllByTripTripId(tripId);
         Long sumExpenditure = 0L;
         for (Daily daily : dailies) {
-            sumExpenditure += getDailyExpenditure(daily);
+            sumExpenditure += getDailyExpenditure(rate, daily);
         }
         return sumExpenditure;
     }
