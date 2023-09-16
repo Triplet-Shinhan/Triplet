@@ -70,7 +70,7 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
             id="chooseImg"
             name="chooseImg"
             accept="image/*"
-            onChange={(e) => onUpload(e)}
+            onChange={onUpload}
           />
           <label className="findBtn" htmlFor="chooseImg">
             찾아보기
