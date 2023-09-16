@@ -15,10 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripEditDto {
-	@JsonProperty("startDate")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate startDate;
-
 	@JsonProperty("endDate")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate endDate;

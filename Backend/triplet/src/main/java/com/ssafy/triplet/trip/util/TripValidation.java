@@ -32,10 +32,8 @@ public class TripValidation {
 		}
 	}
 
-	public void checkEditValid(TripEditDto tripEditDto) {
-		if (isInputInvalid(tripEditDto.getStartDate().toString())) {
-			throw new BaseException(ErrorCode.START_DATE_ERROR);
-		} else if (isInputInvalid(tripEditDto.getEndDate().toString())) {
+	public void checkEditValid(String endDate) {
+		if (isInputInvalid(endDate)) {
 			throw new BaseException(ErrorCode.END_DATE_ERROR);
 		}
 	}

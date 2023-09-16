@@ -2,6 +2,8 @@ package com.ssafy.triplet.user.util;
 
 import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.daily.repository.DailyRepository;
+import com.ssafy.triplet.payment.domain.Payment;
+import com.ssafy.triplet.payment.repository.PaymentRepository;
 import com.ssafy.triplet.trip.domain.Trip;
 import com.ssafy.triplet.trip.repository.TripRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class UserValidation {
     private final UserRepository userRepository;
     private final TripRepository tripRepository;
     private final DailyRepository dailyRepository;
+    private final PaymentRepository paymentRepository;
 
     private final UserUtility userUtility;
 
@@ -112,6 +115,15 @@ public class UserValidation {
         User loginUser = userUtility.getUserFromCookie(request);
         Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
         Long userId = daily.getUser().getUserId();
+        if (!loginUser.getUserId().equals(userId)) {
+            throw new BaseException(ErrorCode.NOT_AUTHORIZED);
+        }
+    }
+
+    public void checkPaymentValid(Long paymentId, HttpServletRequest request) { //dailYId ~ userId 검증
+        User loginUser = userUtility.getUserFromCookie(request);
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(ErrorCode.PAYMENT_ID_NOT_FOUND));
+        Long userId = payment.getTrip().getUser().getUserId();
         if (!loginUser.getUserId().equals(userId)) {
             throw new BaseException(ErrorCode.NOT_AUTHORIZED);
         }

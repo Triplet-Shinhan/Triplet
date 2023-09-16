@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,20 +26,16 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/signup")
     public ResponseEntity<UserApiResponse> saveUser(@RequestBody UserDto userDto) {
-        logger.debug("signup request success");
         userService.signup(userDto);
-        logger.debug("signup success");
         return ResponseEntity.ok().build();//헤더에만 성공 코드
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserApiResponse> login(@RequestBody LoginDto loginDto, HttpServletRequest request,
                                                  HttpServletResponse response) {
-        logger.debug("login request success");
         User loginUser = userService.login(loginDto).orElseThrow(() -> new BaseException(ErrorCode.LOGIN_FAILED));
 
         // 세션을 설정하여 사용자 정보를 저장
@@ -58,15 +52,11 @@ public class UserController {
         nameCookie.setMaxAge(86400);
         nameCookie.setPath("/");
         response.addCookie(nameCookie);
-
-        logger.debug("login success");
-
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/logout")
     public ResponseEntity<UserApiResponse> logout(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("logout request success");
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
@@ -82,9 +72,6 @@ public class UserController {
         nameCookie.setMaxAge(0);
         nameCookie.setPath("/");
         response.addCookie(nameCookie);
-
-        logger.debug("logout request success");
-
         return ResponseEntity.ok().build();
     }
 }
