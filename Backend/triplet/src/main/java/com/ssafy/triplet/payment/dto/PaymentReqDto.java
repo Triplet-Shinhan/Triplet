@@ -1,6 +1,7 @@
 package com.ssafy.triplet.payment.dto;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,10 +29,7 @@ public class PaymentReqDto {
     @JsonProperty("cost")
     private Long cost;
 
-    @JsonProperty("foreignCurrency")
-    private String foreignCurrency;
-
     @JsonProperty("date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime date;
 }
