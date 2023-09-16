@@ -47,7 +47,7 @@ public enum ErrorCode {
     //지출
     COST_INPUT_ERROR(400, "올바르지 않은 금액입니다."),
     PAYMENT_ID_NOT_FOUND(401, "결제정보를 찾을 수 없습니다."),
-
+    PAYMENT_INPUT_ERROR(400,"올바르지 않은 결제 정보입니다."),
     //전역
     NULL_ERROR(400, "Null을 할당할 수 없습니다."),
     LOGIN_FAILED(400, "로그인에 실패하였습니다."),

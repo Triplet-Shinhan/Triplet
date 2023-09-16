@@ -36,6 +36,9 @@ public class PaymentService {
     private final WebClientUtil webClientUtil;
 
     public void createPayment(PaymentReqDto reqDto, User user) {
+        if(reqDto.getItem()==null||reqDto.getItem()==null||reqDto.getCost()==null||reqDto.getDate()==null){
+                        throw new BaseException(PAYMENT_INPUT_ERROR);
+        }
         Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
         LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
@@ -53,8 +56,10 @@ public class PaymentService {
     }
 
     public void updatePayment(PaymentReqDto reqDto, Long paymentId) {
+        if(reqDto.getItem()==null||reqDto.getItem()==null||reqDto.getCost()==null||reqDto.getDate()==null){
+            throw new BaseException(PAYMENT_INPUT_ERROR);
+        }
         Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BaseException(DAILY_ID_NOT_FOUND));
-        Trip trip = payment.getTrip();
         Daily daily = payment.getDaily();
         LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
 
