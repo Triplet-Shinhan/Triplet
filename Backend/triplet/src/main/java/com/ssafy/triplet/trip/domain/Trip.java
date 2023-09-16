@@ -9,15 +9,7 @@ import com.ssafy.triplet.daily.domain.Daily;
 import com.ssafy.triplet.payment.domain.Payment;
 import com.ssafy.triplet.user.domain.User;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,7 +30,7 @@ public class Trip {
 	@JoinColumn(name = "user_id")//해당 유저의 userId를 외래키로 가져온다.
 	private User user;
 
-	@OneToMany(mappedBy = "trip")
+	@OneToMany(mappedBy = "trip", cascade = CascadeType.PERSIST)
 	private List<Payment> payments;
 
 	@Column(nullable = false)
@@ -70,6 +62,6 @@ public class Trip {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 
-	@OneToMany(mappedBy = "trip")
+	@OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Daily> dailies;
 }
