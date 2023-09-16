@@ -62,12 +62,7 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
           X
         </button>
       </nav>
-      <form
-        className="imgForm"
-        method="POST"
-        encType="multipart/form-data"
-        onSubmit={handleSubmit}
-      >
+      <form className="imgForm" method="POST" onSubmit={handleSubmit}>
         <section className="imgSec">
           <input
             type="file"

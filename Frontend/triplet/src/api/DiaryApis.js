@@ -39,12 +39,7 @@ export const makeNewTrip = ({ tripInfo }) => {
 export const uploadImage = ({ image, tripId, dailyId }) => {
   return axios.post(
     `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,
-    image,
-    {
-      headers: {
-        'Content-type': 'multipart/form-data',
-      },
-    }
+    image
   );
 };
 
@@ -55,7 +50,7 @@ export const uploadPayment = ({ payment, tripId, dailyId }) => {
 
 // 다이어리 날짜 수정
 export const modifyDate = ({ tripId, tripDate }) => {
-  const { startDate, endDate } = { tripDate };
+  const { startDate, endDate } = tripDate;
   return axios.post(`${PROXY}/api/trips/${tripId}`, { startDate, endDate });
 };
 
