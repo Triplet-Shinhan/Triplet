@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { applyExchange } from '../../api/ExchangeApis';
 import useGeolocation from 'react-hook-geolocation';
 import './Exchange.scss';
+import Loading from '../Loading/Loading';
 
 export default function Exchange() {
   const budget = [
@@ -128,7 +129,7 @@ export default function Exchange() {
   };
 
   if (isLoading || isloadingPlace) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (

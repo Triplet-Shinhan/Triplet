@@ -8,6 +8,7 @@ import { useDiaryApi } from '../../../context/DiaryApiContext';
 import { logoutUser } from '../../../api/BankAccountApis';
 import { useMutation } from '@tanstack/react-query';
 import './DiaryInto.scss';
+import Loading from '../../Loading/Loading';
 
 export default function DiaryInto() {
   // 쿠키 가져오기
@@ -38,6 +39,10 @@ export default function DiaryInto() {
   });
 
   useEffect(() => {}, [tripList]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

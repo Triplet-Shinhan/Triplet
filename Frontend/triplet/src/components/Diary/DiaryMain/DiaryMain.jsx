@@ -146,6 +146,8 @@ export default function DiaryMain() {
             <h2 className="infoH2">{tripInfo.prjName}</h2>
           </section>
           <section className="dashboard">
+            {console.log('dashboard')}
+            {console.log(tripData.dashboard)}
             <div className="dashText">Dashboard</div>
             <section className="boardArea">
               <section className="spentMoney">
@@ -167,7 +169,9 @@ export default function DiaryMain() {
                 </article>
               </section>
               <section className="restCash">
-                <div className="viewCurrency">$</div>
+                <div className="viewCurrency">
+                  {tripData.dashboard.currencySymbol}
+                </div>
                 <article>
                   <div className="moneyPart">
                     {makedot(tripData.dashboard.cash)}

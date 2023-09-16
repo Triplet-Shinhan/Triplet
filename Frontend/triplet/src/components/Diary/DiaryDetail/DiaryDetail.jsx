@@ -50,7 +50,6 @@ export default function DiaryDetail() {
     isLoading,
     error,
     data: expendList,
-    refetch,
   } = useQuery(
     ['diaryDetail'],
     () => diary.getExpendList({ tripId, dailyId }),
@@ -119,12 +118,13 @@ export default function DiaryDetail() {
             {tempImg === '' ? (
               <div className="noImage">업로드된 이미지가 없습니다.</div>
             ) : (
-              <img className="imgSrc" src={tempImg} />
+              <img className="imgSrc" src={tempImg} alt="이미지" />
             )}
             <button className="modifyBtn" onClick={showImgModal}>
               <img
                 className="modifyImg"
                 src="../../../assets/icons/modify.png"
+                alt="수정버튼"
               />
             </button>
           </section>
