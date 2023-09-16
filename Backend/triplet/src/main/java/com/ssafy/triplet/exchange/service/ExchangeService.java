@@ -106,7 +106,7 @@ public class ExchangeService {
             Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(100-Float.parseFloat(prefRate))/100;
 
             // 환율 설정
-            ed.setExchangeRate(String.valueOf(Math.round(realRate*100)/100.0));
+            ed.setExchangeRate(String.valueOf(realRate));
 
             exchangeList.add(ed);
         }
