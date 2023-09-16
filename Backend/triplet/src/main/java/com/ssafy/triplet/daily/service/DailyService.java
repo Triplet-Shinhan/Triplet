@@ -60,7 +60,7 @@ public class DailyService {
             DailyDto dailyDto = new DailyDto();
             dailyDto.setDailyId(daily.getDailyId());
             dailyDto.setDate(daily.getDate());
-            dailyDto.setImageUrl(null);//S3 활용하기
+            dailyDto.setImageUrl(daily.getImageUrl());
             dailyDto.setSum(dailyUtility.getDailyExpenditure(rate, daily));
             dtoList.add(dailyDto);
         }
