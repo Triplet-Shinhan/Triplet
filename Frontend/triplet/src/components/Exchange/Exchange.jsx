@@ -36,7 +36,7 @@ export default function Exchange() {
 
   // userName 가져오기
   const userName = decodeURI(getCookie('name'));
-  const exchange = useExchangeApi();
+  const { exchange } = useExchangeApi();
 
   // 서버에서 환전 메인화면 가져오기
   const {
@@ -53,9 +53,7 @@ export default function Exchange() {
     console.log(exchangeForm);
   };
 
-  useEffect(() => {
-    console.log(rateData);
-  }, [rateData]);
+  useEffect(() => {}, [rateData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

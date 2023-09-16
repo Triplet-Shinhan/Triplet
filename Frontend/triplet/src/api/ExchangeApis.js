@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
 
 export default class Exchange {
