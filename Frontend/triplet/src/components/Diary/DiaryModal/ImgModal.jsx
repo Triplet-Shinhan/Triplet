@@ -28,6 +28,9 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      `imageSrc: ${imageSrc}, tripId: ${tripId}, dailyId: ${dailyId}`;
+    )
     updateImg.mutate({ imageSrc, tripId, dailyId });
   };
 

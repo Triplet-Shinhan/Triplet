@@ -27,13 +27,13 @@ export const ExpendModal = ({ setModalOpen, tripId, dailyId }) => {
   const [payment, setPayment] = useState({
     item: '',
     cost: '',
-    foreignCurrency: '',
     date: '',
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(payment);
+    closeModal();
     updatePayment.mutate({ payment, tripId, dailyId });
   };
 
