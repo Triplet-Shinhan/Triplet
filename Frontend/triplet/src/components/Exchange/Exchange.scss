@@ -38,8 +38,12 @@
     .intro {
       display: flex;
       font-size: 2.5rem;
+      .hello {
+        margin-right: 1vw;
+      }
       img {
         width: 5vw;
+        margin-top: -3vh;
       }
     }
     .exRate,
@@ -128,6 +132,18 @@
       div {
         color: var(--color-bg);
         font-size: 1.5rem;
+      }
+      .visited {
+        display: inline-block;
+        margin-top: 2vh;
+        width: 12vw;
+        font-size: 2rem;
+        text-align: center;
+        height: 6vh;
+        line-height: 6vh;
+      }
+      .Atm {
+        margin-right: 1vw;
       }
     }
 

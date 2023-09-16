@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getCookie } from '../../api/cookie';
 import { useExchangeApi } from '../../context/ExchangeApiContext';
 import { useQuery } from '@tanstack/react-query';
@@ -28,10 +28,10 @@ export default function Exchange() {
   ];
 
   const [exchangeForm, setExchangeForm] = useState({
-    exchangeRate: '',
-    expectedMoney: '',
-    getDate: '',
-    phoneNum: '',
+    currency: 'USD',
+    amount: '',
+    receiptDate: '',
+    receiveWay: '',
   });
 
   // userName 가져오기
@@ -46,10 +46,16 @@ export default function Exchange() {
   } = useQuery(['ExchangeMain'], () => exchange.viewExchangeMain(), {
     staleTime: 1000 * 6 * 5,
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExchangeForm((info) => ({ ...info, [name]: value }));
+    console.log(exchangeForm);
   };
+
+  useEffect(() => {
+    console.log(rateData);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,26 +70,23 @@ export default function Exchange() {
         <form action="POST" className="exchangeForm" onSubmit={handleSubmit}>
           <section className="accountInfo">
             <section className="intro">
-              <span>안녕하세요</span>
+              <span className="hello">안녕하세요</span>
               <span>{userName}님</span>
               <img src="../../../assets/icons/sol.png" alt="sol logo" />
             </section>
             <section className="exRate">
-              <label htmlFor="exRate">신한 해커톤님의 우대율</label>
-              <input
-                type="text"
-                id="exRate"
-                name="exchangeRate"
-                className="exchangeRate"
-                placeholder="0"
-                value={exchangeForm.exchangeRate}
-                onChange={handleChange}
-              />
+              <div>신한 해커톤님의 우대율</div>
+              <div>{}</div>
             </section>
             <section className="exMoney">
-              <label>환전금액</label>
+              <label htmlFor="currency">환전금액</label>
               <section className="exOption">
-                <select>
+                <select
+                  value={exchangeForm.currency}
+                  name="currency"
+                  id="currency"
+                  required
+                >
                   {budget.map((v) => (
                     <option>{v}</option>
                   ))}
@@ -91,8 +94,8 @@ export default function Exchange() {
                 <input
                   type="number"
                   placeholder="수기 입력"
-                  value={exchangeForm.expectedMoney}
-                  name="expectedMoney"
+                  value={exchangeForm.amount}
+                  name="amount"
                   className="expectedMoney"
                   onChange={handleChange}
                   required
@@ -103,7 +106,7 @@ export default function Exchange() {
                 <span className="koreaMoney">KWD</span>
                 {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
                 <span className="changedMoney">
-                  {exchangeForm.expectedMoney === ''
+                  {exchangeForm.amount === ''
                     ? '원화 예상 금액'
                     : exchangeForm.exchangeMoney}
                 </span>
@@ -114,35 +117,28 @@ export default function Exchange() {
             <section className="pickPlace">
               <div>외화수령 영업점 선택</div>
             </section>
-            <section className="howToGet">
+            <section
+              className="howToGet"
+              value={exchangeForm.receiveWay}
+              onChange={handleChange}
+            >
               <div>수령방법</div>
-              <label htmlFor="atm" className="visited">
+              <label htmlFor="atm" className="visited Atm">
                 ATM
-                <input type="radio" id="atm" name="way" />
+                <input type="radio" id="atm" name="receiveWay" value="1" />
               </label>
               <label htmlFor="visited" className="visited">
                 영업점 방문
-                <input type="radio" id="visited" name="way" />
+                <input type="radio" id="visited" name="receiveWay" value="2" />
               </label>
             </section>
             <section className="getDate">
-              <label htmlFor="getDate">수령일</label>
+              <label htmlFor="receiptDate">수령일</label>
               <input
                 type="date"
-                id="getDate"
-                name="getDate"
-                value={exchangeForm.getDate}
-                onChange={handleChange}
-              />
-            </section>
-            <section className="phoneNum">
-              <label htmlFor="phoneNum">전화번호</label>
-              <input
-                type="text"
-                id="phoneNum"
-                name="phoneNum"
-                placeholder="010-0000-0000"
-                value={exchangeForm.phoneNum}
+                id="receiptDate"
+                name="receiptDate"
+                value={exchangeForm.receiptDate}
                 onChange={handleChange}
               />
             </section>

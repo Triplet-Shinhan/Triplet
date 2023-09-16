@@ -3,7 +3,13 @@ import './DiaryFractal.scss';
 import { useNavigate } from 'react-router-dom';
 
 // 다이어리 조각 작은거
-export default function DiaryFractal({ date, tripId, isValid, dailyInfo }) {
+export default function DiaryFractal({
+  date,
+  tripId,
+  isValid,
+  day,
+  dailyInfo,
+}) {
   const navigate = useNavigate();
   console.log(dailyInfo);
 

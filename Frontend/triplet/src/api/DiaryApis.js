@@ -63,5 +63,5 @@ export const modifyDate = ({ tripId, tripDate }) => {
 
 // 다이어리 삭제
 export const deleteProject = ({ tripId }) => {
-  return axios.delete(`${PROXY}/api/${tripId}`);
+  return axios.delete(`${PROXY}/api/trips/${tripId}`);
 };

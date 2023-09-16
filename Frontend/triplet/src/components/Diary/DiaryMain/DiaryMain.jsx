@@ -41,8 +41,6 @@ export default function DiaryMain() {
   };
 
   useEffect(() => {
-    sessionStorage.getItem('user_id');
-
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
@@ -54,6 +52,7 @@ export default function DiaryMain() {
         date={putDate(tripStart, index)}
         tripId={tripId}
         isValid={isValid}
+        day={dayNum + 1}
         dailyInfo={
           isValid && tripData !== undefined && tripData.dailies[dayNum++]
         }
