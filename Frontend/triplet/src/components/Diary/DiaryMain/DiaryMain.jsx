@@ -37,15 +37,11 @@ export default function DiaryMain() {
   );
 
   useEffect(() => {
-    console.log('tripInfo');
-    console.log(tripInfo);
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
     spaceDate =
       (new Date(tripEnd) - new Date(tripStart)) / (1000 * 60 * 60 * 24);
     let dayNum = 0;
-    console.log('tripData');
-    console.log(tripData);
     const fractals = Array.from({ length: spaceDate + 1 }, (_, index) => (
       <DiaryFractal
         key={index}
@@ -61,7 +57,6 @@ export default function DiaryMain() {
         }
       />
     ));
-    console.log(tripData);
     setDiaryFractals(fractals);
   }, [tripId, isLoading, tripData]);
 

@@ -39,7 +39,6 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId, onImageUpload }) => {
     {
       onSuccess: (data) => {
         alert('업로드 완료');
-        console.log(data);
         closeModal();
 
         onImageUpload(data);

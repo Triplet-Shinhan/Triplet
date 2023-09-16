@@ -7,7 +7,6 @@ import './Expend.scss';
 import { useState } from 'react';
 
 export default function Expend({ expendInfo, tripId, dailyId, onDataChange }) {
-  console.log(expendInfo);
   const { item, cost, date, method, paymentId } = expendInfo;
 
   const [expendModifyModalOpen, setExpendModifyModalOpen] = useState(false);

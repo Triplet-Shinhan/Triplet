@@ -117,14 +117,10 @@ export default function Exchange() {
     }
   );
 
-  useEffect(() => {
-    console.log(locations);
-  }, [rateData, locations]);
+  useEffect(() => {}, [rateData, locations]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`exchangeForm `);
-    console.log(exchangeForm);
     viewExchange.mutate();
   };
 
@@ -182,9 +178,7 @@ export default function Exchange() {
                 <span className="changedMoney">
                   {exchangeForm.amount === ''
                     ? '원화 예상 금액'
-                    : exchangeForm.amount *
-                      rateInfo.preferentialRate *
-                      rateInfo.exchangeRate}
+                    : exchangeForm.amount * rateInfo.exchangeRate}
                 </span>
               </section>
             </section>
