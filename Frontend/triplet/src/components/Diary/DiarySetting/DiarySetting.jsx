@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './DiarySetting.scss';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { modifyDate, deleteProject } from '../../../api/DiaryApis';
 
 export default function DiarySetting() {
-  const [tripDate, setTripDate] = useState({ startDate: '', endDate: '' });
+  const [tripDate, setTripDate] = useState({ endDate: '' });
   const navigate = useNavigate();
   const { tripId } = useParams();
+  const startDate = useLocation().state;
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -66,26 +67,16 @@ export default function DiarySetting() {
               <section className="modifyTrip">
                 <div>여행기간 수정</div>
                 <p>여행 기간 변경을 할 수 있습니다.</p>
-                <p>
-                  여행 시작 전이라면 모두 변경 가능하지만, <br />
-                  시작한 후라면 끝나는 날짜만 변경 가능합니다.
-                </p>
+                <p>여행 종료 날짜를 수정할 수 있습니다.</p>
               </section>
               <div className="modifyBtnArea">
                 <section className="modifyDate">
-                  <input
-                    className="startDate"
-                    type="date"
-                    name="startDate"
-                    value={tripDate.startDate}
-                    onChange={handleChange}
-                    required
-                  />
                   <input
                     type="date"
                     name="endDate"
                     value={tripDate.endDate}
                     onChange={handleChange}
+                    min={startDate}
                     required
                   />
                 </section>
