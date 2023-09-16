@@ -104,8 +104,9 @@ public class ExchangeService {
             if(prefRate == null)prefRate="0";
             //우대율 연산
             Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(100-Float.parseFloat(prefRate))/100;
+
             // 환율 설정
-            ed.setExchangeRate(String.valueOf(realRate));
+            ed.setExchangeRate(String.valueOf(Math.round(realRate*100)/100.0));
 
             exchangeList.add(ed);
         }
