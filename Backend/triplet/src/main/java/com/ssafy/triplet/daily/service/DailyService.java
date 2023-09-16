@@ -47,6 +47,7 @@ public class DailyService {
         //프로젝트 ID를 찾을 수 없을 경우 에러
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
         Long userId = trip.getUser().getUserId();
+        Float rate = trip.getFixedRate();
         //접근 권한 확인
         if (!loginUser.getUserId().equals(userId)) {
             throw new BaseException(ErrorCode.NOT_AUTHORIZED);
@@ -60,27 +61,33 @@ public class DailyService {
             dailyDto.setDailyId(daily.getDailyId());
             dailyDto.setDate(daily.getDate());
             dailyDto.setImageUrl(null);//S3 활용하기
-            dailyDto.setSum(dailyUtility.getDailyExpenditure(daily));
+            dailyDto.setSum(dailyUtility.getDailyExpenditure(rate, daily));
             dtoList.add(dailyDto);
         }
         return dtoList;
     }
 
-    public List<PaymentDto> getPayments(Long dailyId) {
+    public List<PaymentDto> getPayments(Long tripId, Long dailyId) {
+        Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(ErrorCode.TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
+        Float rate = trip.getFixedRate();
         List<Payment> payments = daily.getPayments();
         if (payments == null) {
             throw new BaseException(ErrorCode.NULL_ERROR);
         }
         List<PaymentDto> paymentDtoList = new ArrayList<>();
         for (Payment payment : payments) {
-            PaymentDto paymentDto = PaymentDto.builder()
-                    .paymentId(payment.getPaymentId())
-                    .item(payment.getItem())
-                    .cost(payment.getCost())
-                    .date(payment.getDate())
-                    .method(payment.getMethod())
-                    .build();
+            PaymentDto paymentDto = new PaymentDto();
+            paymentDto.setPaymentId(payment.getPaymentId());
+            paymentDto.setItem(payment.getItem());
+            String method = payment.getMethod();
+            if (method.equals("cash")) {
+                paymentDto.setCost((long) (payment.getCost() * rate));
+            } else if (method.equals("card")) {
+                paymentDto.setCost(payment.getCost());
+            }
+            paymentDto.setDate(payment.getDate());
+            paymentDto.setMethod(method);
             paymentDtoList.add(paymentDto);
         }
         return paymentDtoList;
@@ -98,7 +105,7 @@ public class DailyService {
     public Optional<String> deleteImageUrlFromDb(Long dailyId) {
         Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
         String url = daily.getImageUrl();
-        if(url == null) {
+        if (url == null) {
             throw new BaseException(ErrorCode.IMAGE_DELETE_ERROR);
         }
         daily.setImageUrl(null);

@@ -42,7 +42,7 @@ public class DailyController {
     @GetMapping("/{tripId}/dailies/{dailyId}")
     public ResponseEntity<List<PaymentDto>> readDaily(@PathVariable Long tripId, @PathVariable Long dailyId, HttpServletRequest request) {
         userValidation.checkDailyValid(dailyId, request);//검증
-        List<PaymentDto> payments = dailyService.getPayments(dailyId);
+        List<PaymentDto> payments = dailyService.getPayments(tripId, dailyId);
         return ResponseEntity.ok(payments);
     }
 

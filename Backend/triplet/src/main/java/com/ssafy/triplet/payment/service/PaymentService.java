@@ -38,14 +38,13 @@ public class PaymentService {
     public void createPayment(PaymentReqDto reqDto, User user) {
         Trip trip = tripRepository.findById(reqDto.getTripId()).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
         Daily daily = dailyRepository.findById(reqDto.getDailyId()).orElseThrow(() -> new BaseException(PAYMENT_ID_NOT_FOUND));
-        Long cost = (long)(Math.ceil(trip.getFixedRate()*reqDto.getCost()));
         LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
         //payment 객체 생성
         Payment payment = Payment.builder()
                 .trip(trip)
                 .daily(daily)
                 .item(reqDto.getItem())
-                .cost(cost)
+                .cost(reqDto.getCost())
                 .date(paymentTime)
                 .method("cash")
                 .build();
@@ -58,10 +57,9 @@ public class PaymentService {
         Trip trip = payment.getTrip();
         Daily daily = payment.getDaily();
         LocalDateTime paymentTime = LocalDateTime.of(daily.getDate() ,reqDto.getDate());
-        Long cost = (long)(Math.ceil(trip.getFixedRate()*reqDto.getCost()));
 
         //payment 객체 생성
-        payment.setCost(cost);
+        payment.setCost(reqDto.getCost());
         payment.setDate(paymentTime);
         payment.setItem(reqDto.getItem());
 
@@ -101,7 +99,7 @@ public class PaymentService {
 
         //카드지출중 가장 최신값 찾기
         for (Payment payment : payments) {
-            if (lastDateTime.isAfter(payment.getDate()) && payment.getMethod().equals("Card")) {//신한 체크 사용
+            if (lastDateTime.isAfter(payment.getDate()) && payment.getMethod().equals("card")) {//신한 체크 사용
                 lastDateTime = payment.getDate();
             }
         }
@@ -130,7 +128,7 @@ public class PaymentService {
                         .date(apiDateTime)
                         .daily(now)
                         .trip(trip)
-                        .method("Card")
+                        .method("card")
                         //.foreignCurrency("WON")
                         .item(data.getContent())
                         .build();
