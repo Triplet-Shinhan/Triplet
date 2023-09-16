@@ -93,10 +93,10 @@ export default function DiaryMain() {
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: () => {
+      navigate('/login');
       sessionStorage.removeItem('user_id');
       removeCookie('name');
       removeCookie('JSESSIONID');
-      navigate('/login');
     },
     onError: () => {
       console.log(error);
