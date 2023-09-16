@@ -167,14 +167,15 @@ export default function Exchange() {
             <section className="personalInfo">
               <section className="pickPlace">
                 <div>외화수령 영업점 선택</div>
-                {locations.dataList.map((v) => (
-                  <ul>
-                    <li>
-                      <div>{v.branchName}</div>
-                      <div>{v.address}</div>
-                    </li>
-                  </ul>
-                ))}
+                {locations.dataList &&
+                  locations.dataList.map((v) => (
+                    <ul>
+                      <li>
+                        <div>{v.branchName}</div>
+                        <div>{v.address}</div>
+                      </li>
+                    </ul>
+                  ))}
               </section>
               <section
                 className="howToGet"
