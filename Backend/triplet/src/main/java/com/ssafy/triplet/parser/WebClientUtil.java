@@ -165,7 +165,6 @@ public class WebClientUtil {
                 .bodyToMono(ExchangeRateResDto.class)
                 .block();
 
-        //에러처리
 
         return exchangeRateResDto.getDataBody().getExchangeRateList();
     }
