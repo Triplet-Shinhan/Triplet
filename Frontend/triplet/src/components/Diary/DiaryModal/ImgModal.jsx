@@ -37,6 +37,7 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
       onSuccess: (data) => {
         alert('업로드 완료');
         console.log(data);
+        closeModal();
       },
     }
   );

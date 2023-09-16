@@ -45,7 +45,14 @@ export const uploadImage = ({ image, tripId, dailyId }) => {
 
 // 지출 내역 업로드
 export const uploadPayment = ({ payment, tripId, dailyId }) => {
-  return axios.post(`${PROXY}/api/payment`, { payment, tripId, dailyId });
+  const { item, cost, date } = payment;
+  return axios.post(`${PROXY}/api/payments`, {
+    item,
+    cost,
+    date,
+    tripId,
+    dailyId,
+  });
 };
 
 // 다이어리 날짜 수정
@@ -56,5 +63,5 @@ export const modifyDate = ({ tripId, tripDate }) => {
 
 // 다이어리 삭제
 export const deleteProject = ({ tripId }) => {
-  return axios.post(`${PROXY}/api/${tripId}`);
+  return axios.delete(`${PROXY}/api/${tripId}`);
 };
