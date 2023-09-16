@@ -5,6 +5,7 @@ import { uploadImage } from '../../../api/DiaryApis';
 
 export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
   const [image, setImageSrc] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -28,11 +29,12 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateImg.mutate({ image, tripId, dailyId });
+    updateImg.mutate({ imageFile, tripId, dailyId });
   };
 
   const updateImg = useMutation(
-    ({ image, tripId, dailyId }) => uploadImage({ image, tripId, dailyId }),
+    ({ imageFile, tripId, dailyId }) =>
+      uploadImage({ imageFile, tripId, dailyId }),
     {
       onSuccess: (data) => {
         alert('업로드 완료');
@@ -44,6 +46,8 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId }) => {
 
   const onUpload = (e) => {
     const file = e.target.files[0];
+    setImageFile(file);
+
     const render = new FileReader();
     render.readAsDataURL(file);
 

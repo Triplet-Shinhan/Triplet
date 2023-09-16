@@ -36,10 +36,14 @@ export const makeNewTrip = ({ tripInfo }) => {
 };
 
 // 이미지 업로드
-export const uploadImage = ({ image, tripId, dailyId }) => {
+export const uploadImage = ({ imageFile, tripId, dailyId }) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
   return axios.post(
     `${PROXY}/api/trips/${tripId}/dailies/${dailyId}/images`,
-    image
+    formData,
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
 };
 
