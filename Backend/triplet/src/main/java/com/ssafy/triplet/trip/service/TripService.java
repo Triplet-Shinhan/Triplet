@@ -98,9 +98,10 @@ public class TripService {
         trip.setBudget(tripDto.getBudget());
         trip.setExchangedBudget(tripDto.getExchangedBudget());
         trip.setUsedBudget(0L);
-        String currency = tripDto.getCurrency().substring(0, 3);//환율
-        trip.setCurrency(currency);
-        trip.setFixedRate(exchangeUtil.getExchangeRateByCurrencyCode(currency));//현재 환율 가져오기
+        String currency = tripDto.getCurrency();//화폐종류
+        String currencyCode = currency.substring(currency.length() - 4, currency.length() - 1);//통화코드만 추출
+        trip.setCurrency(currencyCode);
+        trip.setFixedRate(exchangeUtil.getExchangeRateByCurrencyCode(currencyCode));//현재 환율 가져오기
         trip.setStartDate(tripDto.getStartDate());
         trip.setEndDate(tripDto.getEndDate());
         return trip;

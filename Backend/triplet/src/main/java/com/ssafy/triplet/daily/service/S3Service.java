@@ -34,9 +34,6 @@ public class S3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String S3Bucket; // Bucket 이름
 
-	@Value("${daily-path}")
-	private String imageDir; // 저장할 폴더 이름
-
 	private final DailyRepository dailyRepository;
 
 	public String uploadImage(MultipartFile multipartFile) throws IOException {
@@ -78,7 +75,7 @@ public class S3Service {
 
 	public String createFileName(String originalFileName) {
 		String type = originalFileName.substring(originalFileName.lastIndexOf("."));
-		return imageDir + "/" + UUID.randomUUID().toString().concat(type);
+		return UUID.randomUUID().toString().concat(type);
 	}
 
 	public void verifyFileType(String type) {

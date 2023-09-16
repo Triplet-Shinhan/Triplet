@@ -1,9 +1,5 @@
 package com.ssafy.triplet.daily.controller;
 
-import com.ssafy.triplet.user.domain.User;
-import com.ssafy.triplet.user.util.UserUtility;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpCookie;
 import com.ssafy.triplet.daily.dto.DailyDto;
 import com.ssafy.triplet.daily.dto.PaymentDto;
 import com.ssafy.triplet.daily.response.DailiesResponse;
@@ -11,6 +7,9 @@ import com.ssafy.triplet.daily.response.DailyResponse;
 import com.ssafy.triplet.daily.response.ImageUrlResponse;
 import com.ssafy.triplet.daily.service.DailyService;
 import com.ssafy.triplet.daily.service.S3Service;
+import com.ssafy.triplet.user.domain.User;
+import com.ssafy.triplet.user.util.UserUtility;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
