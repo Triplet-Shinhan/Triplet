@@ -60,6 +60,16 @@ export default function DiaryDetail() {
     console.log(tempImg);
   }, [isChecked]);
 
+  useEffect(() => {
+    console.log(`isChecked` + isChecked);
+    if (!isChecked) {
+      if (dailyInfo.imageData === undefined) {
+        setTempImg("");
+      } else setTempImg(dailyInfo.imageData);
+    }
+    console.log(tempImg);
+  }, [isChecked]);
+
   return (
     dailyInfo && (
       <div className="diaryDetailPage">
