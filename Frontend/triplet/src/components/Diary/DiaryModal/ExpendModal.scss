@@ -1,0 +1,78 @@
+.expendContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  width: 30vw;
+  height: 70vh;
+  margin-top: -35vh;
+  margin-left: -15vw;
+  border: 1px solid var(--color-divide);
+  background-color: var(--color-text-white);
+  border-radius: 5px;
+
+  .expendNav {
+    display: flex;
+    justify-content: space-between;
+    padding: 2vw;
+
+    .expendHeader,
+    .deleteModal {
+      font-size: 2.5rem;
+      font-weight: 600;
+      padding-left: 1vw;
+    }
+    .deleteModal:hover {
+      cursor: pointer;
+    }
+  }
+
+  .expendMain {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    margin-left: 3vw;
+
+    .expendLabel {
+      margin-top: 2vh;
+    }
+    .expendInput {
+      height: 3vh;
+      width: 13vw;
+      margin-top: 1vh;
+      padding: 0.2vw;
+      padding-left: 0.5vw;
+      font-size: 1.2rem;
+    }
+
+    .cashOpt {
+      background-color: var(--color-bg);
+      color: var(--color-text-white);
+      font-weight: 600;
+      padding: 0.4vw 0.4vw;
+      line-height: 3vh;
+      text-align: center;
+      border-radius: 3px;
+      width: 4vw;
+      font-size: 1rem;
+      height: 3vh;
+      margin-top: 1vh;
+    }
+
+    .addBtn {
+      align-self: flex-end;
+      background-color: var(--color-bg);
+      color: var(--color-text-white);
+      font-weight: 600;
+      padding: 0.4vw 0.4vw;
+      line-height: 2.5vh;
+      border-radius: 3px;
+      width: 5vw;
+      font-size: 1rem;
+      height: 4vh;
+      margin-right: 2vw;
+    }
+  }
+}

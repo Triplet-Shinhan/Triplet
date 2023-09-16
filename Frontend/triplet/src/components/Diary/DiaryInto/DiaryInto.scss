@@ -1,0 +1,126 @@
+// 헤더부분
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .diaryInH1 {
+    margin-left: 100px;
+    padding-top: 5vh;
+    font-size: 2.5rem;
+  }
+
+  .diaryInH2 {
+    font-size: 3rem;
+    margin-left: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .logoArea {
+    margin-right: 100px;
+
+    .logout {
+      margin-right: 2vw;
+      button {
+        font-size: 1.5rem;
+        width: 7vw;
+        height: 6vh;
+        font-weight: 600;
+        background-color: var(--color-bg);
+        color: var(--color-text-white);
+      }
+    }
+  }
+}
+
+// 전체 프로젝트
+.tripInto {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .tripInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    nav {
+      width: 9vw;
+      height: 7vh;
+      background-color: var(--color-bg);
+      text-align: center;
+      line-height: 7vh;
+      font-size: 2rem;
+      font-weight: 600;
+      border-radius: 20px 20px 0 0;
+      z-index: 100;
+    }
+
+    .tripList {
+      width: 50vw;
+      height: 60vh;
+      margin-top: -3vh;
+      background-color: var(--color-text-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-radius: 20px;
+      align-items: center;
+      overflow-y: scroll;
+
+      button {
+        font-size: 2rem;
+        color: var(--color-input-text);
+      }
+    }
+    .empty {
+      justify-content: center;
+    }
+  }
+  /* 수직 스크롤바를 스타일링합니다 */
+  .tripInfo::-webkit-scrollbar {
+    width: 12px; /* 스크롤바의 너비 조절 */
+  }
+
+  .tripInfo::-webkit-scrollbar-track {
+    background: var(--color-text-white); /* 스크롤바 트랙 배경색 */
+  }
+
+  .tripInfo::-webkit-scrollbar-thumb {
+    background: var(--color-bg); /* 스크롤바 썸 배경색 */
+    border-radius: 6px; /* 스크롤바 썸의 모서리를 둥글게 만듭니다 */
+  }
+}
+
+// 오른쪽 버튼 2개
+.goBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30vw;
+  height: 20vh;
+  background-color: var(--color-text-white);
+  border-radius: 20px;
+  border: none;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 5vh;
+
+  span {
+    flex-grow: 2;
+    background-color: var(--color-text-white);
+  }
+
+  .next {
+    width: 3vw;
+    height: 18vh;
+    background-color: var(--color-point-pink);
+    border-radius: 0 15px 15px 0;
+    margin-right: 0.5vw;
+  }
+
+  .yellow {
+    background-color: var(--color-point-yellow);
+  }
+}

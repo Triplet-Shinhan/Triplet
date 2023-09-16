@@ -1,0 +1,168 @@
+.diaryLogo {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  img {
+    width: 4vw;
+  }
+  div {
+    padding-left: 1vw;
+    font-family: var(--font-logo);
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+}
+
+.settings {
+  width: 23vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  div {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .logout {
+    font-size: 1.5rem;
+    width: 7vw;
+    height: 6vh;
+    font-weight: 600;
+    background-color: var(--color-bg);
+    color: var(--color-text-white);
+  }
+
+  .settingBtn {
+    background: none;
+  }
+
+  img {
+    width: 3vw;
+    margin-right: 2vw;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
+}
+
+.moneyArea {
+  display: flex;
+  justify-content: space-between;
+
+  .infoArea {
+    margin-left: 5vw;
+    .infoH1 {
+      font-size: 1.5rem;
+    }
+    .infoH2 {
+      margin-top: 1vh;
+      font-size: 2.5rem;
+    }
+  }
+
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin-right: 5vw;
+
+    .dashText {
+      text-transform: uppercase;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1vh;
+    }
+    .boardArea {
+      display: flex;
+      justify-content: space-between;
+      height: 15vh;
+
+      .spentMoney,
+      .restMoney,
+      .restCash {
+        display: flex;
+        width: 16vw;
+        border-radius: 20px;
+        background-color: var(--color-point-pink);
+        display: flex;
+        align-items: center;
+      }
+
+      .restMoney {
+        background-color: var(--color-bg);
+      }
+
+      .restCash {
+        background-color: var(--color-point-yellow);
+      }
+
+      .viewCurrency {
+        width: 4vw;
+        height: 7.5vh;
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 7.5vh;
+        background-color: var(--color-text-white);
+        margin: 0 1vw;
+      }
+      .moneyPart {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .moneyDesc {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 10px;
+      }
+    }
+  }
+}
+
+.calArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .calHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 91vw;
+    border-radius: 10px 10px 0 0;
+    margin-top: 3vh;
+    height: 6vh;
+    line-height: 6.5vh;
+    li {
+      width: 11.9vw;
+      text-align: end;
+      color: var(--color-text-white);
+      font-size: 2.5rem;
+      font-weight: 600;
+      padding-right: 1vw;
+      background-color: var(--color-bg);
+    }
+    .calLiSUN {
+      border-radius: 10px 0 0 0;
+    }
+    .calLiSAT {
+      border-radius: 0 10px 0 0;
+    }
+  }
+
+  .calSelection {
+    display: flex;
+    flex-wrap: wrap;
+    width: 91vw;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+  }
+}

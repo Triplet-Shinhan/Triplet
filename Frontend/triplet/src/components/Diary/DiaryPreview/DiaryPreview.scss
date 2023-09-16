@@ -1,0 +1,39 @@
+.diaryPreview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-weight: 700;
+  padding-top: 8vh;
+  width: 90%;
+
+  .diaryInfo {
+    display: flex;
+    flex-direction: column;
+
+    .tripLoca {
+      font-size: 1.5rem;
+    }
+
+    .tripName {
+      font-size: 2.5rem;
+    }
+
+    .tripDate {
+      font-size: 1rem;
+    }
+  }
+
+  .diaryIcons {
+    .airplane {
+      width: 6vw;
+      padding: 1vw;
+      background-color: var(--color-bg-gray);
+      border-radius: 50%;
+    }
+  }
+}
+
+.diaryPreview:hover {
+  cursor: pointer;
+}

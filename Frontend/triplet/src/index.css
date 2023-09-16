@@ -1,3 +1,34 @@
+:root {
+  --color-bg: #87a1fd;
+  --color-bg-gray: #f4f1f1;
+  --color-text-white: #fdfdfd;
+  --color-text-black: #010101;
+  --color-input-text: #b9b5b5;
+  --color-point-pink: #ffb4b4;
+  --color-point-yellow: #fdea87;
+  --color-point-warning: #ff3f3f;
+  --color-divide: #868484;
+  --font-logo: 'Montserrat', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--color-text-black);
+  list-style-type: none;
+}
+
+button {
+  border: none;
+  background-color: #fdfdfd;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +36,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-gray);
 }
 
 code {

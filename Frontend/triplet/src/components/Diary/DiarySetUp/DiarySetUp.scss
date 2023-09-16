@@ -1,0 +1,140 @@
+@mixin diaryForm {
+  position: absolute;
+  width: 70vw;
+  height: 50vh;
+  top: 50%;
+  left: 50%;
+  margin-top: -25vh;
+  margin-left: -35vw;
+}
+
+@mixin boardingForm {
+  height: 8vh;
+  text-transform: uppercase;
+  background-color: var(--color-bg);
+  line-height: 8vh;
+  font-size: 1.5rem;
+  padding-left: 2vw;
+  font-weight: 700;
+  color: var(--color-text-white);
+  border-radius: 0 0 20px 20px;
+}
+
+.diarySetupMain {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  .diaryH1 {
+    margin-left: 5vw;
+    margin-top: 0;
+    padding-top: 5vh;
+  }
+  .diaryH2 {
+    margin-left: 5vw;
+    margin-top: 2vh;
+  }
+  .airplaneLogo {
+    position: absolute;
+    z-index: 600;
+    width: 6vw;
+    height: 5vh;
+    top: 69%;
+    left: 29%;
+  }
+}
+.diaryForm {
+  @include diaryForm;
+  z-index: 200;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: var(--color-text-white);
+  border-radius: 20px;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-text-white);
+  }
+
+  .logoArea {
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 8vh;
+    margin-right: 2vw;
+    padding-top: 1.5vh;
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    figcaption {
+      font-family: var(--font-logo);
+      line-height: 3.5rem;
+      margin-left: 0.5vw;
+    }
+  }
+
+  label,
+  input,
+  select,
+  button {
+    width: 20vw;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    border-radius: 5px;
+    border: 2px solid var(--color-input-text);
+    padding: 7px;
+    font-size: 1rem;
+    margin-top: 1vh;
+    width: 15vw;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+
+  .makeDiary {
+    width: 6vw;
+    height: 4vh;
+    border-radius: 5px;
+    background-color: var(--color-bg);
+    line-height: 4vh;
+    color: var(--color-text-white);
+    margin-left: 10vw;
+    align-items: flex-end;
+    margin-left: 51vw;
+  }
+
+  .boardingArea {
+    width: 100%;
+    align-self: flex-end;
+    @include boardingForm;
+  }
+}
+
+.backgroundForm {
+  @include diaryForm;
+  z-index: 100;
+  rotate: -20deg;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: var(--color-text-white);
+  border-radius: 20px;
+
+  .backgroundFooter {
+    @include boardingForm;
+  }
+}

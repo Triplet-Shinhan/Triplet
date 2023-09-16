@@ -1,0 +1,177 @@
+.diaryDetailPage {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailHeader {
+  width: 10vw;
+  height: 94vh;
+  margin-top: 3vh;
+  margin-left: 1.5vw;
+  background-color: var(--color-bg);
+  border-radius: 50px 20px 20px 50px;
+
+  .detailName {
+    font-size: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    color: var(--color-text-white);
+    margin-top: 6vh;
+    font-family: var(--color-logo);
+  }
+}
+
+.detailMain {
+  display: flex;
+  width: 85vw;
+
+  .expendSec {
+    display: flex;
+    width: 96vh;
+    flex-direction: column;
+    margin-top: 3vh;
+
+    .loginSec {
+      margin-right: 6vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 5vh;
+
+      .userName {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-right: 1vw;
+      }
+
+      .logout {
+        color: var(--color-text-white);
+        font-weight: 600;
+        width: 6vw;
+        background-color: var(--color-bg);
+        font-size: 1.3rem;
+        height: 5vh;
+      }
+    }
+
+    .viewSec {
+      display: flex;
+      justify-content: space-between;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-right: 6vw;
+      margin-left: 1vw;
+      margin-bottom: 3vh;
+
+      .viewDate {
+        display: flex;
+        .viewStart {
+          margin-right: 3vw;
+        }
+        .viewDay {
+          margin-right: 1vw;
+        }
+      }
+    }
+    .eachSec {
+      background-color: var(--color-text-white);
+      border-radius: 40px;
+      width: 45vw;
+      height: 60vh;
+      overflow-y: scroll;
+    }
+
+    .tripInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      nav {
+        width: 9vw;
+        height: 7vh;
+        background-color: var(--color-bg);
+        text-align: center;
+        line-height: 7vh;
+        font-size: 2rem;
+        font-weight: 600;
+        border-radius: 20px 20px 0 0;
+        z-index: 100;
+      }
+
+      .tripList {
+        width: 50vw;
+        height: 60vh;
+        margin-top: -3vh;
+        background-color: var(--color-text-white);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border-radius: 20px;
+        align-items: center;
+        overflow-y: scroll;
+
+        button {
+          font-size: 2rem;
+          color: var(--color-input-text);
+        }
+      }
+      .empty {
+        justify-content: center;
+      }
+    }
+    /* 수직 스크롤바를 스타일링합니다 */
+    .eachSec::-webkit-scrollbar {
+      width: 12px; /* 스크롤바의 너비 조절 */
+    }
+
+    .eachSec::-webkit-scrollbar-thumb {
+      background: var(--color-bg); /* 스크롤바 썸 배경색 */
+      border-radius: 6px; /* 스크롤바 썸의 모서리를 둥글게 만듭니다 */
+    }
+
+    .addModify {
+      position: absolute;
+      width: 3vw;
+      height: 6vh;
+      border-radius: 50%;
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 7vh;
+      color: var(--color-text-white);
+      background-color: var(--color-bg);
+      top: 90%;
+      left: 57%;
+    }
+  }
+
+  .imgSec {
+    display: flex;
+    align-items: center;
+    .noImage {
+      font-weight: 600;
+      font-size: 2rem;
+    }
+    .imgSrc {
+      flex-grow: 0.5;
+      border-radius: 50px;
+      width: 35vw;
+      height: 94vh;
+      margin-top: 3vh;
+      margin-right: 2vw;
+    }
+
+    .modifyBtn {
+      position: absolute;
+      top: 5%;
+      left: 94%;
+      background: none;
+      .modifyImg {
+        width: 3vw;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.diaryFractal {
+  display: flex;
+  flex-direction: column;
+  width: 11.9vw;
+  height: 24vh;
+  padding: 0.5vw;
+  margin-top: 0.5vh;
+  background-color: var(--color-text-white);
+
+  .tripDate {
+    font-weight: 600;
+    align-self: flex-end;
+  }
+  .thumbnail {
+    align-self: center;
+    width: 7vw;
+    height: 20vh;
+  }
+
+  .totalSum {
+    align-self: flex-end;
+    margin-top: 0.1vh;
+    margin-right: 0.1vw;
+  }
+}
+
+.blocked {
+  background-color: var(--color-divide);
+  pointer-events: none;
+}
