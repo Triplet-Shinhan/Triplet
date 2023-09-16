@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,6 +29,7 @@ public class DailyService {
     private final TripRepository tripRepository;
     private final DailyRepository dailyRepository;
     private final DailyUtility dailyUtility;
+    private final S3Service s3Service;
     private final PaymentService paymentService;
 
     public DashboardDto getDashboard(Long tripId) {
@@ -86,12 +88,21 @@ public class DailyService {
 
     public void saveImageUrl(Long dailyId, String url) {
         Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
+        if (daily.getImageUrl() != null) {// 이미 업로드된 이미지가 있을 경우 s3에서 삭제
+            s3Service.deleteImageFromS3(daily.getImageUrl());
+        }
         daily.setImageUrl(url);
         dailyRepository.save(daily);
     }
 
-    public void deleteImageUrlFromDb(Long dailyId) {
+    public Optional<String> deleteImageUrlFromDb(Long dailyId) {
         Daily daily = dailyRepository.findById(dailyId).orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND));
+        String url = daily.getImageUrl();
+        if(url == null) {
+            throw new BaseException(ErrorCode.IMAGE_DELETE_ERROR);
+        }
         daily.setImageUrl(null);
+        dailyRepository.save(daily);
+        return Optional.of(url);
     }
 }
