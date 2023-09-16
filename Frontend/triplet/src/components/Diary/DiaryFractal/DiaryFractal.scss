@@ -10,6 +10,12 @@
   .tripDate {
     font-weight: 600;
     align-self: flex-end;
+
+    .thumbnail {
+      align-self: center;
+      width: 10vw;
+      height: 6vw;
+    }
   }
 }
 

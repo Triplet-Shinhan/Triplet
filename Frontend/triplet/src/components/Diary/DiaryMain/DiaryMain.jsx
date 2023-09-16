@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './DiaryMain.scss';
-import { getCookie, removeCookie } from '../../../api/cookie';
+import { getCookie } from '../../../api/cookie';
 import { logoutUser } from '../../../api/BankAccountApis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDiaryApi } from '../../../context/DiaryApiContext';
@@ -109,10 +109,8 @@ export default function DiaryMain() {
             <div>Triplet</div>
           </section>
           <section className="settings">
-            {/* <form className="userInfo"> */}
             <div>{userName}님</div>
             <button onClick={() => userLogout.mutate()}>로그아웃</button>
-            {/* </form> */}
             <button>
               <img
                 src="../../../assets/icons/setting.png"

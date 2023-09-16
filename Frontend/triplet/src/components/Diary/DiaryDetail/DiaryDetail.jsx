@@ -62,11 +62,7 @@ export default function DiaryDetail() {
             </button>
           </section>
           <section className="imgSec">
-            <img
-              className="imgSrc"
-              src="../../../assets/sample.JPG"
-              alt="사진이미지"
-            />
+            <img className="imgSrc" src={dailyInfo.imageUrl} alt="사진이미지" />
             <button className="modifyBtn" onClick={showImgModal}>
               <img
                 className="modifyImg"

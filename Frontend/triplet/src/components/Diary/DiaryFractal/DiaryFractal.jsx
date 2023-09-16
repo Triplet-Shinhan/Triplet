@@ -23,7 +23,9 @@ export default function DiaryFractal({
       }
     >
       <div className="tripDate">{date}</div>
-      {dailyInfo.imageUrl && <img src="" alt="thumbnail" />}
+      {dailyInfo.imageUrl && (
+        <img className="thumbnail" src={dailyInfo.imageUrl} alt="thumbnail" />
+      )}
     </li>
   );
 }
