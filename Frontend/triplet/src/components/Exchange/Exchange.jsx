@@ -33,6 +33,10 @@ export default function Exchange() {
     amount: '',
     receiptDate: '',
     receiveWay: '',
+    location: '',
+  });
+
+  const [rateInfo, setRateInfo] = useState({
     preferentialRate: 0.0,
     exchangeRate: '',
   });
@@ -61,7 +65,7 @@ export default function Exchange() {
   );
 
   const {
-    isloaingPlace,
+    isloadingPlace,
     errorPlace,
     data: locations,
   } = useQuery(
@@ -82,7 +86,7 @@ export default function Exchange() {
           rateData.dataBody.exchangeData[index].preferentialRate;
         const newExchangeRate =
           rateData.dataBody.exchangeData[index].exchangeRate;
-        setExchangeForm((info) => ({
+        setRateInfo((info) => ({
           ...info,
           preferentialRate: newPreferentialRate,
           exchangeRate: newExchangeRate,
@@ -94,124 +98,137 @@ export default function Exchange() {
     }
   };
 
+  const getReceiveWayClass = (value) => {
+    return exchangeForm.receiveWay === value ? 'selected' : '';
+  };
+
   useEffect(() => {
     console.log(locations);
   }, [rateData, locations]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(`exchangeForm `);
+    console.log(exchangeForm);
   };
 
-  if (isLoading) {
+  if (isLoading || isloadingPlace) {
     return <div>loading...</div>;
   }
 
   return (
-    rateData !== undefined && (
-      <div className="exchangePage">
-        <header className="exchangeHeader">
-          <nav className="exchangeName">환전</nav>
-        </header>
-        <main>
-          <form action="POST" className="exchangeForm" onSubmit={handleSubmit}>
-            <section className="accountInfo">
-              <section className="intro">
-                <span className="hello">안녕하세요</span>
-                <span>{userName}님</span>
-                <img src="../../../assets/icons/sol.png" alt="sol logo" />
-              </section>
-              <section className="exRate">
-                <div>{userName}님의 우대율</div>
-                <div>{exchangeForm.preferentialRate}%</div>
-              </section>
-              <section className="exMoney">
-                <label htmlFor="currency">환전금액</label>
-                <section className="exOption">
-                  <select
-                    name="currency"
-                    id="currency"
-                    value={exchangeForm.currency}
-                    onChange={handleChange}
-                    required
-                  >
-                    {rateData.dataBody.exchangeData.map((v, i) => (
-                      <option key={i} value={v.currencyCode}>
-                        {v.currencyCode}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    type="text"
-                    placeholder="수기 입력"
-                    value={exchangeForm.amount}
-                    name="amount"
-                    className="expectedMoney"
-                    onChange={handleChange}
-                    required
-                  />
-                </section>
-                <div className="same">=</div>
-                <section className="kwdChange">
-                  <span className="koreaMoney">KWD</span>
-                  {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
-                  <span className="changedMoney">
-                    {exchangeForm.amount === ''
-                      ? '원화 예상 금액'
-                      : exchangeForm.amount *
-                        exchangeForm.preferentialRate *
-                        exchangeForm.exchangeRate}
-                  </span>
-                </section>
-              </section>
+    <div className="exchangePage">
+      <header className="exchangeHeader">
+        <nav className="exchangeName">환전</nav>
+      </header>
+      <main>
+        <form action="POST" className="exchangeForm" onSubmit={handleSubmit}>
+          <section className="accountInfo">
+            <section className="intro">
+              <span className="hello">안녕하세요</span>
+              <span>{userName}님</span>
+              <img src="../../../assets/icons/sol.png" alt="sol logo" />
             </section>
-            <section className="personalInfo">
-              <section className="pickPlace">
-                <div>외화수령 영업점 선택</div>
-                {locations.dataList &&
-                  locations.dataList.map((v) => (
-                    <ul>
-                      <li>
-                        <div>{v.branchName}</div>
-                        <div>{v.address}</div>
-                      </li>
-                    </ul>
-                  ))}
-              </section>
-              <section
-                className="howToGet"
-                value={exchangeForm.receiveWay}
-                onChange={handleChange}
-              >
-                <div>수령방법</div>
-                <label htmlFor="atm" className="visited Atm">
-                  ATM
-                  <input type="radio" id="atm" name="receiveWay" value="1" />
-                </label>
-                <label htmlFor="visited" className="visited">
-                  영업점 방문
-                  <input
-                    type="radio"
-                    id="visited"
-                    name="receiveWay"
-                    value="2"
-                  />
-                </label>
-              </section>
-              <section className="getDate">
-                <label htmlFor="receiptDate">수령일</label>
-                <input
-                  type="date"
-                  id="receiptDate"
-                  name="receiptDate"
-                  value={exchangeForm.receiptDate}
+            <section className="exRate">
+              <div>{userName}님의 우대율</div>
+              <div>{rateInfo.preferentialRate}%</div>
+            </section>
+            <section className="exMoney">
+              <label htmlFor="currency">환전금액</label>
+              <section className="exOption">
+                <select
+                  name="currency"
+                  id="currency"
+                  value={exchangeForm.currency}
                   onChange={handleChange}
+                  required
+                >
+                  {rateData.dataBody.exchangeData.map((v, i) => (
+                    <option key={i} value={v.currencyCode}>
+                      {v.currencyCode}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="수기 입력"
+                  value={exchangeForm.amount}
+                  name="amount"
+                  className="expectedMoney"
+                  onChange={handleChange}
+                  required
                 />
               </section>
+              <div className="same">=</div>
+              <section className="kwdChange">
+                <span className="koreaMoney">KWD</span>
+                {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
+                <span className="changedMoney">
+                  {exchangeForm.amount === ''
+                    ? '원화 예상 금액'
+                    : exchangeForm.amount *
+                      rateInfo.preferentialRate *
+                      rateInfo.exchangeRate}
+                </span>
+              </section>
             </section>
-            <button>제출</button>
-          </form>
-        </main>
-      </div>
-    )
+          </section>
+          <section className="personalInfo">
+            <section className="pickPlace">
+              <div>외화수령 영업점 선택</div>
+              <select
+                className="locations"
+                name="location"
+                value={exchangeForm.location}
+                onChange={handleChange}
+              >
+                {locations &&
+                  locations.dataList.map((v) => (
+                    <option className="locaBtn">
+                      {v.branchName}
+                      {v.address}
+                    </option>
+                  ))}
+              </select>
+            </section>
+            <section
+              className="howToGet"
+              value={exchangeForm.receiveWay}
+              onChange={handleChange}
+            >
+              <div>수령방법</div>
+              <label
+                htmlFor="atm"
+                className={`visited Atm ${getReceiveWayClass('1')}`}
+              >
+                ATM
+                <input type="radio" id="atm" name="receiveWay" value="1" />
+              </label>
+              <label
+                htmlFor="visited"
+                className={`visited ${getReceiveWayClass('2')}`}
+              >
+                영업점 방문
+                <input type="radio" id="visited" name="receiveWay" value="2" />
+              </label>
+            </section>
+            <section className="getDate">
+              <label htmlFor="receiptDate">수령일</label>
+              <input
+                className="receiptDate"
+                type="date"
+                id="receiptDate"
+                name="receiptDate"
+                value={exchangeForm.receiptDate}
+                onChange={handleChange}
+              />
+            </section>
+            <section className="exchangeSec">
+              <button className="exchangeBtn">제출</button>
+            </section>
+          </section>
+        </form>
+      </main>
+    </div>
   );
 }

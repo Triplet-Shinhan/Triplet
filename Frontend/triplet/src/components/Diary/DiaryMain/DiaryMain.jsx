@@ -115,7 +115,7 @@ export default function DiaryMain() {
             <div>Triplet</div>
           </section>
           <section className="settings">
-            <form className="userInfo" action="POST" method={handleSubmit}>
+            <form className="userInfo" onSubmit={handleSubmit}>
               <div>{userName}님</div>
               <button onClick={() => userLogout.mutate()}>로그아웃</button>
             </form>

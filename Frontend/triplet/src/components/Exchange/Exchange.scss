@@ -161,7 +161,27 @@
     }
 
     .pickPlace {
-      flex-grow: 4;
+      // flex-grow: 1;
+      .locations {
+        overflow: scroll;
+        height: 20vw;
+        margin-top: 3vh;
+        .locaBtn {
+          .branchName,
+          .address {
+            text-align: left;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--color-text-black);
+          }
+        }
+        .locaBtn {
+          margin-top: 1vh;
+        }
+        .locaBtn:hover {
+          cursor: pointer;
+        }
+      }
     }
 
     .howToGet,
@@ -172,23 +192,48 @@
       .visited {
         width: 10vw;
         height: 5vh;
+        font-size: 1.5rem;
         border: 1px solid var(--color-divide);
+      }
+
+      input[type='radio'] {
+        display: none;
+        margin: 1rem;
+      }
+      .selected {
+        background-color: var(--color-bg);
+        border: none;
+        color: var(--color-text-white);
       }
     }
 
-    #getDate,
-    #phoneNum {
+    .getDate {
       font-size: 1.5rem;
       color: var(--color-divide);
-      padding-left: 1vw;
       margin-top: 1vh;
       width: 80%;
       height: 5vh;
-    }
 
-    input[type='radio'] {
-      display: none;
-      margin: 1rem;
+      .receiptDate {
+        margin-top: 2vh;
+        width: 10vw;
+        height: 5vh;
+        font-size: 1rem;
+      }
+    }
+    .exchangeSec {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-end;
+      .exchangeBtn {
+        width: 7vw;
+        height: 5vh;
+        background-color: var(--color-bg);
+        align-self: flex-end;
+        font-size: 1.2rem;
+        color: var(--color-text-white);
+        font-weight: 600;
+      }
     }
   }
 } // exchange Form 끝
