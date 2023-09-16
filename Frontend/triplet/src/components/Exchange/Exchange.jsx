@@ -33,6 +33,7 @@ export default function Exchange() {
     amount: '',
     receiptDate: '',
     receiveWay: '',
+    preferentialRate: 0.0,
   });
 
   // userName 가져오기
@@ -76,12 +77,6 @@ export default function Exchange() {
 
   useEffect(() => {}, [rateData, locations]);
 
-  //우대율
-  const [preferentialRate, setPrefRate] = useState(0.0);
-  const onChangeHandler = (e) => {
-    setPrefRate(e.currentTarget.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -105,24 +100,29 @@ export default function Exchange() {
                 <img src="../../../assets/icons/sol.png" alt="sol logo" />
               </section>
               <section className="exRate">
-                <div>신한 해커톤님의 우대율</div>
-                <div>{preferentialRate}</div>
+                <div>{userName}님의 우대율</div>
+                <div>{exchangeForm.preferentialRate}</div>
               </section>
               <section className="exMoney">
                 <label htmlFor="currency">환전금액</label>
                 <section className="exOption">
                   <select
-                    value={exchangeForm.currency}
-                    onChange={onChangeHandler}
                     name="currency"
                     id="currency"
+                    value={exchangeForm.currency}
+                    onChange={handleChange}
                     required
                   >
-                    {rateData.dataBody.exchangeData.map((v, i) => (
-                      <option value={v.preferentialRate}>
-                        {v.currencyCode}
+                    {budget.map((v, i) => (
+                      <option key={i} value={v}>
+                        {v}
                       </option>
                     ))}
+                    {/* {rateData.dataBody.exchangeData.map((v, i) => (
+                      <option value={exchangeForm.currency}>
+                        {v.currencyCode}
+                      </option>
+                    ))} */}
                   </select>
                   <input
                     type="number"

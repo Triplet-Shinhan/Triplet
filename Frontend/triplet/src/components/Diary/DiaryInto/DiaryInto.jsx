@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getCookie } from '../../../api/cookie';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -25,7 +25,8 @@ export default function DiaryInto() {
     { staleTime: 1000 * 6 * 5 }
   );
 
-  console.log(tripList);
+  useEffect(() => {}, [tripList]);
+
   return (
     <>
       <h1 className="diaryInH1">안녕하세요</h1>
@@ -34,9 +35,11 @@ export default function DiaryInto() {
         <li className="tripInfo">
           <nav>프로젝트</nav>
           <div
-            className={tripList === undefined ? 'tripList empty' : 'tripList'}
+            className={
+              tripList === undefined || [] ? 'tripList empty' : 'tripList'
+            }
           >
-            {tripList === undefined ? (
+            {tripList === undefined || [] ? (
               <button onClick={() => navigate('/trips/setup')}>
                 현재 생성된 프로젝트가 없습니다. <br />새 프로젝트를
                 생성해주세요.

@@ -57,7 +57,7 @@ export default function DiarySetUp() {
     onSuccess: (data) => {
       alert('생성');
       console.log(data);
-      navigate(`/trip/${data.data.tripId}/dailies`);
+      navigate(`/trips/${data.data.tripId}/dailies`);
     },
     onError: () => {
       console.log('생성이 되지 않았습니다.');
