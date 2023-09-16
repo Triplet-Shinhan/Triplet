@@ -48,26 +48,31 @@ export default function DiaryDetail() {
     isLoading,
     error,
     data: expendList,
+    refetch,
   } = useQuery(
     ['diaryDetail'],
     () => diary.getExpendList({ tripId, dailyId }),
     {
       staleTime: 1000 * 6 * 5,
+      refetchInterval: 5000,
     }
   );
 
+  const handleExpendDataChange = (newData) => {
+    console.log('Expend데이터 변경 감지', newData);
+  };
+  // 3개 콤마
   const makedot = (text) =>
     text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
   useEffect(() => {
-    console.log(`isChecked` + isChecked);
     if (!isChecked) {
+      console.log(dailyInfo.imageData);
       if (dailyInfo.imageData === undefined) {
         setTempImg('');
       } else setTempImg(dailyInfo.imageData);
     }
-    console.log(tempImg);
-  }, [isChecked, expendList]);
+  }, [isChecked, expendList, dailyInfo]);
 
   return (
     dailyInfo && (
@@ -94,12 +99,14 @@ export default function DiaryDetail() {
             <section className="eachSec">
               {console.log(expendList !== undefined && expendList)}
               {expendList !== undefined
-                ? expendList.map((expend) => (
+                ? expendList.map((expend, index) => (
                     <Expend
+                      key={index}
                       expendInfo={expend}
                       sum={dailyInfo.sum}
                       tripId={tripId}
                       dailyId={dailyId}
+                      onDataChange={handleExpendDataChange}
                     />
                   ))
                 : ''}

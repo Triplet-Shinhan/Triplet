@@ -12,6 +12,9 @@ export default function DiaryFractal({
 }) {
   const navigate = useNavigate();
   console.log(dailyInfo);
+  // 3개 콤마
+  const makedot = (text) =>
+    text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <li
@@ -26,6 +29,11 @@ export default function DiaryFractal({
       {dailyInfo.imageUrl && (
         <img className="thumbnail" src={dailyInfo.imageUrl} alt="thumbnail" />
       )}
+      <div className="totalSum">
+        {dailyInfo.sum && dailyInfo.sum !== 0
+          ? '₩' + makedot(dailyInfo.sum + '')
+          : ''}
+      </div>
     </li>
   );
 }

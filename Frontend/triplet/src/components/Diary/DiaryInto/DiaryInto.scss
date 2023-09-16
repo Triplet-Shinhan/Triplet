@@ -1,39 +1,37 @@
 // 헤더부분
-.header{
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
+
   .diaryInH1 {
     margin-left: 100px;
     padding-top: 5vh;
     font-size: 2.5rem;
   }
-  
+
   .diaryInH2 {
     font-size: 3rem;
     margin-left: 100px;
     margin-bottom: 2rem;
   }
 
-  .logoArea{
+  .logoArea {
     margin-right: 100px;
 
-    .logout{
-
+    .logout {
       margin-right: 2vw;
       button {
         font-size: 1.5rem;
         width: 7vw;
+        height: 6vh;
         font-weight: 600;
         background-color: var(--color-bg);
         color: var(--color-text-white);
       }
     }
   }
- 
 }
-
 
 // 전체 프로젝트
 .tripInto {
@@ -69,7 +67,7 @@
       justify-content: flex-start;
       border-radius: 20px;
       align-items: center;
-      overflow: scroll;
+      overflow-y: scroll;
 
       button {
         font-size: 2rem;
@@ -79,6 +77,19 @@
     .empty {
       justify-content: center;
     }
+  }
+  /* 수직 스크롤바를 스타일링합니다 */
+  .tripInfo::-webkit-scrollbar {
+    width: 12px; /* 스크롤바의 너비 조절 */
+  }
+
+  .tripInfo::-webkit-scrollbar-track {
+    background: var(--color-text-white); /* 스크롤바 트랙 배경색 */
+  }
+
+  .tripInfo::-webkit-scrollbar-thumb {
+    background: var(--color-bg); /* 스크롤바 썸 배경색 */
+    border-radius: 6px; /* 스크롤바 썸의 모서리를 둥글게 만듭니다 */
   }
 }
 

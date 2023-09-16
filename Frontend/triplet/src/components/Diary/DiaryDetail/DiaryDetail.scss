@@ -84,6 +84,55 @@
       overflow-y: scroll;
     }
 
+    .tripInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      nav {
+        width: 9vw;
+        height: 7vh;
+        background-color: var(--color-bg);
+        text-align: center;
+        line-height: 7vh;
+        font-size: 2rem;
+        font-weight: 600;
+        border-radius: 20px 20px 0 0;
+        z-index: 100;
+      }
+
+      .tripList {
+        width: 50vw;
+        height: 60vh;
+        margin-top: -3vh;
+        background-color: var(--color-text-white);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border-radius: 20px;
+        align-items: center;
+        overflow-y: scroll;
+
+        button {
+          font-size: 2rem;
+          color: var(--color-input-text);
+        }
+      }
+      .empty {
+        justify-content: center;
+      }
+    }
+    /* 수직 스크롤바를 스타일링합니다 */
+    .eachSec::-webkit-scrollbar {
+      width: 12px; /* 스크롤바의 너비 조절 */
+    }
+
+    .eachSec::-webkit-scrollbar-thumb {
+      background: var(--color-bg); /* 스크롤바 썸 배경색 */
+      border-radius: 6px; /* 스크롤바 썸의 모서리를 둥글게 만듭니다 */
+    }
+
     .addModify {
       position: absolute;
       width: 3vw;
