@@ -22,6 +22,7 @@ export default class Diary {
       .then((res) => res.data);
   }
 
+  // 지출 내역 조회
   async getExpendList({ tripId, dailyId }) {
     return this.httpClient
       .get(`/api/trips/${tripId}/dailies/${dailyId}`)
@@ -68,4 +69,8 @@ export const modifyDate = ({ tripId, tripDate }) => {
 // 다이어리 삭제
 export const deleteProject = ({ tripId }) => {
   return axios.delete(`${PROXY}/api/trips/${tripId}`);
+};
+
+export const deletePayment = ({ paymentId }) => {
+  return axios.delete(`${PROXY}/api/payments/${paymentId}`);
 };

@@ -64,7 +64,7 @@ export default function DiaryDetail() {
       } else setTempImg(dailyInfo.imageData);
     }
     console.log(tempImg);
-  }, [isChecked]);
+  }, [isChecked, isLoading]);
 
   return (
     dailyInfo && (
@@ -90,9 +90,11 @@ export default function DiaryDetail() {
             </section>
             <section className="eachSec">
               {console.log(expendList !== undefined && expendList)}
-              {/* {expendList === undefined
-                ? ''
-                : expendList.map((expend) => <Expend expendInfo={expend} />)} */}
+              {expendList !== undefined
+                ? expendList.map((expend) => (
+                    <Expend expendInfo={(expend, dailyInfo.sum)} />
+                  ))
+                : ''}
             </section>
             <button className="addModify" onClick={showExpendModal}>
               +
