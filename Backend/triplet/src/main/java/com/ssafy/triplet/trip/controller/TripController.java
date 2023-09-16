@@ -8,6 +8,7 @@ import com.ssafy.triplet.trip.response.TripResponse;
 import com.ssafy.triplet.trip.service.TripService;
 import com.ssafy.triplet.user.domain.User;
 import com.ssafy.triplet.user.util.UserUtility;
+import com.ssafy.triplet.user.util.UserValidation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,12 +26,13 @@ import java.util.List;
 public class TripController {
     private final TripService tripService;
     private final UserUtility userUtility;
+    private final UserValidation userValidation;
     private final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @GetMapping
     public ResponseEntity<List<MainPageTripDto>> readTrips(HttpServletRequest request) {
         logger.debug("readTrips request success");
-        User loginUser = userUtility.getUserFromCookie(request);
+        User loginUser = userUtility.getUserFromCookie(request);//검증
         return ResponseEntity.ok(tripService.getAllTrips(loginUser.getUserId()));
     }
 
@@ -38,7 +40,7 @@ public class TripController {
     public ResponseEntity<TripResponse> createTrip(@RequestBody TripDto tripDto,
                                                    HttpServletRequest request) {
         logger.debug("createTrip request success");
-        User loginUser = userUtility.getUserFromCookie(request);
+        User loginUser = userUtility.getUserFromCookie(request);//검증
         Trip savedTrip = tripService.saveTrip(tripDto, loginUser);
         logger.debug("createTrip success");
         return ResponseEntity.ok(new TripResponse(savedTrip.getTripId()));
@@ -47,8 +49,8 @@ public class TripController {
     @DeleteMapping("/{tripId}")
     public ResponseEntity<TripResponse> deleteTrip(@PathVariable Long tripId, HttpServletRequest request) {
         logger.debug("deleteTrip request success");
-        User loginUser = userUtility.getUserFromCookie(request);
-        tripService.removeTrip(loginUser, tripId);
+        userValidation.checkTripValid(tripId, request);//검증
+        tripService.removeTrip(tripId);
         logger.debug("deleteTrip success");
         return ResponseEntity.ok().build();
     }
@@ -56,8 +58,8 @@ public class TripController {
     @PatchMapping("/{tripId}")
     public ResponseEntity<TripResponse> updateTrip(@PathVariable Long tripId, @RequestBody TripEditDto tripEditDto, HttpServletRequest request) {
         logger.debug("editTrip request success");
-        User loginUser = userUtility.getUserFromCookie(request);
-        tripService.editTrip(loginUser, tripId, tripEditDto);
+        userValidation.checkTripValid(tripId, request);//검증
+        tripService.editTrip(tripId, tripEditDto);
         logger.debug("editTrip success");
         return ResponseEntity.ok(new TripResponse(tripId));
     }
