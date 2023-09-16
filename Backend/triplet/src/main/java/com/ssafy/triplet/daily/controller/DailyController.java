@@ -7,6 +7,8 @@ import com.ssafy.triplet.daily.response.DailyResponse;
 import com.ssafy.triplet.daily.response.ImageUrlResponse;
 import com.ssafy.triplet.daily.service.DailyService;
 import com.ssafy.triplet.daily.service.S3Service;
+import com.ssafy.triplet.exception.BaseException;
+import com.ssafy.triplet.exception.ErrorCode;
 import com.ssafy.triplet.user.domain.User;
 import com.ssafy.triplet.user.util.UserUtility;
 import com.ssafy.triplet.user.util.UserValidation;
@@ -57,8 +59,8 @@ public class DailyController {
     @DeleteMapping("/{tripId}/dailies/{dailyId}/images")
     public ResponseEntity<DailyResponse> deleteImage(@PathVariable Long tripId, @PathVariable Long dailyId, HttpServletRequest request) {
         userValidation.checkDailyValid(dailyId, request);//검증
-        dailyService.deleteImageUrlFromDb(dailyId);
-        s3Service.deleteImageFromS3(s3Service.getImageUrl(dailyId));
+        String url = dailyService.deleteImageUrlFromDb(dailyId).orElseThrow(() -> new BaseException(ErrorCode.IMAGE_DELETE_ERROR));
+        s3Service.deleteImageFromS3(url);
         return ResponseEntity.ok().build();
     }
 }
