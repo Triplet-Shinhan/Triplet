@@ -145,6 +145,9 @@
       .Atm {
         margin-right: 1vw;
       }
+      input[type='radio']:checked {
+        background-color: var(--color-bg);
+      }
     }
 
     .getDate,

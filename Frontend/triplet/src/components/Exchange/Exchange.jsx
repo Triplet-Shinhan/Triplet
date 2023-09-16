@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getCookie } from '../../api/cookie';
 import { useExchangeApi } from '../../context/ExchangeApiContext';
 import { useQuery } from '@tanstack/react-query';
+import useGeolocation from 'react-hook-geolocation';
 import './Exchange.scss';
 
 export default function Exchange() {
@@ -37,6 +38,7 @@ export default function Exchange() {
   // userName 가져오기
   const userName = decodeURI(getCookie('name'));
   const { exchange } = useExchangeApi();
+  const geolocation = useGeolocation();
 
   // 서버에서 환전 메인화면 가져오기
   const {
@@ -51,17 +53,20 @@ export default function Exchange() {
     isloaingPlace,
     errorPlace,
     data: locations,
-  } = useQuery(['ExchangePlace'], () => exchange.viewNearLocations(), {
-    staleTime: 1000 * 6 * 5,
-  });
+  } = useQuery(
+    ['ExchangePlace'],
+    () => exchange.viewNearLocations(geolocation, exchangeForm.currency),
+    {
+      staleTime: 1000 * 6 * 5,
+    }
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExchangeForm((info) => ({ ...info, [name]: value }));
-    console.log(exchangeForm);
   };
 
-  useEffect(() => {}, [rateData]);
+  useEffect(() => {}, [rateData, locations]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,7 +86,7 @@ export default function Exchange() {
               <img src="../../../assets/icons/sol.png" alt="sol logo" />
             </section>
             <section className="exRate">
-              <div>신한 해커톤님의 우대율</div>
+              <div>{userName}님의 우대율</div>
               <div>{}</div>
             </section>
             <section className="exMoney">

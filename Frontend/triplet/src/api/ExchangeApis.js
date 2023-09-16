@@ -15,12 +15,14 @@ export default class Exchange {
   }
 
   //가까운 환전 가능 지점 조회
-  async viewNearLocations(position, currency) {
+  async viewNearLocations(geolocation, currency) {
+    const { latitude, longitude } = geolocation;
+
     return this.httpClient
       .get(
-        `/api/exchanges/locations?latitude=${position.coords.latitude}
+        `/api/exchanges/locations?latitude=${latitude}
         &longitude=
-        ${position.coords.longitude}&currency=${currency}`
+        ${longitude}&currency=${currency}`
       )
       .then((res) => res.data);
   }

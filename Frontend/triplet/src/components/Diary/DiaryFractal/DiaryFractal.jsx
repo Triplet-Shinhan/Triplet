@@ -18,7 +18,7 @@ export default function DiaryFractal({
       className={`diaryFractal ${isValid ? '' : 'blocked'}`}
       onClick={() =>
         navigate(`/trips/${tripId}/dailies/${dailyInfo.dailyId}`, {
-          state: dailyInfo,
+          state: [dailyInfo, day],
         })
       }
     >
