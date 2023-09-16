@@ -59,18 +59,12 @@ public class S3Service {
 	}
 
 	public void deleteImageFromS3(String url) {
+		String key = url.substring(url.lastIndexOf("/") + 1);
 		try {
-			String key = url.substring(url.indexOf("profile"));
 			amazonS3Client.deleteObject(new DeleteObjectRequest(S3Bucket, key));
 		} catch (Exception e) {
-			log.info("삭제할 파일이 존재하지 않습니다");
+			throw new BaseException(ErrorCode.IMAGE_DELETE_ERROR);
 		}
-	}
-
-	public String getImageUrl(Long dailyId) {
-		return dailyRepository.findById(dailyId)
-			.orElseThrow(() -> new BaseException(ErrorCode.DAILY_ID_NOT_FOUND))
-			.getImageUrl();
 	}
 
 	public String createFileName(String originalFileName) {
