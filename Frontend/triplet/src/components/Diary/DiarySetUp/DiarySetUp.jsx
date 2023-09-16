@@ -158,7 +158,7 @@ export default function DiarySetUp() {
               type="text"
               id="exchangedBudget"
               name="exchangedBudget"
-              placeholder="₩250,000"
+              placeholder=""
               value={tripInfo.exchangedBudget}
               onChange={handleChange}
               required

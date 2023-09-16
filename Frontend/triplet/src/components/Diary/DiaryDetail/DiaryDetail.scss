@@ -71,6 +71,12 @@
   }
 
   .imgSec {
+    display: flex;
+    align-items: center;
+    .noImage {
+      font-weight: 600;
+      font-size: 2rem;
+    }
     .imgSrc {
       flex-grow: 0.5;
       border-radius: 50px;
@@ -88,6 +94,34 @@
       .modifyImg {
         width: 3vw;
       }
+    }
+  }
+
+  .logout{
+    top: 5%;
+    right:10%;
+    // display:;
+    display: flex;
+    flex-direction: row;
+
+    div{
+      
+      position: absolute;
+      top: 5%;
+      right:16vw;
+      
+    font-size: 1.5rem;
+    font-weight: 600;
+    }
+    button{
+      position: absolute;
+      top: 5%;
+      right:8vw;
+      font-size: 1.5rem;
+        width: 7vw;
+        font-weight: 600;
+        background-color: var(--color-bg);
+        color: var(--color-text-white);
     }
   }
 }

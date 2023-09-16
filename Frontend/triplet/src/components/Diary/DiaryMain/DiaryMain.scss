@@ -23,25 +23,21 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  form {
-    display: flex;
-    width: 18vw;
-    justify-content: space-around;
 
-    div {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    button {
-      font-size: 1.5rem;
-      width: 7vw;
-      font-weight: 600;
-      background-color: var(--color-bg);
-      color: var(--color-text-white);
-    }
+  div {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
+
   button {
+    font-size: 1.5rem;
+    width: 7vw;
+    font-weight: 600;
+    background-color: var(--color-bg);
+    color: var(--color-text-white);
+  }
+  
+  .settingBtn{
     background: none;
   }
 

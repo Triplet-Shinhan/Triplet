@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getCookie } from '../../api/cookie';
 import { useExchangeApi } from '../../context/ExchangeApiContext';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { applyExchange } from '../../api/ExchangeApis';
 import useGeolocation from 'react-hook-geolocation';
 import './Exchange.scss';
 
