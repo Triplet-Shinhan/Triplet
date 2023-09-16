@@ -42,4 +42,12 @@ public class PaymentController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/cards")
+    public ResponseEntity createPaymentForCard(@RequestBody PaymentReqDto paymentReqDto) {
+
+        paymentService.createPaymentForCard(paymentReqDto);
+
+        return ResponseEntity.ok().build();
+    }
 }
