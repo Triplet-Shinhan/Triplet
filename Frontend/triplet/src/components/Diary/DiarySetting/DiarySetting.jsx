@@ -24,7 +24,7 @@ export default function DiarySetting() {
     setTripDate((date) => ({ ...date, [name]: value }));
   };
 
-  const deleteDiary = useMutation(({ tripId }) => deleteDiary({ tripId }), {
+  const deleteDiary = useMutation(({ tripId }) => deleteProject({ tripId }), {
     onSuccess: () => {
       alert('삭제되었습니다.');
       navigate('/trips');
