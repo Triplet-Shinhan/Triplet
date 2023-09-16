@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCookie } from '../../api/cookie';
 import { useExchangeApi } from '../../context/ExchangeApiContext';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useGeolocation from 'react-hook-geolocation';
 import './Exchange.scss';
 
@@ -102,6 +102,19 @@ export default function Exchange() {
     return exchangeForm.receiveWay === value ? 'selected' : '';
   };
 
+  // 환전 조회
+  const viewExchange = useMutation(
+    ({ exchangeForm }) => applyExchange({ exchangeForm }),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
   useEffect(() => {
     console.log(locations);
   }, [rateData, locations]);
@@ -110,6 +123,7 @@ export default function Exchange() {
     e.preventDefault();
     console.log(`exchangeForm `);
     console.log(exchangeForm);
+    viewExchange.mutate();
   };
 
   if (isLoading || isloadingPlace) {
@@ -131,7 +145,7 @@ export default function Exchange() {
             </section>
             <section className="exRate">
               <div>{userName}님의 우대율</div>
-              <div>{rateInfo.preferentialRate}%</div>
+              <div className="pfRate">{rateInfo.preferentialRate}%</div>
             </section>
             <section className="exMoney">
               <label htmlFor="currency">환전금액</label>
@@ -161,7 +175,7 @@ export default function Exchange() {
               </section>
               <div className="same">=</div>
               <section className="kwdChange">
-                <span className="koreaMoney">KWD</span>
+                <span className="koreaMoney">KRW</span>
                 {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
                 <span className="changedMoney">
                   {exchangeForm.amount === ''
@@ -181,6 +195,7 @@ export default function Exchange() {
                 name="location"
                 value={exchangeForm.location}
                 onChange={handleChange}
+                required
               >
                 {locations &&
                   locations.dataList.map((v) => (
@@ -195,6 +210,7 @@ export default function Exchange() {
               className="howToGet"
               value={exchangeForm.receiveWay}
               onChange={handleChange}
+              required
             >
               <div>수령방법</div>
               <label
@@ -221,6 +237,7 @@ export default function Exchange() {
                 name="receiptDate"
                 value={exchangeForm.receiptDate}
                 onChange={handleChange}
+                required
               />
             </section>
             <section className="exchangeSec">

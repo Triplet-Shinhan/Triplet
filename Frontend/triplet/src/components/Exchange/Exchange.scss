@@ -68,7 +68,7 @@
       justify-content: space-between;
       height: 18vh;
 
-      .exchangeRate {
+      .pfRate {
         width: 3vw;
         align-self: flex-end;
         font-size: 3rem;
@@ -163,9 +163,10 @@
     .pickPlace {
       // flex-grow: 1;
       .locations {
-        overflow: scroll;
         height: 20vw;
         margin-top: 3vh;
+        margin-bottom: 31vh;
+
         .locaBtn {
           .branchName,
           .address {

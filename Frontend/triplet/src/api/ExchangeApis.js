@@ -26,8 +26,8 @@ export default class Exchange {
       )
       .then((res) => res.data);
   }
-  // 환전신청
-  async applyExchange() {
-    return this.httpClient.post('/api/exchanges').then((res) => res.data);
-  }
 }
+// 환전신청
+export const applyExchange = ({ exchangeForm }) => {
+  return axios.post(`${PROXY}/api/exchanges`, exchangeForm);
+};

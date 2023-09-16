@@ -27,7 +27,6 @@ export default function DiaryMain() {
     isLoading,
     error,
     data: tripData,
-    refetch,
   } = useQuery(
     ['diaryMain', tripId],
     () => diary.viewDiaryDetail({ tripId }),
@@ -55,7 +54,6 @@ export default function DiaryMain() {
         }
       />
     ));
-    refetch();
     console.log(tripData);
     setDiaryFractals(fractals);
   }, [tripId, isLoading, tripData]);
