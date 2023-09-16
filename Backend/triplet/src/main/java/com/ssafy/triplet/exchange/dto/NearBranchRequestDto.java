@@ -1,5 +1,6 @@
 package com.ssafy.triplet.exchange.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -7,6 +8,7 @@ import lombok.Data;
  */
 
 @Data
+@AllArgsConstructor
 public class NearBranchRequestDto {
     private Double latitude;
     private Double longitude;
