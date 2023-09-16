@@ -35,11 +35,9 @@ export default function DiaryInto() {
         <li className="tripInfo">
           <nav>프로젝트</nav>
           <div
-            className={
-              tripList === undefined || [] ? 'tripList empty' : 'tripList'
-            }
+            className={tripList === undefined ? 'tripList empty' : 'tripList'}
           >
-            {tripList === undefined || [] ? (
+            {tripList === undefined ? (
               <button onClick={() => navigate('/trips/setup')}>
                 현재 생성된 프로젝트가 없습니다. <br />새 프로젝트를
                 생성해주세요.
