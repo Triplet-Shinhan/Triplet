@@ -50,7 +50,7 @@ public class TripController {
     @PatchMapping("/{tripId}")
     public ResponseEntity<TripResponse> updateTrip(@PathVariable Long tripId, @RequestBody TripEditDto tripEditDto, HttpServletRequest request) {
         userValidation.checkTripValid(tripId, request);//검증
-        tripService.editTrip(tripId, tripEditDto);
+        tripService.editTrip(tripId, tripEditDto, request);
         return ResponseEntity.ok(new TripResponse(tripId));
     }
 }
