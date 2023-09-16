@@ -15,5 +15,8 @@ public class ExchangeRate {
     @JsonProperty("지폐매도환율")
     private String exchangeRate;
 
+    @JsonProperty("매매기준환율")
+    private String zeroRate;
+
 
 }

@@ -81,9 +81,6 @@ public class ExchangeService {
             ed.setCurrencyCode(curData.getCurrencyCode().trim());
             curCodes.add(curData.getCurrencyCode().trim()); // 통화 리스트에 저장
 
-            // 환율 설정
-            ed.setExchangeRate(curData.getExchangeRate());
-
             // 최소 단위 파싱하기
             for (Currency cd : currencyCodes) {
                 if (cd.getCurrencyCode().trim().equals(curData.getCurrencyCode().trim())) { // 같은 이름 코드라면
@@ -101,6 +98,10 @@ public class ExchangeService {
                     }
                 }
             }
+            //우대율 연산
+            Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(Float.parseFloat(ed.getPreferentialRate()));
+            // 환율 설정
+            ed.setExchangeRate(String.valueOf(realRate));
 
             exchangeList.add(ed);
         }
