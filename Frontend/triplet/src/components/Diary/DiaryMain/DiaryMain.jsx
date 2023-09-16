@@ -96,7 +96,7 @@ export default function DiaryMain() {
       sessionStorage.removeItem('user_id');
       removeCookie('name');
       removeCookie('JSESSIONID');
-      navigate('/');
+      navigate('/login');
     },
     onError: () => {
       console.log(error);
