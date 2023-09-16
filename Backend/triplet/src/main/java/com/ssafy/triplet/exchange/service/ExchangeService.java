@@ -103,7 +103,7 @@ public class ExchangeService {
             String prefRate = ed.getPreferentialRate();
             if(prefRate == null)prefRate="0";
             //우대율 연산
-            Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(1-Float.parseFloat(prefRate));
+            Float realRate = Float.parseFloat(curData.getZeroRate()) + (Float.parseFloat(curData.getExchangeRate()) - Float.parseFloat(curData.getZeroRate()))*(100-Float.parseFloat(prefRate));
             // 환율 설정
             ed.setExchangeRate(String.valueOf(realRate));
 
