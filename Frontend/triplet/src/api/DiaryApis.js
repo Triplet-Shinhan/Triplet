@@ -60,6 +60,18 @@ export const uploadPayment = ({ payment, tripId, dailyId }) => {
   });
 };
 
+// 지출 내역 수정
+export const modifyExpend = ({ tripId, dailyId, paymentId, payment }) => {
+  const { item, cost, date } = payment;
+  return axios.put(`${PROXY}/api/payments/${paymentId}`, {
+    tripId,
+    dailyId,
+    item,
+    cost,
+    date,
+  });
+};
+
 // 다이어리 날짜 수정
 export const modifyDate = ({ tripId, tripDate }) => {
   const { startDate, endDate } = tripDate;
@@ -71,6 +83,7 @@ export const deleteProject = ({ tripId }) => {
   return axios.delete(`${PROXY}/api/trips/${tripId}`);
 };
 
+// 지출 내역 삭제
 export const deletePayment = ({ paymentId }) => {
   return axios.delete(`${PROXY}/api/payments/${paymentId}`);
 };

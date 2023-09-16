@@ -92,7 +92,11 @@ export default function DiaryDetail() {
               {console.log(expendList !== undefined && expendList)}
               {expendList !== undefined
                 ? expendList.map((expend) => (
-                    <Expend expendInfo={(expend, dailyInfo.sum)} />
+                    <Expend
+                      expendInfo={(expend, dailyInfo.sum)}
+                      tripId={tripId}
+                      dailyId={dailyId}
+                    />
                   ))
                 : ''}
             </section>
