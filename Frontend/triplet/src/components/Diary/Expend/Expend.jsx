@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { deletePayment } from '../../../api/DiaryApis';
 import { ExpendModifyModal } from '../DiaryModal/ExpendModifyModal';
+import { useState } from 'react';
 
 export default function Expend({ expendInfo, tripId, dailyId }) {
   const { item, cost, date, method, paymentId } = expendInfo.expend;
