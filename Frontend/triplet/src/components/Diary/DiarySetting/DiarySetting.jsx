@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DiarySetting.scss';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { modifyDate } from '../../../api/DiaryApis';
+import { modifyDate, deleteProject } from '../../../api/DiaryApis';
 
 export default function DiarySetting() {
   const [tripDate, setTripDate] = useState({ startDate: '', endDate: '' });
