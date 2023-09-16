@@ -31,6 +31,7 @@ export default function Login() {
     if (emailReg.test(email)) {
       // 백으로 쿼리 보내기
       goLogin.mutate({ email, password });
+      sessionStorage.setItem('isLoggedIn', true);
     }
   };
 
@@ -50,7 +51,7 @@ export default function Login() {
           />
           <div className="logo">Triplet</div>
         </section>
-        <secion className="loginMainSec">
+        <section className="loginMainSec">
           <h1 className="loginH1">새로운 여행 플랫폼의 시작</h1>
           <h2 className="loginH2">Triplet</h2>
           <form className="loginForm" onSubmit={handleSubmit}>
@@ -79,7 +80,7 @@ export default function Login() {
           <button className="registerBtn" onClick={() => navigate('/signup')}>
             아이디가 없다면?
           </button>
-        </secion>
+        </section>
       </main>
     </div>
   );

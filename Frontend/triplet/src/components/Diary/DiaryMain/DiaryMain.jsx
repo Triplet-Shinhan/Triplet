@@ -36,10 +36,6 @@ export default function DiaryMain() {
     { staleTime: 1000 * 6 * 5 }
   );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     tripStart = getWantedWeek(tripInfo.startDate, true);
     tripEnd = getWantedWeek(tripInfo.endDate, false);
@@ -93,10 +89,8 @@ export default function DiaryMain() {
 
   const userLogout = useMutation(() => logoutUser(), {
     onSuccess: () => {
-      navigate('/login');
-      sessionStorage.removeItem('user_id');
-      removeCookie('name');
-      removeCookie('JSESSIONID');
+      sessionStorage.removeItem('isLoggedIn');
+      navigate('/');
     },
     onError: () => {
       console.log(error);
@@ -115,10 +109,10 @@ export default function DiaryMain() {
             <div>Triplet</div>
           </section>
           <section className="settings">
-            <form className="userInfo">
-              <div>{userName}님</div>
-              <button onClick={() => logoutUser.mutate()}>로그아웃</button>
-            </form>
+            {/* <form className="userInfo"> */}
+            <div>{userName}님</div>
+            <button onClick={() => userLogout.mutate()}>로그아웃</button>
+            {/* </form> */}
             <button>
               <img
                 src="../../../assets/icons/setting.png"
