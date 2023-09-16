@@ -34,12 +34,15 @@ export default function Exchange() {
     receiptDate: '',
     receiveWay: '',
     preferentialRate: 0.0,
+    exchangeRate: '',
   });
 
   // userName 가져오기
   const userName = decodeURI(getCookie('name'));
   const { exchange } = useExchangeApi();
   const geolocation = useGeolocation();
+
+  // 환율 저장해놓기
 
   // 서버에서 환전 메인화면 가져오기
   const {
@@ -72,7 +75,28 @@ export default function Exchange() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExchangeForm((info) => ({ ...info, [name]: value }));
+    if (name === 'currency') {
+      // 화폐가 변경되면 해당 화폐의 환율을 preferentialRate로 설정
+      const index = budget.findIndex((bud) => bud === value);
+      if (index !== -1) {
+        const newPreferentialRate =
+          rateData.dataBody.exchangeData[index].preferentialRate;
+        const newExchangeRate =
+          rateData.dataBody.exchangeData[index].exchangeRate;
+        console.log(newExchangeRate);
+        setExchangeForm((info) => ({
+          ...info,
+          preferentialRate: newPreferentialRate,
+          exchangeRate: newExchangeRate,
+        }));
+      }
+      setExchangeForm((info) => ({ ...info, [name]: value }));
+      console.log(exchangeForm);
+    } else {
+      // 다른 필드의 값을 업데이트
+      setExchangeForm((info) => ({ ...info, [name]: value }));
+    }
+    console.log(exchangeForm);
   };
 
   useEffect(() => {}, [rateData, locations]);
@@ -101,7 +125,7 @@ export default function Exchange() {
               </section>
               <section className="exRate">
                 <div>{userName}님의 우대율</div>
-                <div>{exchangeForm.preferentialRate}</div>
+                <div>{exchangeForm.preferentialRate}%</div>
               </section>
               <section className="exMoney">
                 <label htmlFor="currency">환전금액</label>
@@ -113,19 +137,14 @@ export default function Exchange() {
                     onChange={handleChange}
                     required
                   >
-                    {budget.map((v, i) => (
-                      <option key={i} value={v}>
-                        {v}
-                      </option>
-                    ))}
-                    {/* {rateData.dataBody.exchangeData.map((v, i) => (
-                      <option value={exchangeForm.currency}>
+                    {rateData.dataBody.exchangeData.map((v, i) => (
+                      <option key={i} value={v.currencyCode}>
                         {v.currencyCode}
                       </option>
-                    ))} */}
+                    ))}
                   </select>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="수기 입력"
                     value={exchangeForm.amount}
                     name="amount"
@@ -141,7 +160,10 @@ export default function Exchange() {
                   <span className="changedMoney">
                     {exchangeForm.amount === ''
                       ? '원화 예상 금액'
-                      : exchangeForm.exchangeMoney}
+                      : exchangeForm.amount *
+                        exchangeForm.preferentialRate *
+                        exchangeForm.exchangeRate}
+                    {console.log(exchangeForm.amount)}
                   </span>
                 </section>
               </section>
