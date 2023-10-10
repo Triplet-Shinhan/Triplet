@@ -42,6 +42,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -72,18 +73,40 @@ public class WebClientUtil {
         rateReqDto.setDataHeader(dataHeader);
         rateReqDto.setDataBody(dataBody);
 
-        RateResDto rateResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(rateReqDto)
-                .retrieve()
-                .bodyToMono(RateResDto.class)
-                .block();
+//        RateResDto rateResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(rateReqDto)
+//                .retrieve()
+//                .bodyToMono(RateResDto.class)
+//                .block();
 
         //에러처리
 
+        //신한 api 대체
+        List<CurrencyRate> lists = new ArrayList<CurrencyRate>();
+        CurrencyRate ninety = new CurrencyRate();
+        ninety.setOrder("1");
+        ninety.setPreferentialRate("90");
+        ninety.setCurrencyCode("USD, JPY, EUR");
 
-        return rateResDto.getRateDataBody().getCurrencyRate();
+        CurrencyRate fifty = new CurrencyRate();
+        fifty.setOrder("2");
+        fifty.setPreferentialRate("50");
+        ninety.setCurrencyCode("CAD, HKD, AUD, CNY, THB, GBP, CHF, SGD, NZD");
+
+        CurrencyRate thirty = new CurrencyRate();
+        thirty.setOrder("2");
+        thirty.setPreferentialRate("30");
+        thirty.setCurrencyCode("PHP, TWD, IDR, AED, VND, MYR");
+
+        lists.add(ninety);
+        lists.add(fifty);
+        lists.add(thirty);
+        //신한 api 대체 end
+
+        //return rateResDto.getRateDataBody().getCurrencyRate();
+        return lists;
     }
 
 
@@ -102,17 +125,28 @@ public class WebClientUtil {
         exchangeReqDto.setDataHeader(dataHeader);
         exchangeReqDto.setDataBody(exchangeReqDataBody);
 
-        ExchangeResDto exchangeResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(exchangeReqDto)
-                .retrieve()
-                .bodyToMono(ExchangeResDto.class)
-                .block();
+//        ExchangeResDto exchangeResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(exchangeReqDto)
+//                .retrieve()
+//                .bodyToMono(ExchangeResDto.class)
+//                .block();
+        //신한 api 대체
+        ExchangeDataBody result = new ExchangeDataBody();
+        result.setExchangeRate("1327.31");
+        result.setPreferentialRate("90");
+        result.setConvertedKRWAmount("132731");
+        result.setVirtualAccountNumber("9999999999999");
+        result.setVirtualAccountDepositAmount("132731");
+        result.setVirtualDepositDeadlineDate("20230421");
+        result.setVirtualDepositDeadlineTime("162706");
+        //신한 api 대체 end
 
         //에러처리
 
-        return exchangeResDto.getExchangeDataBody();
+//        return exchangeResDto.getExchangeDataBody();
+        return result;
     }
 
     //지점명
@@ -130,17 +164,37 @@ public class WebClientUtil {
         branchReqDto.setDataHeader(dataHeader);
         branchReqDto.setDataBody(branchReqDataBody);
 
-        BranchResDto branchResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(branchReqDto)
-                .retrieve()
-                .bodyToMono(BranchResDto.class)
-                .block();
+//        BranchResDto branchResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(branchReqDto)
+//                .retrieve()
+//                .bodyToMono(BranchResDto.class)
+//                .block();
+        List<Branch> branches = new ArrayList<Branch>();
 
+        Branch first = new Branch();
+        first.setBranchName("인천국제공항 제 1 여객터미널");
+        first.setAddress("인천 중구 공항로 272(운서동), 교통센터 지하 1층");
+        first.setLongitude("126.452267145872");
+        first.setLatitude("37.447778433456");
+        first.setTelNumber("032-452-0772");
+        first.setAreaCode("0001A");
+
+        Branch second = new Branch();
+        second.setBranchName("인천국제공항제2여객터미널(출)");
+        second.setAddress("인천 중구 공항로 272(운서동), 교통센터 지하 1층");
+        second.setLongitude("126.452267145872");
+        second.setLatitude("37.447778433456");
+        second.setTelNumber("032-743-5100");
+        second.setAreaCode("0001B");
+
+        branches.add(first);
+        branches.add(second);
         //에러처리
 
-        return branchResDto.getDataBody().getBranchList();
+//        return branchResDto.getDataBody().getBranchList();
+        return branches;
     }
 
     //환율
@@ -157,16 +211,31 @@ public class WebClientUtil {
         exchangeRateReqDto.setDataHeader(dataHeader);
         exchangeRateReqDto.setDataBody(exchangeRateReqDataBody);
 
-        ExchangeRateResDto exchangeRateResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(exchangeRateReqDto)
-                .retrieve()
-                .bodyToMono(ExchangeRateResDto.class)
-                .block();
+//        ExchangeRateResDto exchangeRateResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(exchangeRateReqDto)
+//                .retrieve()
+//                .bodyToMono(ExchangeRateResDto.class)
+//                .block();
+        List<ExchangeRate> rates = new ArrayList<>();
 
+        ExchangeRate er = new ExchangeRate();
+        er.setExchangeRate("1310.03");
+        er.setCurrencyCode("USD");
+        er.setCurrencyDisplay("미국 달러");
+        er.setZeroRate("1287.50");
 
-        return exchangeRateResDto.getDataBody().getExchangeRateList();
+        ExchangeRate japan = new ExchangeRate();
+        japan.setExchangeRate("916.36");
+        japan.setCurrencyCode("JPY");
+        japan.setCurrencyDisplay("일본 100엔");
+        japan.setZeroRate("900.12");
+
+        rates.add(er);
+        rates.add(japan);
+//        return exchangeRateResDto.getDataBody().getExchangeRateList();
+        return rates;
     }
 
     //통화
@@ -183,15 +252,37 @@ public class WebClientUtil {
         currencyReqDto.setDataHeader(dataHeader);
         currencyReqDto.setDataBody(currencyReqDataBody);
 
-        CurrencyResDto currencyResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(currencyReqDto)
-                .retrieve()
-                .bodyToMono(CurrencyResDto.class)
-                .block();
+//        CurrencyResDto currencyResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(currencyReqDto)
+//                .retrieve()
+//                .bodyToMono(CurrencyResDto.class)
+//                .block();
 
-        return currencyResDto.getCurrencyDataBody().getCurrencyList();
+        List<Currency> currencies = new ArrayList<>();
+
+        Currency usd = new Currency();
+        usd.setCurrencyCode("USD");
+        usd.setCurrencyName("미국달러(USD)");
+        usd.setExchangeUnit("10");
+
+        Currency jpy = new Currency();
+        usd.setCurrencyCode("JPY");
+        usd.setCurrencyName("일본엔(JPY)");
+        usd.setExchangeUnit("1000");
+
+        Currency eur = new Currency();
+        usd.setCurrencyCode("EUR");
+        usd.setCurrencyName("유럽유로(EUR)");
+        usd.setExchangeUnit("10");
+
+        currencies.add(usd);
+        currencies.add(jpy);
+        currencies.add(eur);
+
+        return currencies;
+     //   return currencyResDto.getCurrencyDataBody().getCurrencyList();
     }
 
     //1원 이체
@@ -206,15 +297,18 @@ public class WebClientUtil {
         checkAccountReqDto.setDataHeader(dataHeader);
         checkAccountReqDto.setDataBody(authRequestDto);
 
-        CheckAccountResDto checkAccountResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(checkAccountReqDto )
-                .retrieve()
-                .bodyToMono(CheckAccountResDto.class)
-                .block();
-
-        return checkAccountResDto.getCheckAccount();
+//        CheckAccountResDto checkAccountResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(checkAccountReqDto )
+//                .retrieve()
+//                .bodyToMono(CheckAccountResDto.class)
+//                .block();
+        CheckAccount ca = new CheckAccount();
+        ca.setAccountNum("110222999999");
+        ca.setBankCode("088");
+        return ca;
+        //return checkAccountResDto.getCheckAccount();
     }
 
     //환전 결과 조회
@@ -230,15 +324,16 @@ public class WebClientUtil {
         checkExchangeReqDto.setDataHeader(dataHeader);
         checkExchangeReqDto.setDataBody(checkExchangeReqDataBody);
 
-        CheckExchangeResDto checkAccountResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(checkExchangeReqDto )
-                .retrieve()
-                .bodyToMono(CheckExchangeResDto.class)
-                .block();
-
-        return checkAccountResDto.getCheckExchangeDataBody();
+//        CheckExchangeResDto checkAccountResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(checkExchangeReqDto )
+//                .retrieve()
+//                .bodyToMono(CheckExchangeResDto.class)
+//                .block();
+        CheckExchangeDataBody result = new CheckExchangeDataBody();
+        return null;
+        //return checkAccountResDto.getCheckExchangeDataBody();
 
     }
 
@@ -254,15 +349,17 @@ public class WebClientUtil {
         transferReqDto.setDataHeader(dataHeader);
         transferReqDto.setDataBody(transferReqDataBody);
 
-        TransferResDto transferResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(transferReqDto )
-                .retrieve()
-                .bodyToMono(TransferResDto.class)
-                .block();
-
-        return transferResDto.getTransferDataBody();
+//        TransferResDto transferResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(transferReqDto )
+//                .retrieve()
+//                .bodyToMono(TransferResDto.class)
+//                .block();
+        TransferDataBody result =new TransferDataBody();
+        result.setBalance("1500");
+        return result;
+        //return transferResDto.getTransferDataBody();
     }
 
     //거래내역 조회
@@ -278,15 +375,15 @@ public class WebClientUtil {
         AccountReqDataBody accountReqDataBody=new AccountReqDataBody(accountNum);
         accountReqDto.setDataBody(accountReqDataBody);
 
-        AccountResDto accountResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(accountReqDto )
-                .retrieve()
-                .bodyToMono(AccountResDto.class)
-                .block();
-
-        return accountResDto.getAccountDataBody();
+//        AccountResDto accountResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(accountReqDto )
+//                .retrieve()
+//                .bodyToMono(AccountResDto.class)
+//                .block();
+        return null;
+        //return accountResDto.getAccountDataBody();
     }
 
     //솔푸쉬 알람
@@ -302,13 +399,13 @@ public class WebClientUtil {
         SolPushReqDataBody solPushReqDataBody= new SolPushReqDataBody(customerNum,sendMessage);
         solPushReqDto.setDataBody(solPushReqDataBody);
 
-        AccountResDto accountResDto=webClient.post()
-                .uri(url)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .bodyValue(solPushReqDto )
-                .retrieve()
-                .bodyToMono(AccountResDto.class)
-                .block();
+//        AccountResDto accountResDto=webClient.post()
+//                .uri(url)
+//                .header("Content-Type", "application/json; charset=UTF-8")
+//                .bodyValue(solPushReqDto )
+//                .retrieve()
+//                .bodyToMono(AccountResDto.class)
+//                .block();
 
         return true;
     }
