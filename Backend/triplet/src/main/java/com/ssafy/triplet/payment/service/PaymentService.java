@@ -87,61 +87,61 @@ public class PaymentService {
 
     //신한api에서 데이터 조회
     public void updatePaymentList(User user, Long tripId) {
-        AccountDataBody accountDataBody = webClientUtil.getAccount(user.getAccountNum());
-        //해당 tripId에 해당하는 dailyList가져옴
+        // AccountDataBody accountDataBody = webClientUtil.getAccount(user.getAccountNum());
+        // //해당 tripId에 해당하는 dailyList가져옴
 
-        Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
-        //payments의 최신값 보다 더 최신인 databody(카드결제)
-        LocalDateTime startDate = trip.getStartDate().atStartOfDay();
-        LocalDateTime endDate = trip.getEndDate().atTime(LocalTime.MAX);
+        // Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new BaseException(TRIP_ID_NOT_FOUND));
+        // //payments의 최신값 보다 더 최신인 databody(카드결제)
+        // LocalDateTime startDate = trip.getStartDate().atStartOfDay();
+        // LocalDateTime endDate = trip.getEndDate().atTime(LocalTime.MAX);
 
-        List<Payment> payments = trip.getPayments();
-        List<Daily> dailies = trip.getDailies();
-        dailies.get(0).getDailyId();//가장 첫번째
+        // List<Payment> payments = trip.getPayments();
+        // List<Daily> dailies = trip.getDailies();
+        // dailies.get(0).getDailyId();//가장 첫번째
 
 
-        LocalDateTime lastDateTime = startDate;//카드지출중최신값
+        // LocalDateTime lastDateTime = startDate;//카드지출중최신값
 
-        //카드지출중 가장 최신값 찾기
-        for (Payment payment : payments) {
-            if (lastDateTime.isAfter(payment.getDate()) && payment.getMethod().equals("card")) {//신한 체크 사용
-                lastDateTime = payment.getDate();
-            }
-        }
+        // //카드지출중 가장 최신값 찾기
+        // for (Payment payment : payments) {
+        //     if (lastDateTime.isAfter(payment.getDate()) && payment.getMethod().equals("card")) {//신한 체크 사용
+        //         lastDateTime = payment.getDate();
+        //     }
+        // }
 
-        //가장 위에있는 최신값의 날짜 및 시간 가져오기
-        List<Transaction> datas = accountDataBody.getTransactions();
-        for (Transaction data : datas) {
+        // //가장 위에있는 최신값의 날짜 및 시간 가져오기
+        // List<Transaction> datas = accountDataBody.getTransactions();
+        // for (Transaction data : datas) {
 
-            String lastDateStr = data.getTransactionDate();
-            String lastTimeStr = data.getTransactionTime();
-            LocalDateTime apiDateTime = StringToDateTime(lastDateStr + lastTimeStr);
+        //     String lastDateStr = data.getTransactionDate();
+        //     String lastTimeStr = data.getTransactionTime();
+        //     LocalDateTime apiDateTime = StringToDateTime(lastDateStr + lastTimeStr);
 
-            if (lastDateTime.isAfter(apiDateTime)) break;//
+        //     if (lastDateTime.isAfter(apiDateTime)) break;//
 
-            if (lastDateTime.isBefore(apiDateTime) && data.getTransactionSummary().equals("신한체크")) {//신한체크 인지 확인 + 가장최근 카드기록보다 뒤에 값일때
-                Long amount = 0L;
-                if (Long.parseLong(data.getWithdrawalAmount()) > 0) {
-                    amount = Long.parseLong(data.getWithdrawalAmount());//입금
-                } else {
-                    amount = -1 * Long.parseLong(data.getDepositAmount());//출금
-                }
-                Daily now = dailies.get(startDate.compareTo(apiDateTime));
+        //     if (lastDateTime.isBefore(apiDateTime) && data.getTransactionSummary().equals("신한체크")) {//신한체크 인지 확인 + 가장최근 카드기록보다 뒤에 값일때
+        //         Long amount = 0L;
+        //         if (Long.parseLong(data.getWithdrawalAmount()) > 0) {
+        //             amount = Long.parseLong(data.getWithdrawalAmount());//입금
+        //         } else {
+        //             amount = -1 * Long.parseLong(data.getDepositAmount());//출금
+        //         }
+        //         Daily now = dailies.get(startDate.compareTo(apiDateTime));
 
-                Payment pay = Payment.builder()
-                        .cost(amount)
-                        .date(apiDateTime)
-                        .daily(now)
-                        .trip(trip)
-                        .method("card")
-                        //.foreignCurrency("WON")
-                        .item(data.getContent())
-                        .build();
-                System.out.println(startDate + " ~ " + endDate);
-                System.out.println("저장된 지출 시간 : " + apiDateTime);
-                paymentRepository.save(pay);
-            }
-        }
+        //         Payment pay = Payment.builder()
+        //                 .cost(amount)
+        //                 .date(apiDateTime)
+        //                 .daily(now)
+        //                 .trip(trip)
+        //                 .method("card")
+        //                 //.foreignCurrency("WON")
+        //                 .item(data.getContent())
+        //                 .build();
+        //         System.out.println(startDate + " ~ " + endDate);
+        //         System.out.println("저장된 지출 시간 : " + apiDateTime);
+        //         paymentRepository.save(pay);
+        //     }
+        // }
 
 
     }
