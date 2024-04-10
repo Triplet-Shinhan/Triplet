@@ -32,7 +32,7 @@
 
 ## 멤버
 - Web BackEnd : 한영진, 김건우, 백승윤
-- Web FrontEnd : 김예림
+- Web FrontEnd : ***
 <div align="center">
   <a href="https://github.com/takealook97">
       <img src="https://github.com/takealook97.png/" width="100">
