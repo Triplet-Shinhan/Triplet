@@ -4,12 +4,17 @@
   background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
-  background-image: url('../../../../public/assets/airplane.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
 }
+
+.loginImage {
+  position: absolute;
+  z-index: 30;
+  width: 100vw;
+  height: 100vh;
+}
+
 .loginMainContainer {
+  z-index: 50;
   width: 50vw;
   height: 85vh;
   background-color: var(--color-text-white);

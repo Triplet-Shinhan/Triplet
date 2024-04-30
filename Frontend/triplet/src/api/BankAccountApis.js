@@ -1,5 +1,6 @@
 import axios from 'axios';
-const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+const PROXY = 'http://localhost:3010';
+// const PROXY = window.location.hostname === 'localhost' ? 'http://localhost:3010' : '/proxy';
 
 export default class BankAccount {
   constructor() {
@@ -16,21 +17,17 @@ export default class BankAccount {
 
   // 다이어리 생성할 때 넣었던 정보 확인하기
   async viewDiaryDetail({ tripId }) {
-    return this.httpClient
-      .get(`/api/trips/${tripId}/dailies`)
-      .then((res) => res.data);
+    return this.httpClient.get(`/api/trips/${tripId}/dailies`).then((res) => res.data);
   }
 
   async getExpendList({ tripId, dailyId }) {
-    return this.httpClient
-      .get(`/api/trips/${tripId}/dailies/${dailyId}`)
-      .then((res) => res.data);
+    return this.httpClient.get(`/api/trips/${tripId}/dailies/${dailyId}`).then((res) => res.data);
   }
 }
 
 // 로그인
 export const loginUser = ({ email, password }) => {
-  return axios.post(`${PROXY}/users/login`, { email, password });
+  return axios.post(`${PROXY}/users`, { email, password });
 };
 
 // 1원 계좌
@@ -43,7 +40,7 @@ export const checkAccount = ({ name, accountNum }) => {
 
 // 회원 가입
 export const signupUser = ({ formData }) => {
-  return axios.post(`${PROXY}/users/signup`, formData, {
+  return axios.post(`${PROXY}/users`, formData, {
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
   });
 };

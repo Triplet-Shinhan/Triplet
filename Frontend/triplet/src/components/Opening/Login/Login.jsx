@@ -9,16 +9,17 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   // 로그인
-  const goLogin = useMutation(
-    ({ email, password }) => loginUser({ email, password }),
-    {
-      onSuccess: (data) => {
-        if ((data.email = email)) {
-        }
-        navigate('/trips');
-      },
-    }
-  );
+  const goLogin = useMutation(({ email, password }) => loginUser({ email, password }), {
+    onSuccess: (data) => {
+      console.log(data);
+      if ((data.email = email)) {
+      }
+      navigate('/trips');
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
 
   // form 제출했을 때
   const handleSubmit = (e) => {
@@ -42,13 +43,10 @@ export default function Login() {
 
   return (
     <div className="loginBackground">
+      <img className="loginImage" src="/assets/airplane.webp" alt="배경 이미지" />
       <main className="loginMainContainer">
         <section className="logoArea">
-          <img
-            className="logoImg"
-            src="../../../assets/icons/shinhan-symbol.png"
-            alt="logo"
-          />
+          <img className="logoImg" src="../../../assets/icons/shinhan-symbol.png" alt="logo" />
           <div className="logo">Triplet</div>
         </section>
         <section className="loginMainSec">

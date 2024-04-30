@@ -30,24 +30,21 @@ export default function Signup() {
   };
 
   // 이름이랑 계좌번호 같은지 확인하는 함수
-  const verifyAccountMutation = useMutation(
-    ({ name, accountNum }) => checkAccount({ name, accountNum }),
-    {
-      // 데이터 보내주는지 확인하기
-      onSuccess: (data) => {
-        // 1원 계좌 확인
-        // 성공시 resultCode 200번
-        console.log('success');
-        console.log(data);
-        console.log(data.data.memo);
+  const verifyAccountMutation = useMutation(({ name, accountNum }) => checkAccount({ name, accountNum }), {
+    // 데이터 보내주는지 확인하기
+    onSuccess: (data) => {
+      // 1원 계좌 확인
+      // 성공시 resultCode 200번
+      console.log('success');
+      console.log(data);
+      console.log(data.data.memo);
 
-        setAccountName(data.data.memo);
-      },
-      onError: () => {
-        console.log('동일하지 않습니다.');
-      },
-    }
-  );
+      setAccountName(data.data.memo);
+    },
+    onError: () => {
+      console.log('동일하지 않습니다.');
+    },
+  });
 
   // 회원가입 잘 되는지 확인하는 함수
   const signupUserMutation = useMutation(() => signupUser({ formData }), {
@@ -127,14 +124,10 @@ export default function Signup() {
 
   return (
     <div className="signupBackground">
+      <img className="signupImage" src="/assets/airplane.webp" alt="배경 이미지" />
       <main className="signupMainContainer">
         <h1>사용자 등록</h1>
-        <form
-          id="signupForm"
-          className="signupForm"
-          action="POST"
-          onSubmit={handleSubmit}
-        >
+        <form id="signupForm" className="signupForm" action="POST" onSubmit={handleSubmit}>
           <div className="signupInputArea">
             <input
               type="email"
@@ -145,14 +138,7 @@ export default function Signup() {
               onChange={handleChange}
               required
             />
-            <input
-              type="text"
-              name="name"
-              placeholder="이름"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="name" placeholder="이름" value={formData.name} onChange={handleChange} required />
             <input
               type="text"
               name="birth"
@@ -177,25 +163,14 @@ export default function Signup() {
               onChange={handleChange}
               required
             />
-            <input
-              type="password"
-              className="passwordCo"
-              placeholder="비밀번호 확인"
-              onChange={handleRight}
-              required
-            />
+            <input type="password" className="passwordCo" placeholder="비밀번호 확인" onChange={handleRight} required />
           </div>
         </form>
 
         {/* 계좌번호 확인 form */}
         <div className="authArea">
           <div className="formArea">
-            <form
-              id="authForm"
-              className="authForm"
-              action="POST"
-              onSubmit={handleAccount}
-            >
+            <form id="authForm" className="authForm" action="POST" onSubmit={handleAccount}>
               <input
                 type="text"
                 className="accArea"
@@ -208,12 +183,7 @@ export default function Signup() {
             </form>
 
             {/* 입금자명 확인 form */}
-            <form
-              id="confirmForm"
-              className="confirmForm"
-              action="POST"
-              onSubmit={checkSame}
-            >
+            <form id="confirmForm" className="confirmForm" action="POST" onSubmit={checkSame}>
               <input
                 type="text"
                 className="verifyCode"

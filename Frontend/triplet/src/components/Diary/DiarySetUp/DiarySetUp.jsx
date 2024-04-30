@@ -70,11 +70,7 @@ export default function DiarySetUp() {
         <h2 className="diaryH2">{userName}님</h2>
         <form className="diaryForm" action="POST" onSubmit={handleSubmit}>
           <figure className="logoArea">
-            <img
-              className="logo"
-              src="../../../assets/icons/shinhan-symbol.png"
-              alt="logo"
-            />
+            <img className="logo" src="../../../assets/icons/shinhan-symbol.png" alt="logo" />
             <figcaption>Triplet</figcaption>
           </figure>
           <section>
@@ -172,11 +168,7 @@ export default function DiarySetUp() {
         <section className="backgroundForm">
           <section className="backgroundFooter">Boarding Pass</section>
         </section>
-        <img
-          className="airplaneLogo"
-          src="../../../assets/airplane.png"
-          alt="airplane"
-        />
+        <img className="airplaneLogo" src="../../../assets/airplane.webp" alt="airplane" />
       </main>
     </>
   );
