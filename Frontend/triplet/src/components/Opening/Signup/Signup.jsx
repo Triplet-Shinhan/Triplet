@@ -66,7 +66,7 @@ export default function Signup() {
     const emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const birthReg = /^\d{8}$/; // 숫자 8개만 가능
     const phoneReg = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-    const passReg = /^[a-zA-Z0-9_*!@#$%^&(){}\[\]:;<>,.?~\\+=|~-]{8,15}$/;
+    const passReg = /^[a-zA-Z0-9_*!@#$%^&(){}\]:;<>,.?~\\+=|~-]{8,15}$/;
     const nameReg = /[가-힣]+/;
 
     // 정규식 기준에 올바른지 테스트

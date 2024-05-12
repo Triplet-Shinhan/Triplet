@@ -35,18 +35,15 @@ export default function DiarySetting() {
     },
   });
 
-  const changeDiaryDate = useMutation(
-    ({ tripId, tripDate }) => modifyDate({ tripId, tripDate }),
-    {
-      onSuccess: () => {
-        alert('변경되었습니다.');
-        navigate('/trips');
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  const changeDiaryDate = useMutation(({ tripId, tripDate }) => modifyDate({ tripId, tripDate }), {
+    onSuccess: () => {
+      alert('변경되었습니다.');
+      navigate('/trips');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return (
     <>
@@ -59,11 +56,7 @@ export default function DiarySetting() {
         </header>
         <main className="settingMain">
           <section className="innerMain">
-            <form
-              action="PATCH"
-              onSubmit={handleChangeDate}
-              className="modifyForm"
-            >
+            <form action="PATCH" onSubmit={handleChangeDate} className="modifyForm">
               <section className="modifyTrip">
                 <div>여행기간 수정</div>
                 <p>여행 기간 변경을 할 수 있습니다.</p>
@@ -92,18 +85,10 @@ export default function DiarySetting() {
         </main>
         <aside>
           <figure className="logoArea">
-            <img
-              src="../../../assets/icons/shinhan-symbol.png"
-              alt="logo"
-              className="logo"
-            />
+            <img src="/assets/icons/shinhan-symbol.webp" alt="logo" className="logo" />
             <figcaption>Triplet</figcaption>
           </figure>
-          <img
-            src="../../../assets/icons/sol.png"
-            alt="sol캐릭터"
-            className="solCharacter"
-          />
+          <img src="/assets/icons/sol.webp" alt="sol캐릭터" className="solCharacter" />
         </aside>
       </div>
     </>

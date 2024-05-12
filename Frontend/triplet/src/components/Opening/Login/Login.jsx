@@ -46,7 +46,7 @@ export default function Login() {
       <img className="loginImage" src="/assets/airplane.webp" alt="배경 이미지" />
       <main className="loginMainContainer">
         <section className="logoArea">
-          <img className="logoImg" src="../../../assets/icons/shinhan-symbol.png" alt="logo" />
+          <img className="logoImg" src="/assets/icons/shinhan-symbol.webp" alt="logo" />
           <div className="logo">Triplet</div>
         </section>
         <section className="loginMainSec">

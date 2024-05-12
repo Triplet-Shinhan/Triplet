@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import './DiaryDetail.scss';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useDiaryApi } from '../../../context/DiaryApiContext';
@@ -18,10 +18,7 @@ export default function DiaryDetail() {
   const dayImage = useLocation().state[2];
 
   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  const dateInfo =
-    dailyInfo.date !== undefined
-      ? dailyInfo.date.substr(5).split('-').join('.')
-      : '';
+  const dateInfo = dailyInfo.date !== undefined ? dailyInfo.date.substr(5).split('-').join('.') : '';
   const weekInfo = day[new Date(dailyInfo.date).getDay()];
   const [tempImg, setTempImg] = useState('');
 
@@ -50,21 +47,16 @@ export default function DiaryDetail() {
     isLoading,
     error,
     data: expendList,
-  } = useQuery(
-    ['diaryDetail'],
-    () => diary.getExpendList({ tripId, dailyId }),
-    {
-      staleTime: 1000 * 6 * 5,
-      refetchInterval: 5000,
-    }
-  );
+  } = useQuery(['diaryDetail'], () => diary.getExpendList({ tripId, dailyId }), {
+    staleTime: 1000 * 6 * 5,
+    refetchInterval: 5000,
+  });
 
   const handleExpendDataChange = (newData) => {
     console.log('Expend데이터 변경 감지', newData);
   };
   // 3개 콤마
-  const makedot = (text) =>
-    text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  const makedot = (text) => text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
   useEffect(() => {
     if (!isChecked) {
@@ -72,7 +64,7 @@ export default function DiaryDetail() {
         setTempImg('');
       } else setTempImg(dayImage);
     }
-  }, [isChecked, isLoading, expendList, dailyInfo]);
+  }, [isChecked, isLoading, expendList, dailyInfo, dayImage]);
 
   return (
     dailyInfo && (
@@ -121,11 +113,7 @@ export default function DiaryDetail() {
               <img className="imgSrc" src={tempImg} alt="이미지" />
             )}
             <button className="modifyBtn" onClick={showImgModal}>
-              <img
-                className="modifyImg"
-                src="../../../assets/icons/modify.png"
-                alt="수정버튼"
-              />
+              <img className="modifyImg" src="../../../assets/icons/modify.png" alt="수정버튼" />
             </button>
           </section>
 
@@ -143,13 +131,7 @@ export default function DiaryDetail() {
             )}
           </div>
           <div>
-            {expendModalOpen && (
-              <ExpendModal
-                setModalOpen={setExpendModalOpen}
-                tripId={tripId}
-                dailyId={dailyId}
-              />
-            )}
+            {expendModalOpen && <ExpendModal setModalOpen={setExpendModalOpen} tripId={tripId} dailyId={dailyId} />}
           </div>
         </main>
       </div>

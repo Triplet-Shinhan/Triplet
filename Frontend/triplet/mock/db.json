@@ -1,8 +1,204 @@
 {
-  "users": [
+  "trips": [
     {
-      "email": "kimyelim100@naver.com",
-      "password": "qwer"
+      "tripId": 1,
+      "location": "미국",
+      "prjName": "미국여행",
+      "startDate": "2023-09-06",
+      "endDate": "2023-09-08",
+      "budget": "999000000",
+      "exchangedBudget": "2000000",
+      "id": "e4ea"
+    },
+    {
+      "tripId": 2,
+      "location": "영국",
+      "prjName": "영국여행",
+      "startDate": "2023-09-06",
+      "endDate": "2023-09-22",
+      "id": "ecaf"
+    },
+    {
+      "id": "d972",
+      "prjName": "해커톤",
+      "location": "발리",
+      "currency": "미국달러(USD)",
+      "budget": "300000",
+      "startDate": "2024-05-01",
+      "endDate": "2024-05-16",
+      "exchangedBudget": "2000000"
+    },
+    {
+      "prjName": "성능 테스트",
+      "location": "호주",
+      "currency": "호주달러(AUD)",
+      "budget": "1000000",
+      "startDate": "2024-06-01",
+      "endDate": "2024-06-10",
+      "exchangedBudget": "100000",
+      "id": "1sKijiJ"
+    },
+    {
+      "prjName": "테스트",
+      "currency": "유럽유로(EUR)",
+      "startDate": "2024-02-04",
+      "endDate": "2024-02-28",
+      "location": "유럽",
+      "budget": "1000000",
+      "exchangedBudget": "100000",
+      "id": "8V9Slij"
+    }
+  ],
+  "dailies": [
+    {
+      "tripId": 1,
+      "location": "미국",
+      "prjName": "미국여행",
+      "startDate": "2023-09-06",
+      "endDate": "2023-09-08",
+      "dailies": [
+        {
+          "dailyId": "1",
+          "date": "2023-09-06",
+          "imageUrl": "https://cdn.pixabay.com/photo/2021/09/07/11/53/car-6603726_1280.jpg",
+          "sum": "1000000"
+        },
+        {
+          "dailyId": "2",
+          "date": "2023-09-07",
+          "imageUrl": "https://cdn.pixabay.com/photo/2016/07/30/00/03/winding-road-1556177_1280.jpg",
+          "sum": "1234512"
+        },
+        {
+          "dailyId": "3",
+          "date": "2023-09-08",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        }
+      ],
+      "dashboard": {
+        "currencySymbol": "$",
+        "sumExpenditure": 1000000,
+        "budget": 999000,
+        "cash": 999500
+      }
+    },
+    {
+      "tripId": 2,
+      "location": "영국",
+      "prjName": "영국여행",
+      "startDate": "2023-09-06",
+      "endDate": "2023-09-22",
+      "dailies": [
+        {
+          "dailyId": "1",
+          "date": "2023-09-06",
+          "imageUrl": "https://cdn.pixabay.com/photo/2021/09/07/11/53/car-6603726_1280.jpg",
+          "sum": "1000000"
+        },
+        {
+          "dailyId": "2",
+          "date": "2023-09-07",
+          "imageUrl": "https://cdn.pixabay.com/photo/2016/07/30/00/03/winding-road-1556177_1280.jpg",
+          "sum": "1234512"
+        },
+        {
+          "dailyId": "3",
+          "date": "2023-09-08",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "4",
+          "date": "2023-09-09",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "5",
+          "date": "2023-09-10",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "6",
+          "date": "2023-09-11",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "7",
+          "date": "2023-09-12",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "8",
+          "date": "2023-09-13",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "9",
+          "date": "2023-09-14",
+          "imageUrl": "https://cdn.pixabay.com/photo/2021/09/07/11/53/car-6603726_1280.jpg",
+          "sum": "1000000"
+        },
+        {
+          "dailyId": "10",
+          "date": "2023-09-15",
+          "imageUrl": "https://cdn.pixabay.com/photo/2016/07/30/00/03/winding-road-1556177_1280.jpg",
+          "sum": "1234512"
+        },
+        {
+          "dailyId": "11",
+          "date": "2023-09-16",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "12",
+          "date": "2023-09-17",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "13",
+          "date": "2023-09-18",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "14",
+          "date": "2023-09-19",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "15",
+          "date": "2023-09-20",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "16",
+          "date": "2023-09-21",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        },
+        {
+          "dailyId": "17",
+          "date": "2023-09-22",
+          "imageUrl": "https://media.istockphoto.com/id/1777561679/ko/%EC%82%AC%EC%A7%84/%EA%B4%80%EA%B4%91-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C.jpg?s=1024x1024&w=is&k=20&c=wiZ7v7LvIaQyskA-691R4nynCnpEmF2QPYtbt1AC5Gw=",
+          "sum": "35361"
+        }
+      ],
+      "dashboard": {
+        "currencySymbol": "£",
+        "sumExpenditure": 100000,
+        "budget": 999000,
+        "cash": 999500
+      }
     }
   ]
 }

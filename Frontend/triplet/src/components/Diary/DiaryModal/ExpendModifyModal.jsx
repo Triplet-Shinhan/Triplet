@@ -1,17 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import './ExpendModal.scss';
 import { useMutation } from '@tanstack/react-query';
-import { modifyExpend, uploadPayment } from '../../../api/DiaryApis';
+import { modifyExpend } from '../../../api/DiaryApis';
 
-export const ExpendModifyModal = ({
-  setModalOpen,
-  paymentId,
-  tripId,
-  dailyId,
-  expendItem,
-  expendCost,
-  expendDate,
-}) => {
+export const ExpendModifyModal = ({ setModalOpen, paymentId, tripId, dailyId, expendItem, expendCost, expendDate }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -51,8 +43,7 @@ export const ExpendModifyModal = ({
   };
 
   const updatePayment = useMutation(
-    ({ tripId, dailyId, paymentId, payment }) =>
-      modifyExpend({ tripId, dailyId, paymentId, payment }),
+    ({ tripId, dailyId, paymentId, payment }) => modifyExpend({ tripId, dailyId, paymentId, payment }),
     {
       onSuccess: () => {
         alert('수정 완료');

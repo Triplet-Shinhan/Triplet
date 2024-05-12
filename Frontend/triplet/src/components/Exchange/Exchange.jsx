@@ -51,11 +51,7 @@ export default function Exchange() {
   // 환율 저장해놓기
 
   // 서버에서 환전 메인화면 가져오기
-  const {
-    isLoading,
-    error,
-    data: rateData,
-  } = useQuery(
+  const { isLoading, data: rateData } = useQuery(
     ['ExchangeMain'],
     () => {
       const v = exchange.viewExchangeMain();
@@ -66,11 +62,7 @@ export default function Exchange() {
     }
   );
 
-  const {
-    isloadingPlace,
-    errorPlace,
-    data: locations,
-  } = useQuery(
+  const { isloadingPlace, data: locations } = useQuery(
     ['ExchangePlace'],
     () => exchange.viewNearLocations(geolocation, exchangeForm.currency),
     {
@@ -84,10 +76,8 @@ export default function Exchange() {
       // 화폐가 변경되면 해당 화폐의 환율을 preferentialRate로 설정
       const index = budget.findIndex((bud) => bud === value);
       if (index !== -1) {
-        const newPreferentialRate =
-          rateData.dataBody.exchangeData[index].preferentialRate;
-        const newExchangeRate =
-          rateData.dataBody.exchangeData[index].exchangeRate;
+        const newPreferentialRate = rateData.dataBody.exchangeData[index].preferentialRate;
+        const newExchangeRate = rateData.dataBody.exchangeData[index].exchangeRate;
         setRateInfo((info) => ({
           ...info,
           preferentialRate: newPreferentialRate,
@@ -105,17 +95,14 @@ export default function Exchange() {
   };
 
   // 환전 조회
-  const viewExchange = useMutation(
-    ({ exchangeForm }) => applyExchange({ exchangeForm }),
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  const viewExchange = useMutation(({ exchangeForm }) => applyExchange({ exchangeForm }), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   useEffect(() => {}, [rateData, locations]);
 
@@ -139,7 +126,7 @@ export default function Exchange() {
             <section className="intro">
               <span className="hello">안녕하세요</span>
               <span>{userName}님</span>
-              <img src="../../../assets/icons/sol.png" alt="sol logo" />
+              <img src="/assets/icons/sol.webp" alt="sol logo" />
             </section>
             <section className="exRate">
               <div>{userName}님의 우대율</div>
@@ -148,13 +135,7 @@ export default function Exchange() {
             <section className="exMoney">
               <label htmlFor="currency">환전금액</label>
               <section className="exOption">
-                <select
-                  name="currency"
-                  id="currency"
-                  value={exchangeForm.currency}
-                  onChange={handleChange}
-                  required
-                >
+                <select name="currency" id="currency" value={exchangeForm.currency} onChange={handleChange} required>
                   {rateData.dataBody.exchangeData.map((v, i) => (
                     <option key={i} value={v.currencyCode}>
                       {v.currencyCode}
@@ -176,9 +157,7 @@ export default function Exchange() {
                 <span className="koreaMoney">KRW</span>
                 {/* 변환한 값 들어갈거 밑에 얘 대신에 */}
                 <span className="changedMoney">
-                  {exchangeForm.amount === ''
-                    ? '원화 예상 금액'
-                    : exchangeForm.amount * rateInfo.exchangeRate}
+                  {exchangeForm.amount === '' ? '원화 예상 금액' : exchangeForm.amount * rateInfo.exchangeRate}
                 </span>
               </section>
             </section>
@@ -202,24 +181,13 @@ export default function Exchange() {
                   ))}
               </select>
             </section>
-            <section
-              className="howToGet"
-              value={exchangeForm.receiveWay}
-              onChange={handleChange}
-              required
-            >
+            <section className="howToGet" value={exchangeForm.receiveWay} onChange={handleChange} required>
               <div>수령방법</div>
-              <label
-                htmlFor="atm"
-                className={`visited Atm ${getReceiveWayClass('1')}`}
-              >
+              <label htmlFor="atm" className={`visited Atm ${getReceiveWayClass('1')}`}>
                 ATM
                 <input type="radio" id="atm" name="receiveWay" value="1" />
               </label>
-              <label
-                htmlFor="visited"
-                className={`visited ${getReceiveWayClass('2')}`}
-              >
+              <label htmlFor="visited" className={`visited ${getReceiveWayClass('2')}`}>
                 영업점 방문
                 <input type="radio" id="visited" name="receiveWay" value="2" />
               </label>

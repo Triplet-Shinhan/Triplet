@@ -1,0 +1,4 @@
+{
+  "/trips/:tripId/dailies": "/dailies?tripId=:tripId",
+  "/trips/:tripId/folders/:folderId": "/folders/:folderId"
+}

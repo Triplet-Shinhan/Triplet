@@ -33,18 +33,14 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId, onImageUpload }) => {
     closeModal();
   };
 
-  const updateImg = useMutation(
-    ({ imageFile, tripId, dailyId }) =>
-      uploadImage({ imageFile, tripId, dailyId }),
-    {
-      onSuccess: (data) => {
-        alert('업로드 완료');
-        closeModal();
+  const updateImg = useMutation(({ imageFile, tripId, dailyId }) => uploadImage({ imageFile, tripId, dailyId }), {
+    onSuccess: (data) => {
+      alert('업로드 완료');
+      closeModal();
 
-        onImageUpload(data);
-      },
-    }
-  );
+      onImageUpload(data);
+    },
+  });
 
   const onUpload = (e) => {
     const file = e.target.files[0];
@@ -71,20 +67,14 @@ export const ImgModal = ({ setModalOpen, tripId, dailyId, onImageUpload }) => {
       </nav>
       <form className="imgForm" method="POST" onSubmit={handleSubmit}>
         <section className="imgSec">
-          <input
-            type="file"
-            id="chooseImg"
-            name="chooseImg"
-            accept="image/*"
-            onChange={onUpload}
-          />
+          <input type="file" id="chooseImg" name="chooseImg" accept="image/*" onChange={onUpload} />
           <label className="findBtn" htmlFor="chooseImg">
             찾아보기
           </label>
         </section>
         <section className="imgPreview">
           <div className="imgText">미리보기</div>
-          <img className="imgView" src={image} />
+          <img className="imgView" src={image} alt="미리보기 이미지" />
           <button className="imgAdd">추가</button>
         </section>
       </form>

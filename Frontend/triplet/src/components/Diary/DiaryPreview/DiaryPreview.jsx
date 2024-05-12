@@ -6,12 +6,7 @@ export default function DiaryPreview({ diaryInfo }) {
   const navigate = useNavigate();
 
   return (
-    <ul
-      className="diaryPreview"
-      onClick={() =>
-        navigate(`/trips/${diaryInfo.tripId}/dailies`, { state: diaryInfo })
-      }
-    >
+    <ul className="diaryPreview" onClick={() => navigate(`/trips/${diaryInfo.tripId}/dailies`, { state: diaryInfo })}>
       <section className="diaryInfo">
         <li className="tripLoca">{diaryInfo.location}</li>
         <li className="tripName">{diaryInfo.prjName}</li>
@@ -20,10 +15,7 @@ export default function DiaryPreview({ diaryInfo }) {
         </li>
       </section>
       <section className="diaryIcons">
-        <img
-          className="airplane"
-          src="../../../assets/icons/air-transport.png"
-        />
+        <img className="airplane" src="/assets/icons/air-transport.webp" alt="비행기" />
       </section>
     </ul>
   );

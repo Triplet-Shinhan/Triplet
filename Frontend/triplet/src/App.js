@@ -1,10 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Signup from './components/Opening/Signup/Signup';
 import Login from './components/Opening/Login/Login';
@@ -33,24 +27,15 @@ function App() {
           <ExchangeApiProvider>
             <QueryClientProvider client={queryClient}>
               <Routes>
-                <Route
-                  path="/"
-                  element={isLoggedIn ? <DiaryInto /> : <Login />}
-                />
+                <Route path="/" element={isLoggedIn ? <DiaryInto /> : <Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/trips" element={<DiaryInto />} />
                 <Route path="/trips/setup" element={<DiarySetUp />} />
                 <Route path="/trips/:tripId/dailies" element={<DiaryMain />} />
                 <Route path="/exchange" element={<Exchange />} />
-                <Route
-                  path="/trips/:tripId/dailies/:dailyId"
-                  element={<DiaryDetail />}
-                />
-                <Route
-                  path="/trips/:tripId/dailies/setting"
-                  element={<DiarySetting />}
-                />
+                <Route path="/trips/:tripId/dailies/:dailyId" element={<DiaryDetail />} />
+                <Route path="/trips/:tripId/dailies/setting" element={<DiarySetting />} />
               </Routes>
               <ReactQueryDevtools initialIsOpen={true} />
             </QueryClientProvider>
